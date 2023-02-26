@@ -1,0 +1,29 @@
+name: Deploy Contoso_University_Core
+
+on:
+  workflow_run:
+    workflows: ["Pack Contoso_University_Core"]
+    branches: [main]
+    types:
+      - completed
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: windows-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment: 'Contoso Production'
+
+    steps:
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: pack-solution.yml
+          name: packed-solution
+
+      - uses: microsoft/powerplatform-actions/import-solution@v0
+        with:
+          environment-url: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONURI}}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrests.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: contoso_university_core_managed.zip
+
