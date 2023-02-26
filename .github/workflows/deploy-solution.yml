@@ -24,6 +24,6 @@ jobs:
           environment-url: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONURI}}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-          tenant-id: ${{ secrests.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: contoso_university_core_managed.zip
 
