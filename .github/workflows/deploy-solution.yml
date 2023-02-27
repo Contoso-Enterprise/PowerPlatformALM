@@ -15,9 +15,9 @@ jobs:
     steps:
     - name: load artifact
       uses: dawidd6/action-download-artifact@v2
-        with:
-          workflow: pack-solution.yml
-          name: packed-solution
+      with:
+        workflow: pack-solution.yml
+        name: packed-solution
     - name: import solution
       uses: microsoft/powerplatform-actions/import-solution@v0
       with:
