@@ -38,8 +38,8 @@ jobs:
           overwrite: true          
           managed: true
       - name: Add and Commit
-        uses: EndBug/add-and-commit@v8
+        uses: EndBug/add-and-commit@v9
         with:
-          add: 'Solutions'
-          author_name: 'System Admin'
-          author_email: admin@MngEnvMCAP157851.onmicrosoft.com
+          message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
+          add: 'Solutions/* --force'
+          cwd: ''
