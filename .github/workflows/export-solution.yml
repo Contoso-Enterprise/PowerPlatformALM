@@ -16,6 +16,7 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
           solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
           overwrite: true
           managed: false
@@ -26,6 +27,7 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
+          solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
           solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
           overwrite: true          
           managed: true

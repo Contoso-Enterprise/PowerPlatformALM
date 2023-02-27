@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
     steps:
       - uses: dawidd6/action-download-artifact@v2
