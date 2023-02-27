@@ -14,9 +14,12 @@ jobs:
       run: |
         echo "repository variable : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable : env URI ${{ env.POWERPLATFORMURI }}"
-        echo "variable : var URI ${{ vars.POWERPLATFORMURI }}"
+        echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
+    - name: set uri
+      run: |
+        echo "${{ vars.POWERPLATFORMORGURI}}" >> ${{ vars.POWERPLATFORMURI }}
         envURI: ${{ vars.POWERPLATFORMURI }}
   display-variables-again:    
     name: Test2    
