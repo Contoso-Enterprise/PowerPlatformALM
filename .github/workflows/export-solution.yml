@@ -21,7 +21,7 @@ jobs:
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
         solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-        solution-output-file: 'solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip'
+        solution-output-file: '${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip'
         overwrite: true
         managed: false
     - name: Export Managed Solution      
@@ -32,7 +32,7 @@ jobs:
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
         solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-        solution-output-file: 'solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip'          
+        solution-output-file: '${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip'          
         overwrite: true          
         managed: true
     - name: Add and Commit
@@ -40,3 +40,4 @@ jobs:
       with:
         message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
         add: '. --force'
+        cwd 'solutions'
