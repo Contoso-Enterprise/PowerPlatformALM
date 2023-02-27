@@ -16,7 +16,8 @@ jobs:
         echo "variable : env URI ${{ env.POWERPLATFORMURI }}"
         echo "variable : var URI ${{ vars.POWERPLATFORMURI }}"
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
-        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"         
+        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
+        envURI: ${{ vars.POWERPLATFORMURI }}
   display-variables-again:    
     name: Test2    
     runs-on: ubuntu-latest    
@@ -24,7 +25,7 @@ jobs:
     - name: Use variables 2      
       run: |        
         echo "repository variable : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
-        echo "variable : env URI ${{ env.POWERPLATFORMURI }}"      
+        echo "variable : env URI $envURI"      
         echo "variable : PPenv URI ${{ env.POWERPLATFORMTARGETENVIRONMENT.POWERPLATFORMURI }}"              
         echo "variable : var URI ${{ vars.POWERPLATFORMURI }}"        
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
