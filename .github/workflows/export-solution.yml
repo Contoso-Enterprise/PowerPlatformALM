@@ -21,7 +21,7 @@ jobs:
           POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"    
     - name : check variable      
       run: |          
-        echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
+        echo "uri : ${{ vars.POWERPLATFORMURI }}"
   deploy:
     runs-on: ubuntu-latest
     steps:
