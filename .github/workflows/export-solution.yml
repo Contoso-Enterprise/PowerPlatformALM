@@ -1,26 +1,29 @@
 name: Export Solution
 
-env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}  
-  
+
 jobs:
   deploy:
     runs-on: windows-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
-
+    environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
     steps:
-      - uses: dawidd6/action-download-artifact@v2
+      - uses: microsoft/powerplatform-actions/export-solution@v0
+        name: Export Unmanaged Solution
         with:
-          workflow: pack-solution.yml
-          name: packed-solution
-
-      - uses: microsoft/powerplatform-actions/import-solution@v0
-        with:
-          environment-url: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONURI}}
+          environment-url: ${{ vars.POWERPLATFORMURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-file: contoso_university_core_managed.zip
+          solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
+          overwrite: true
+          managed: false
+      - uses: microsoft/powerplatform-actions/export-solution@v0        
+        name: Export Unmanaged Solution        
+        with:          
+          environment-url: ${{ vars.POWERPLATFORMURI }}          
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
+          solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
+          overwrite: true          
+          managed: true
 
