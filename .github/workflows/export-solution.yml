@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
     steps:
-      - name: Use variables 1      
+      - name: Variables      
         run: |        
           echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
           echo "URI ${{ vars.POWERPLATFORMURI }}"        
           echo "Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"   
           echo "Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
-      - uses: microsoft/powerplatform-actions/export-solution@v0
-        name: Export Unmanaged Solution
+      - name: Export Unmanaged Solution
+        uses: microsoft/powerplatform-actions/export-solution@v0
         with:
           environment-url: ${{ vars.POWERPLATFORMURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
@@ -26,8 +26,8 @@ jobs:
           solution-output-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
           overwrite: true
           managed: false
-      - uses: microsoft/powerplatform-actions/export-solution@v0        
-        name: Export Managed Solution        
+      - name: Export Managed Solution      
+        uses: microsoft/powerplatform-actions/export-solution@v0          
         with:          
           environment-url: ${{ vars.POWERPLATFORMURI }}          
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
@@ -37,4 +37,8 @@ jobs:
           solution-output-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
           overwrite: true          
           managed: true
-
+			- name: Add and Commit
+        uses: EndBug/add-and-commit@v8
+          add: 'Solutions'
+          author_name: 'System Admin'
+          author_email: admin@MngEnvMCAP157851.onmicrosoft.com

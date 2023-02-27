@@ -8,6 +8,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Variables
+        run: |                  
+          echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"                  
+          echo "URI ${{ vars.POWERPLATFORMURI }}"                  
+          echo "Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"             
+          echo "Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
       - uses: microsoft/powerplatform-actions/unpack-solution@v0
         name: Unpack Solution
         with:
