@@ -5,11 +5,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  set-target:
+  set-source:
     runs-on: ubuntu-latest    
-    environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}    
+    environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}    
     steps:    
-    - name: Use variables 1      
+    - name: Use variables    
       run: |        
         echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"        
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
