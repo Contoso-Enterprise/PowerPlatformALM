@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set environment
-        uses: workflows/set-environmentvariables@v1
+        uses: .github/workflows/set-environmentvariables@v1
         with:
           environment: source
       - name: Variables      
