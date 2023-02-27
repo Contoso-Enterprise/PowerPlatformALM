@@ -39,6 +39,7 @@ jobs:
           managed: true
 			- name: Add and Commit
         uses: EndBug/add-and-commit@v8
+        with:
           add: 'Solutions'
           author_name: 'System Admin'
           author_email: admin@MngEnvMCAP157851.onmicrosoft.com
