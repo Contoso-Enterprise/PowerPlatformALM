@@ -14,10 +14,15 @@ jobs:
 
       - uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
-          solution-file: out/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
+          solution-file: release/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
           solution-folder: src
           solution-type: Both
+      - name: Add and Commit
+        uses: EndBug/add-and-commit@v9
+        with:          
+          message: 'Upack Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'          
+          add: 'release/* --force'  
       - uses: actions/upload-artifact@v2
         with:
           name: packed-solution
-          path: out/
+          path: release/
