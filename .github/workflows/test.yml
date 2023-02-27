@@ -19,9 +19,9 @@ jobs:
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
     - name : set varable
       uses: marcdomain/set-variables@v1
-        with:
-          variables: |
-            POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"
+      with:
+        variables: |
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"
   display-variables-again:    
     name: Test2    
     runs-on: ubuntu-latest    
