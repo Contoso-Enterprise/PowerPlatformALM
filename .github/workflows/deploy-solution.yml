@@ -10,26 +10,15 @@ on:
 
 jobs:
   set-target:    
-    runs-on: ubuntu-latest        
-    environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}        
-    steps:        
-    - name: Use variables           
-      run: |                
-        echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"                
-        echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"                
-        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"        
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
     - name : set varable            
       uses: marcdomain/set-variables@v1            
       with:                
         variables: |                    
-          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"        
-    - name : check variable            
-      run: |                  
-        echo "uri : ${{ vars.POWERPLATFORMURI }}"
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: dawidd6/action-download-artifact@v2
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI_DEV }}"
+    - uses: dawidd6/action-download-artifact@v2
         with:
           workflow: pack-solution.yml
           name: packed-solution
