@@ -20,3 +20,9 @@ jobs:
           solution-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
           solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
           solution-type: Both
+      - name: Add and Commit
+        uses: EndBug/add-and-commit@v9
+          with:          
+            message: 'Upack Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'          
+            add: 'src/* --force'
+            cwd: 'src'            

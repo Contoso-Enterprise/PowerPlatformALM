@@ -42,4 +42,4 @@ jobs:
         with:
           message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
           add: 'Solutions/* --force'
-          cwd: ''
+          cwd: 'Solutions'
