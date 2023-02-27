@@ -37,9 +37,6 @@ jobs:
           solution-output-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
           overwrite: true          
           managed: true
-  deploy:
-    runs-on: ubuntu-latest
-      steps:
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:
