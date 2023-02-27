@@ -8,8 +8,7 @@ on:
       - completed
   workflow_dispatch:
 
-jobs:
-  set-target:    
+jobs: 
   deploy:
     runs-on: ubuntu-latest
     steps:
