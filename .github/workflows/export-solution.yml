@@ -9,19 +9,19 @@ jobs:
     runs-on: ubuntu-latest    
     environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}    
     steps:    
-      - name: Use variables 1      
+    - name: Use variables 1      
       run: |        
         echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"        
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"    
-      - name : set varable      
-        uses: marcdomain/set-variables@v1      
-        with:        
-          variables: |          
-            POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"    
-      - name : check variable      
-        run: |          
-          echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
+    - name : set varable      
+      uses: marcdomain/set-variables@v1      
+      with:        
+        variables: |          
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"    
+    - name : check variable      
+      run: |          
+        echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
   deploy:
     runs-on: ubuntu-latest
     steps:
