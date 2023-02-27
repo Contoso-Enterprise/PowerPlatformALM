@@ -38,7 +38,7 @@ jobs:
           overwrite: true          
           managed: true
   deploy:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
       steps:
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
