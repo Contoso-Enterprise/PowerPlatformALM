@@ -5,32 +5,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  set-source:
-    runs-on: ubuntu-latest    
-    environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}    
-    steps:    
-    - name: Use variables    
-      run: |        
-        echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"        
-        echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
-        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"    
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
     - name : set varable      
       uses: marcdomain/set-variables@v1      
       with:        
         variables: |          
-          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"    
-    - name : check variable      
-      run: |          
-        echo "uri : ${{ vars.POWERPLATFORMURI }}"
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Variables      
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMURI_DEV }}"
+    - name: Variables      
         run: |        
           echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
           echo "URI ${{ vars.POWERPLATFORMURI }}"        
-          echo "Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"   
-          echo "Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
+          echo "Source ${{ vars.POWERPLATFORMURI_DEV }}"   
+
       - name: Export Unmanaged Solution
         uses: microsoft/powerplatform-actions/export-solution@v0
         with:
