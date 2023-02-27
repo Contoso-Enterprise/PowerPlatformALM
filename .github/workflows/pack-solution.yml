@@ -1,4 +1,4 @@
-name: Pack Contoso_University_Core
+name: Pack Solution
 on:
   push:
     paths:
@@ -14,7 +14,7 @@ jobs:
 
       - uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
-          solution-file: out/contoso_university_core.zip
+          solution-file: out/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
           solution-folder: src
           solution-type: Both
       - uses: actions/upload-artifact@v2
