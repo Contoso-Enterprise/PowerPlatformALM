@@ -25,4 +25,4 @@ jobs:
         with:          
           message: 'Upack Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'          
           add: 'src/* --force'
-          cwd: 'src'            
+          cwd: 'src/'            
