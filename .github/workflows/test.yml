@@ -1,3 +1,4 @@
+name: Test variables
 on:
   workflow_dispatch:
 env:
@@ -6,16 +7,12 @@ env:
 
 jobs:
   display-variables:
-    name: ${{ vars.JOB_NAME }}
-    # You can use configuration variables with the `vars` context for dynamic jobs
-    if: ${{ vars.USE_VARIABLES == 'true' }}
-    runs-on: ${{ vars.RUNNER }}
-    environment: ${{ vars.ENVIRONMENT_STAGE }}
+    name: Test
+    environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
     steps:
     - name: Use variables
       run: |
-        echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
-        echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
-        echo "overridden variable : ${{ vars.OVERRIDE_VAR }}"
+        echo "repository variable : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable : {{ $env.POWERPLATFORMURI }}"
         echo "variable from shell environment : $env_var"
+        echo "variable from shell environment : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
