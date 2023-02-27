@@ -22,6 +22,9 @@ jobs:
       with:
         variables: |
           POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"
+    - name : check variable
+      run: |
+          echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
   display-variables-again:    
     name: Test2    
     runs-on: ubuntu-latest    
