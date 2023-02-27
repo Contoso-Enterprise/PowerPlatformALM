@@ -37,7 +37,7 @@ jobs:
           solution-output-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
           overwrite: true          
           managed: true
-			- name: Add and Commit
+      - name: Add and Commit
         uses: EndBug/add-and-commit@v8
         with:
           add: 'Solutions'
