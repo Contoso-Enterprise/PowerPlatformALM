@@ -18,31 +18,30 @@ jobs:
           echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
           echo "URI ${{ vars.POWERPLATFORMURI }}"        
           echo "Source ${{ vars.POWERPLATFORMURI_DEV }}"   
-
-      - name: Export Unmanaged Solution
-        uses: microsoft/powerplatform-actions/export-solution@v0
-        with:
-          environment-url: ${{ vars.POWERPLATFORMURI }}
-          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-          solution-output-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
-          overwrite: true
-          managed: false
-      - name: Export Managed Solution      
-        uses: microsoft/powerplatform-actions/export-solution@v0          
-        with:          
-          environment-url: ${{ vars.POWERPLATFORMURI }}          
-          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
-          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
-          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
-          solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-          solution-output-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
-          overwrite: true          
-          managed: true
-      - name: Add and Commit
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
-          add: '. --force'
+    - name: Export Unmanaged Solution
+      uses: microsoft/powerplatform-actions/export-solution@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMURI }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+        solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
+        solution-output-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
+        overwrite: true
+        managed: false
+    - name: Export Managed Solution      
+      uses: microsoft/powerplatform-actions/export-solution@v0          
+      with:          
+        environment-url: ${{ vars.POWERPLATFORMURI }}          
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
+        solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
+        solution-output-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
+        overwrite: true          
+        managed: true
+    - name: Add and Commit
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
+        add: '. --force'
