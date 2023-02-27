@@ -7,8 +7,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
     steps:
+      - name: Set environment
+        uses: adminMngEnvMCAP157851/set-environmentvariables@v1
+        with:
+          environment: source
       - name: Variables      
         run: |        
           echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        

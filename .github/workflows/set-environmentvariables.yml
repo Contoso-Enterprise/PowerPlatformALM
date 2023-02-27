@@ -1,0 +1,48 @@
+name: Set Target Environment Variables
+description: "Set Power Platform URI based on source or target"
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+inputs:
+  environement:
+    description: "Enviornment used"
+    required: true
+  
+jobs:
+  display-variables:
+    if: $environment == 'target'
+    runs-on: ubuntu-latest
+    environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
+    steps:
+    - name: Use variables 1
+      run: |
+        echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"
+        echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
+        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
+    - name : set varable
+      uses: marcdomain/set-variables@v1
+      with:
+        variables: |
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"
+    - name : check variable
+      run: |
+          echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
+    if: $environment == 'source'    
+    runs-on: ubuntu-latest    
+    environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
+    steps:    
+    - name: Use variables 1      
+      run: |        
+        echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"        
+        echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
+        echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"    
+    - name : set varable      
+      uses: marcdomain/set-variables@v1      
+      with:        
+        variables: |          
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"    
+    - name : check variable      
+      run: |          
+        echo "uri : ${{ vars.POWERPLATFORMORGURI }}"
