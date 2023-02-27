@@ -41,4 +41,4 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
-          add: 'Solutions/* --force'
+          add: '. --force'
