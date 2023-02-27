@@ -20,7 +20,7 @@ jobs:
           overwrite: true
           managed: false
       - uses: microsoft/powerplatform-actions/export-solution@v0        
-        name: Export Unmanaged Solution        
+        name: Export Managed Solution        
         with:          
           environment-url: ${{ vars.POWERPLATFORMURI }}          
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
