@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
     steps:
+      - name: Use variables 1      
+        run: |        
+          echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
+          echo "URI ${{ vars.POWERPLATFORMURI }}"        
+          echo "Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"   
+          echo "Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
       - uses: microsoft/powerplatform-actions/export-solution@v0
         name: Export Unmanaged Solution
         with:
@@ -17,7 +23,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-          solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
+          solution-output-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
           overwrite: true
           managed: false
       - uses: microsoft/powerplatform-actions/export-solution@v0        
@@ -28,7 +34,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
           solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-          solution-output-file: Solutions\${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
+          solution-output-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip          
           overwrite: true          
           managed: true
 
