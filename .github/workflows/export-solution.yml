@@ -12,12 +12,12 @@ jobs:
       uses: marcdomain/set-variables@v1      
       with:        
         variables: |          
-          POWERPLATFORMURI: "${{ vars.POWERPLATFORMURI_DEV }}"
+          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI_DEV }}"
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
         echo "URI ${{ vars.POWERPLATFORMURI }}"        
-        echo "Source ${{ vars.POWERPLATFORMURI_DEV }}"   
+        echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
     - name: Export Unmanaged Solution
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
