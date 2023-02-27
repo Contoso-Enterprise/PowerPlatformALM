@@ -12,10 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: microsoft/powerplatform-actions/pack-solution@v0
+      - name: Pack Solution
+        uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
           solution-file: release/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
-          solution-folder: src
+          solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME}}
           solution-type: Both
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
