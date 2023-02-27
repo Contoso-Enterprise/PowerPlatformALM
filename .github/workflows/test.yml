@@ -1,9 +1,6 @@
 name: Test variables
 on:
   workflow_dispatch:
-env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
 
 jobs:
   display-variables:
@@ -14,6 +11,6 @@ jobs:
     - name: Use variables
       run: |
         echo "repository variable : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
-        echo "variable : {{ $env.POWERPLATFORMURI }}"
-        echo "variable from shell environment : $env_var"
+        echo "variable : ${{ env.POWERPLATFORMURI }}"
+        echo "variable from shell environment : ${{ vars.POWERPLATFORMURI }}"
         echo "variable from shell environment : ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"        
