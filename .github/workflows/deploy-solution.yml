@@ -13,16 +13,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: dawidd6/action-download-artifact@v2
+    - name: load artifact
+      uses: dawidd6/action-download-artifact@v2
         with:
           workflow: pack-solution.yml
           name: packed-solution
-
-      - uses: microsoft/powerplatform-actions/import-solution@v0
-        with:
-          environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
-          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-file: ${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip
+    - name: import solution
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+        solution-file: ${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip
 
