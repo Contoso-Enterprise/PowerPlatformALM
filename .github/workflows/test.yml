@@ -17,10 +17,11 @@ jobs:
         echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
-    - name: set uri
-      run: |
-        echo "${{ vars.POWERPLATFORMORGURI}}" >> ${{ vars.POWERPLATFORMURI }}
-        envURI: ${{ vars.POWERPLATFORMURI }}
+    - name : set varable
+      uses: marcdomain/set-variables@v1
+        with:
+          variables: |
+            POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI }}"
   display-variables-again:    
     name: Test2    
     runs-on: ubuntu-latest    
