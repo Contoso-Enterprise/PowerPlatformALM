@@ -13,7 +13,7 @@ jobs:
         with:
           environment: source
       - name: Variables      
-        run: |        
+        run: 
           echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
           echo "URI ${{ vars.POWERPLATFORMURI }}"        
           echo "Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"   

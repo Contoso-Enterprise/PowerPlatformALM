@@ -14,6 +14,7 @@ jobs:
   set-target:
     if: $environment == 'target'
     runs-on: ubuntu-latest
+    using: "composite"
     environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
     steps:
     - name: Use variables 1
@@ -32,6 +33,7 @@ jobs:
   set-source:
     if: $environment == 'source'    
     runs-on: ubuntu-latest    
+    using: "composite"
     environment: ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}
     steps:    
     - name: Use variables 1      
