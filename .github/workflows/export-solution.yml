@@ -6,7 +6,6 @@ on:
 
 jobs:
   set-target:
-    if: $environment == 'target'    
     runs-on: ubuntu-latest    
     environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}    
     steps:    
