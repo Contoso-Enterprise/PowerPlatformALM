@@ -8,6 +8,7 @@ env:
 jobs:
   display-variables:
     name: Test
+    runs-on: ubuntu-latest
     environment: ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}
     steps:
     - name: Use variables
