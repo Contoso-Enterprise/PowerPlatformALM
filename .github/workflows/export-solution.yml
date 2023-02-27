@@ -8,11 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name : set varable      
-      uses: marcdomain/set-variables@v1      
-      with:        
-        variables: |          
-          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI_DEV }}"
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
@@ -21,7 +16,7 @@ jobs:
     - name: Export Unmanaged Solution
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
-        environment-url: ${{ vars.POWERPLATFORMURI }}
+        environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
@@ -32,7 +27,7 @@ jobs:
     - name: Export Managed Solution      
       uses: microsoft/powerplatform-actions/export-solution@v0          
       with:          
-        environment-url: ${{ vars.POWERPLATFORMURI }}          
+        environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}          
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          

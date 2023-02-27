@@ -13,11 +13,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name : set varable            
-      uses: marcdomain/set-variables@v1            
-      with:                
-        variables: |                    
-          POWERPLATFORMURI: "${{ vars.POWERPLATFORMORGURI_DEV }}"
     - uses: dawidd6/action-download-artifact@v2
         with:
           workflow: pack-solution.yml
@@ -25,7 +20,7 @@ jobs:
 
       - uses: microsoft/powerplatform-actions/import-solution@v0
         with:
-          environment-url: ${{ vars.POWERPLATFORMURI }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
