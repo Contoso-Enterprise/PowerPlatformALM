@@ -2,6 +2,8 @@ name: Deploy Solution to Production
 
 on:
   workflow_dispatch:
+#   release:
+#    types: [created]
 
 jobs: 
   deploy:

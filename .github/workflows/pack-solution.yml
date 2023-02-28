@@ -26,7 +26,12 @@ jobs:
         with:          
           message: 'Commit Solution ${{ github.event.inputs.solution_name }}'          
           add: 'release/* --force'  
-      - uses: actions/upload-artifact@v2
+      - name: Upload Artifact
+         uses: actions/upload-artifact@v2
         with:
           name: packed-solution
           path: release/
+      - name: Set solution name to variable
+        uses: deep-mm/set-variables@v1.0
+        with:
+          POWERPLATFORMURI:  ${{ github.event.inputs.solution_name }}
