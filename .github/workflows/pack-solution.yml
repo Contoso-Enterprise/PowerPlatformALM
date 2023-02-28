@@ -4,7 +4,11 @@ on:
     paths:
       - src/**
   workflow_dispatch:
-
+    inputs:
+      solution_name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,13 +18,13 @@ jobs:
       - name: Pack Solution
         uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
-          solution-file: release/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
-          solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME}}
+          solution-file: release/${{ github.event.inputs.solution_name }}.zip
+          solution-folder: src/${{ github.event.inputs.solution_name }}
           solution-type: Both
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:          
-          message: 'Upack Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'          
+          message: 'Commit Solution ${{ github.event.inputs.solution_name }}'          
           add: 'release/* --force'  
       - uses: actions/upload-artifact@v2
         with:
