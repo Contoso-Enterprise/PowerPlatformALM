@@ -1,0 +1,22 @@
+name: Deploy Solution to Production
+
+on:
+  workflow_dispatch:
+
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: load artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: pack-solution.yml
+        name: packed-solution
+    - name: import solution
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMORGURI_PRD }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+        solution-file: ${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip

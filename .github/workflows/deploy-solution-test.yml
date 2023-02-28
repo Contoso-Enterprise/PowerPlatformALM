@@ -1,4 +1,4 @@
-name: Deploy Solution
+name: Deploy Solution to Test
 
 on:
   workflow_run:
