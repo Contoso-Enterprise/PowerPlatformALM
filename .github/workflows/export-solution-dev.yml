@@ -61,12 +61,12 @@ jobs:
         solution-type: Both
     - name: Add and Commit
       uses: EndBug/add-and-commit@v9
-      if: ${{ github.event.inputs.branch_name }} == 'main'
-      with:
-        message: 'Export Solution ${{ github.event.inputs.solution_name }}'
-        add: '. --force'
-      if: ${{ github.event.inputs.branch_name }} != 'main'
-      with: 
-        message: 'Export Solution ${{ github.event.inputs.solution_name }} to branch ${{ github.event.inputs.branch_name }}'
-        new-branch: ${{ github.event.inputs.branch_name }}
-        add: '. --force'
+      - if: ${{ github.event.inputs.branch_name }} == 'main'
+        with:
+          message: 'Export Solution ${{ github.event.inputs.solution_name }}'
+          add: '. --force'
+      - if: ${{ github.event.inputs.branch_name }} != 'main'
+        with: 
+          message: 'Export Solution ${{ github.event.inputs.solution_name }} to branch ${{ github.event.inputs.branch_name }}'
+          new-branch: ${{ github.event.inputs.branch_name }}
+          add: '. --force'
