@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Variables      
+      run: |        
+        echo "Solution Name var : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
+        echo "Solution Name env: ${{ env.POWERPLATFORMSOLUTIONNAME }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "Source ${{ vars.POWERPLATFORMORGURI_STG }}"   
     - name: Pack Solution
       uses: microsoft/powerplatform-actions/pack-solution@v0
       with:
@@ -25,12 +31,6 @@ jobs:
       with:
         name: packed-solution
         path: release/
-    - name: Variables      
-      run: |        
-        echo "Solution Name var : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
-        echo "Solution Name env: ${{ env.POWERPLATFORMSOLUTIONNAME }}"        
-        echo "URI ${{ vars.POWERPLATFORMURI }}"        
-        echo "Source ${{ vars.POWERPLATFORMORGURI_STG }}"   
     - name: who-am-i action
       uses: microsoft/powerplatform-actions/who-am-i@v0
       with:
