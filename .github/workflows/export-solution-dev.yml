@@ -59,14 +59,16 @@ jobs:
         solution-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
         solution-folder: src/${{ github.event.inputs.solution_name }}
         solution-type: Both
-    - name: Add and Commit
+    - name: Add and Commit to main
+      if: ${{ github.event.inputs.branch_name }} == 'main'
       uses: EndBug/add-and-commit@v9
-      - if: ${{ github.event.inputs.branch_name }} == 'main'
-        with:
-          message: 'Export Solution ${{ github.event.inputs.solution_name }}'
-          add: '. --force'
-      - if: ${{ github.event.inputs.branch_name }} != 'main'
-        with: 
-          message: 'Export Solution ${{ github.event.inputs.solution_name }} to branch ${{ github.event.inputs.branch_name }}'
-          new-branch: ${{ github.event.inputs.branch_name }}
-          add: '. --force'
+      with:
+        message: 'Export Solution ${{ github.event.inputs.solution_name }}'
+        add: '. --force'
+    - name: Add and Commit to new branch
+      if: ${{ github.event.inputs.branch_name }} != 'main'
+      uses: EndBug/add-and-commit@v9
+      with: 
+        message: 'Export Solution ${{ github.event.inputs.solution_name }} to branch ${{ github.event.inputs.branch_name }}'
+        new-branch: ${{ github.event.inputs.branch_name }}
+        add: '. --force'
