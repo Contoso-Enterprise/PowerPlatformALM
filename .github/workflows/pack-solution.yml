@@ -31,7 +31,3 @@ jobs:
         with:
           name: packed-solution
           path: release/
-      - name: Set solution name to variable
-        uses: marcdomain/set-variables@v1
-        with:
-          POWERPLATFORMSOLUTIONNAME:  ${{ github.event.inputs.solution_name }}
