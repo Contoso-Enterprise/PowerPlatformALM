@@ -1,9 +1,9 @@
 name: Deploy Solution to Test
 
 on:
-   release:
+  - release:
     types: [published]
-
+  - workflow_dispatch:
 jobs: 
   deploy:
     runs-on: ubuntu-latest
