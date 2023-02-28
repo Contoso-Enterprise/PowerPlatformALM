@@ -47,11 +47,10 @@ jobs:
         managed: true
     - name: Unpack Solution
       uses: microsoft/powerplatform-actions/unpack-solution@v0
-        name: Unpack Solution
-        with:
-          solution-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
-          solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
-          solution-type: Both
+      with:
+        solution-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
+        solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
+        solution-type: Both
     - name: Add and Commit
       uses: EndBug/add-and-commit@v9
       with:
