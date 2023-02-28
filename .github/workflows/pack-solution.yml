@@ -27,7 +27,7 @@ jobs:
           message: 'Commit Solution ${{ github.event.inputs.solution_name }}'          
           add: 'release/* --force'  
       - name: Upload Artifact
-         uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: packed-solution
           path: release/
