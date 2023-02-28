@@ -48,7 +48,7 @@ jobs:
     - name: Unpack Solution
       uses: microsoft/powerplatform-actions/unpack-solution@v0
       with:
-        solution-file: Solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
+        solution-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
         solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
         solution-type: Both
     - name: Add and Commit
