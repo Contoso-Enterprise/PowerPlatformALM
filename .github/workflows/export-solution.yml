@@ -8,6 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
