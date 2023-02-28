@@ -3,7 +3,15 @@ name: Export Solution from Dev
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+    inputs:
+      solution_name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
+      branch_name:
+        description: 'name of the git branch'
+        required: false
+        default:  'main'
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,7 +21,7 @@ jobs:
         lfs: true
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
+        echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
         echo "URI ${{ vars.POWERPLATFORMURI }}"        
         echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
     - name: who-am-i action
@@ -30,8 +38,8 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-        solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-        solution-output-file: 'solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip'
+        solution-name: ${{ github.event.inputs.solution_name }}
+        solution-output-file: 'solutions/${{ github.event.inputs.solution_name }}.zip'
         overwrite: true
         managed: false
     - name: Export Managed Solution      
@@ -41,19 +49,23 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}          
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}         
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
-        solution-name: ${{ vars.POWERPLATFORMSOLUTIONNAME }}
-        solution-output-file: 'solutions/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip'          
+        solution-name: ${{ github.event.inputs.solution_name }}
+        solution-output-file: 'solutions/${{ github.event.inputs.solution_name }}_managed.zip'          
         overwrite: true          
         managed: true
     - name: Unpack Solution
       uses: microsoft/powerplatform-actions/unpack-solution@v0
       with:
         solution-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
-        solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
+        solution-folder: src/${{ github.event.inputs.solution_name }}
         solution-type: Both
     - name: Add and Commit
       uses: EndBug/add-and-commit@v9
+      if: ${{ github.event.inputs.branch_name }} == 'main'
       with:
-        message: 'Export Solution ${{ vars.POWERPLATFORMSOLUTIONNAME }}'
+        message: 'Export Solution ${{ github.event.inputs.solution_name }}'
         add: '. --force'
-        cwd: './solutions'
+      if: ${{ github.event.inputs.branch_name }} != 'main'
+        message: 'Export Solution ${{ github.event.inputs.solution_name }} to branch ${{ github.event.inputs.branch_name }}'
+        new-branch: ${{ github.event.inputs.branch_name }}
+        add: '. --force'
