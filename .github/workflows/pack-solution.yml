@@ -32,6 +32,6 @@ jobs:
           name: packed-solution
           path: release/
       - name: Set solution name to variable
-        uses: deep-mm/set-variables@v1.0
+        uses: marcdomain/set-variables@v1
         with:
-          POWERPLATFORMURI:  ${{ github.event.inputs.solution_name }}
+          POWERPLATFORMSOLUTIONNAME:  ${{ github.event.inputs.solution_name }}

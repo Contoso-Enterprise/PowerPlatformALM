@@ -17,6 +17,19 @@ jobs:
       with:
         workflow: pack-solution.yml
         name: packed-solution
+    - name: Variables      
+      run: |        
+        echo "Solution Name var : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"        
+        echo "Solution Name env: ${{ env.POWERPLATFORMSOLUTIONNAME }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "Source ${{ vars.POWERPLATFORMORGURI_STG }}"   
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
     - name: import solution
       uses: microsoft/powerplatform-actions/import-solution@v0
       with:
