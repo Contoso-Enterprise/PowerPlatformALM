@@ -2,7 +2,7 @@ name: Deploy Solution to Test
 
 on:
    release:
-    types: [created]
+    types: [published]
 
 jobs: 
   deploy:
