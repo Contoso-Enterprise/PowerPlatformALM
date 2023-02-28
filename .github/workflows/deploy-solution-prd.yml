@@ -1,8 +1,7 @@
 name: Deploy Solution to Production
 
 on:
-#  release:
-#      types: [published] 
+
   workflow_dispatch:
 
 
