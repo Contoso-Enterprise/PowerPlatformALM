@@ -15,11 +15,12 @@ jobs:
     steps:
       - uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: pack-solution.yml
+          workflow: pack-solution-demo.yml
           name: packed-solution
       - uses: microsoft/powerplatform-actions/import-solution@v0
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
           user-name: ${{ secrets.USERNAME }}
           password-secret: ${{ secrets.PASSWORD }}
-          solution-file: release/contoso_university_core_managed.zip
+          solution-file: contoso_university_core_managed.zip
+
