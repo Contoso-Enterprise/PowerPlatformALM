@@ -13,7 +13,7 @@ on:
         required: false
         default:  'main'
 jobs:
-  deploy:
+  BootsandCats:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
