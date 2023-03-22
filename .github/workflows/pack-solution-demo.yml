@@ -3,7 +3,7 @@ name: Pack Contoso_University_Core
 on:
   push:
     paths:
-      - contents/**
+      - src/**
   workflow_dispatch:
 
 jobs:
