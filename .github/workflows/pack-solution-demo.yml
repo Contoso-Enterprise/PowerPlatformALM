@@ -13,11 +13,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
-          solution-file: release/contoso_university_core.zip
+          solution-file: release/contoso_university_core/contoso_university_core.zip
           solution-folder: src/contoso_university_core
           solution-type: Both
       - uses: actions/upload-artifact@v2
         with:
           name: packed-solution
-          path: release/
+          path: release/contoso_university_core
 
