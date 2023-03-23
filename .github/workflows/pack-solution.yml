@@ -19,7 +19,7 @@ jobs:
         uses: microsoft/powerplatform-actions/pack-solution@v0
         with:
           solution-file: release/${{ github.event.inputs.solution_name }}.zip
-          solution-folder: src/${{ github.event.inputs.solution_name }}
+          solution-folder: srcABCD/${{ github.event.inputs.solution_name }}
           solution-type: Both
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
