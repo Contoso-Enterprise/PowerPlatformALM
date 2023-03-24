@@ -15,6 +15,7 @@ on:
 jobs:
   BootsandCats:
     runs-on: ubuntu-latest
+    environment: 'Contoso Development'
     steps:
     - uses: actions/checkout@v3
       with:
