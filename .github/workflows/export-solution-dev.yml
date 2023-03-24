@@ -40,6 +40,7 @@ jobs:
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: 'solutions/${{ github.event.inputs.solution_name }}.zip'
+        export-customization-settings: true
         overwrite: true
         managed: false
     - name: Export Managed Solution      

@@ -1,4 +1,4 @@
-name: Pack Solution
+name: Pack Solution from Development
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ on:
         required: true
         default:  'contoso_university_core'
 jobs:
-  build:
+  export:
     runs-on: ubuntu-latest
 
     steps:
