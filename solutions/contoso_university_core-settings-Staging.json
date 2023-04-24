@@ -1,0 +1,19 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "cu_ContosoUniversitySPOITList",
+      "Value": ""
+    },
+    {
+      "SchemaName": "cu_ContosoUniversitySPOITSite",
+      "Value": ""
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "cu_ContosoUniversitySPOITConRef",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+    }
+  ]
+}
