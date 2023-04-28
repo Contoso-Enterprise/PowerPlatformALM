@@ -2,7 +2,11 @@ name: Deploy Solution to Test
 
 on:
   workflow_dispatch:
-
+    inputs:
+      solution_name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
 jobs: 
   deploy:
     runs-on: ubuntu-latest
@@ -11,14 +15,15 @@ jobs:
     - name: Variables      
       run: |        
         echo "Solution Name var : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"             
-        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"
         echo "Target ${{ vars.POWERPLATFORMORGURI_STG }}"   
     - name: Pack Solution
       uses: microsoft/powerplatform-actions/pack-solution@v0
       with:
-        solution-file: release/${{ vars.POWERPLATFORMSOLUTIONNAME }}.zip
-        solution-folder: src/${{ vars.POWERPLATFORMSOLUTIONNAME }}
+        solution-file: release/${{ github.event.inputs.solution_name }}.zip
+        solution-folder: src/${{ github.event.inputs.solution_name }}
         solution-type: Both
+        process-canvas-apps: true
     - name: Add and Commit
       uses: EndBug/add-and-commit@v9
       with:          
@@ -43,5 +48,7 @@ jobs:
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
         client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-        solution-file: release/${{ vars.POWERPLATFORMSOLUTIONNAME }}_managed.zip
+        solution-file: release/${{ github.event.inputs.solution_name }}_managed.zip
+        use-deployment-settings-file: true
+        deployment-settings-file: release/${{ github.event.inputs.solution_name }}_settings_test.json
 
