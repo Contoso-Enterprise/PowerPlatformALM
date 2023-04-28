@@ -53,6 +53,7 @@ jobs:
         tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}          
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: 'solutions/${{ github.event.inputs.solution_name }}_managed.zip'          
+        export-customization-settings: true
         overwrite: true          
         managed: true
     - name: Unpack Solution
@@ -61,6 +62,7 @@ jobs:
         solution-file: solutions/${{ vars.POWERPLATFORMSOLUTIONNAME}}.zip
         solution-folder: src/${{ github.event.inputs.solution_name }}
         solution-type: Both
+        process-canvas-apps: true
     - name: Add and Commit to main
       if: ${{ github.event.inputs.branch_name }} == 'main'
       uses: EndBug/add-and-commit@v9
