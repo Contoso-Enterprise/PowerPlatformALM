@@ -14,6 +14,7 @@ jobs:
     ##if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: 'Contoso Staging'
     steps:
+      - uses: actions/checkout@v3
       - uses: dawidd6/action-download-artifact@v2
         with:
           workflow: pack-solution-demo.yml
