@@ -2,15 +2,15 @@
   "EnvironmentVariables": [
     {
       "SchemaName": "ce_ContosoTestingVariable001",
-      "Value": ""
+      "Value": "Updateing value from Actions"
     },
     {
       "SchemaName": "cu_ContosoUniversitySPOITList",
-      "Value": ""
+      "Value": "19af515d-18a3-465b-8b02-925580b36c04"
     },
     {
       "SchemaName": "cu_ContosoUniversitySPOITSite",
-      "Value": ""
+      "Value": "https://mngenvmcap157851.sharepoint.com/sites/NewEmployeeOnboarding/"
     }
   ],
   "ConnectionReferences": [
