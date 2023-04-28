@@ -1,5 +1,4 @@
 <environmentvariabledefinition schemaname="ce_ContosoTestingVariable001">
-  <defaultvalue>hahaha</defaultvalue>
   <displayname default="ContosoTestingVariable001">
     <label description="ContosoTestingVariable001" languagecode="1033" />
   </displayname>
