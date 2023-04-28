@@ -25,5 +25,5 @@ jobs:
           password-secret: ${{ secrets.PASSWORD }}
           solution-file: contoso_university_core_managed.zip
           use-deployment-settings-file: true
-          deployment-settings-file: solutions/contoso_university_core/contoso_university_core_settings.json
+          deployment-settings-file: solutions/contoso_university_core/contoso_university_core-settings-Staging.json
 
