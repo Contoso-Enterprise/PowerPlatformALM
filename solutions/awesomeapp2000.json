@@ -1,0 +1,23 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "awt_AwesomeName",
+      "Value": ""
+    },
+    {
+      "SchemaName": "awt_AwesomeSPOList",
+      "Value": ""
+    },
+    {
+      "SchemaName": "awt_AwesomeSPOSite",
+      "Value": ""
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "awt_AwesomeSPOConRef",
+      "ConnectionId": "",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+    }
+  ]
+}
