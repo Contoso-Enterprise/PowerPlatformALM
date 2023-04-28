@@ -1,8 +1,8 @@
 name: Pack Solution from Development
 on:
-  push:
-    paths:
-      - src/**
+  #push:
+  #  paths:
+  #    - src/**
   workflow_dispatch:
     inputs:
       solution_name:
@@ -21,6 +21,7 @@ jobs:
           solution-file: release/${{ github.event.inputs.solution_name }}.zip
           solution-folder: src/${{ github.event.inputs.solution_name }}
           solution-type: Both
+          process-canvas-apps: true
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:          
