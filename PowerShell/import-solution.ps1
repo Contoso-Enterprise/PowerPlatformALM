@@ -5,7 +5,8 @@ param(
     $solutionName
 )
 
-
+git pull
 pac solution pack -z ('release\' +$solutionName + '.zip') -f ($srcPath +'\' + $solutionName ) -p Managed
 pac auth create --url $orgURL
 pac solution import -p  ('release\' +$solutionName + '_managed.zip')
+pac auth clear

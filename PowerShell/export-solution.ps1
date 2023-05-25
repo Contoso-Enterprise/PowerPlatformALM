@@ -6,7 +6,7 @@ param(
 )
 $outputPath = 'solutions'
 $srcPath = 'src'
-
+git pull
 pac auth create --url $orgURL
 pac solution export --name ($solutionName) --path  ($outputPath + '\' + $solutionName +'.zip') -ow
 pac solution export --name ($solutionName) --path  $outputPath  + '\' + $solutionName +'_managed.zip'-m -ow
