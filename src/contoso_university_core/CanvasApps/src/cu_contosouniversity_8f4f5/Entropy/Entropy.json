@@ -84,6 +84,7 @@
     "Title1": {}
   },
   "PCFDynamicSchemaForIRRetrievalEntry": {},
+  "PCFTemplateEntry": {},
   "PublishOrderIndices": {
     "App": 0,
     "Gallery1": 0,
@@ -101,7 +102,7 @@
   "RuleScreenIdWithoutScreen": {},
   "TemplateVersions": {},
   "VolatileProperties": {
-    "AnalysisLoadTime": 0.0133307,
+    "AnalysisLoadTime": 0.013330699999999999,
     "ControlCount": {},
     "ErrorCount": 0
   },
