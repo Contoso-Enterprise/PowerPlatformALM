@@ -7,7 +7,8 @@ param(
     'Production'
     )]
     [string]$env,
-    [string]$solutionName
+    [string]$solutionName,
+    [string]$commitMessage
 )
 switch($env)
 {
@@ -35,5 +36,5 @@ pac solution unpack -z ($outputPath+'\' +$solutionName + '.zip') -f ($srcPath +'
 pac auth clear
 
 git add ($srcPath +'\' + $solutionName + '\*')
-git commit -m 'update solution'
+git commit -m $commitMessage
 git push

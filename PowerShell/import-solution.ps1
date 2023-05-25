@@ -8,7 +8,8 @@ param(
     )]
     [string]$env,
     [Parameter (Mandatory = $true)]
-    $solutionName
+    $solutionName,
+    $commitMessage
 )
 {
     'Development'
