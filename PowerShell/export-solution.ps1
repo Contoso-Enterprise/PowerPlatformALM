@@ -1,9 +1,30 @@
 param(
-    [Parameter (Mandatory = $true)]
-    $orgURL = 'https://org1b29da34.crm.dynamics.com',
-    [Parameter (Mandatory = $true)]
-    $solutionName
+    [Parameter(
+        Mandatory=$True)]
+    [ValidateSet(
+    'Development',
+    'Staging',
+    'Production'
+    )]
+    [string]$env,
+    [string]$solutionName
 )
+switch($env)
+{
+    'Development'
+    {
+        $orgURL = 'https://org1b29da34.crm.dynamics.com'
+    }
+    'Staging'
+    {
+        $orgURL = 'https://org12a26e6e.crm.dynamics.com/'
+        
+    }
+    'Production'
+    {
+        $orgURL = ''
+    }
+}
 $outputPath = 'solutions'
 $srcPath = 'src'
 git pull
