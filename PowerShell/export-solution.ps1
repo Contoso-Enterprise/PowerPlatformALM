@@ -8,7 +8,8 @@ param(
     )]
     [string]$env,
     [string]$solutionName,
-    [string]$commitMessage
+    [string]$commitMessage,
+    [string]$branch
 )
 switch($env)
 {
@@ -28,13 +29,28 @@ switch($env)
 }
 $outputPath = 'solutions'
 $srcPath = 'src'
-git pull
+if($branch -ne '')
+{
+    git checkout -b $branch
+
+}
+else 
+{
+    git checkout "main"
+}
 pac auth create --url $orgURL
 pac solution export --name ($solutionName) --path  ($outputPath + '\' + $solutionName +'.zip') -ow
-pac solution export --name ($solutionName) --path  $outputPath  + '\' + $solutionName +'_managed.zip'-m -ow
-pac solution unpack -z ($outputPath+'\' +$solutionName + '.zip') -f ($srcPath +'\' + $solutionName )-p both -pca
+pac solution export --name ($solutionName) --path  ($outputPath  + '\' + $solutionName +'_managed.zip') -m -ow
+pac solution unpack -z ($outputPath+'\' +$solutionName + '.zip') -f ($srcPath +'\' + $solutionName ) -p both -pca
 pac auth clear
+
 
 git add ($srcPath +'\' + $solutionName + '\*')
 git commit -m $commitMessage
-git push
+if($branch -ne '')
+{
+    git push --set-upstream to=orgin/main
+}
+else {
+    git push
+}
