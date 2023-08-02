@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EntityRelationship Name="bpf_cu_major_ce_admissionbusinessprocessflow" />
+  <EntityRelationship Name="lk_ce_admissionbusinessprocessflow_activestageid" />
+  <EntityRelationship Name="lk_ce_admissionbusinessprocessflow_createdby" />
+  <EntityRelationship Name="lk_ce_admissionbusinessprocessflow_modifiedby" />
+  <EntityRelationship Name="lk_ce_admissionbusinessprocessflow_processid" />
+  <EntityRelationship Name="organization_ce_admissionbusinessprocessflow" />
+</EntityRelationships>
