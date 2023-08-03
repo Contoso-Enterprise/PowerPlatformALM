@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ImportExportXml version="9.2.23064.186" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
-    <UniqueName>contoso_university_core</UniqueName>
+    <UniqueName>ContosoUniversityExtended</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Contoso University - Core" languagecode="1033" />
+      <LocalizedName description="Contoso University - Extended" languagecode="1033" />
     </LocalizedNames>
     <Descriptions>
-      <Description description="Upgrade of Contoso University - Core" languagecode="1033" />
+      <Description description="Upgrade of Contoso University - Extended" languagecode="1033" />
     </Descriptions>
     <Version>1.5.0.0</Version>
     <Managed>2</Managed>
@@ -80,13 +80,18 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="cu_application" behavior="0" />
-      <RootComponent type="1" schemaName="cu_department" behavior="0" />
-      <RootComponent type="1" schemaName="cu_major" behavior="0" />
-      <RootComponent type="1" schemaName="cu_semester" behavior="0" />
-      <RootComponent type="20" id="{8df28711-24f0-ed11-8849-000d3a1b9171}" behavior="0" />
-      <RootComponent type="300" schemaName="cu_contosouniversity_8f4f5" behavior="0" />
+      <RootComponent type="1" schemaName="cu_department" behavior="2" />
+      <RootComponent type="1" schemaName="cu_major" behavior="2" />
     </RootComponents>
-    <MissingDependencies />
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="cu_department" displayName="Department" solution="Active" />
+        <Dependent type="1" schemaName="cu_department" displayName="Department" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cu_major" displayName="Major" solution="Active" />
+        <Dependent type="1" schemaName="cu_major" displayName="Major" />
+      </MissingDependency>
+    </MissingDependencies>
   </SolutionManifest>
 </ImportExportXml>
