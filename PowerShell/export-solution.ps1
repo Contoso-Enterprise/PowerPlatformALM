@@ -31,7 +31,7 @@ $outputPath = 'solutions'
 $srcPath = 'src'
 pac auth create --url $orgURL
 pac solution export --name ($solutionName) --path  ($outputPath + '\' + $solutionName +'.zip') -ow
-pac solution export --name ($solutionName) --path  $outputPath  + '\' + $solutionName +'_managed.zip'-m -ow
+pac solution export --name ($solutionName) --path  ($outputPath  + '\' + $solutionName +'_managed.zip') -m -ow
 pac solution unpack -z ($outputPath+'\' +$solutionName + '.zip') -f ($srcPath +'\' + $solutionName )-p both -pca
 pac auth clear
 

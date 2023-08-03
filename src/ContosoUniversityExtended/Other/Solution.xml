@@ -84,6 +84,7 @@
       <RootComponent type="1" schemaName="cu_department" behavior="2" />
       <RootComponent type="1" schemaName="cu_major" behavior="2" />
       <RootComponent type="29" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" behavior="0" />
+      <RootComponent type="300" schemaName="ce_admissioncanvasapp_a566a" behavior="0" />
       <RootComponent type="300" schemaName="ce_universitycustompage_42561" behavior="0" />
       <RootComponent type="62" schemaName="ce_Admission" behavior="0" />
       <RootComponent type="80" schemaName="ce_Admission" behavior="0" />
