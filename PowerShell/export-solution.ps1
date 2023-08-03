@@ -38,3 +38,4 @@ pac auth clear
 git add ($srcPath +'\' + $solutionName + '\*')
 git commit -m $commitMessage
 git push
+#TEest AGAIN HOTFIX
