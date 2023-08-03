@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.23033.220" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.23064.186" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <UniqueName>contoso_university_core</UniqueName>
     <LocalizedNames>
@@ -8,7 +8,7 @@
     <Descriptions>
       <Description description="Upgrade of Contoso University - Core" languagecode="1033" />
     </Descriptions>
-    <Version>1.2.0.0</Version>
+    <Version>1.5.0.0</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>contoso_university</UniqueName>
@@ -84,6 +84,7 @@
       <RootComponent type="1" schemaName="cu_department" behavior="0" />
       <RootComponent type="1" schemaName="cu_major" behavior="0" />
       <RootComponent type="1" schemaName="cu_semester" behavior="0" />
+      <RootComponent type="20" id="{8df28711-24f0-ed11-8849-000d3a1b9171}" behavior="0" />
       <RootComponent type="300" schemaName="cu_contosouniversity_8f4f5" behavior="0" />
     </RootComponents>
     <MissingDependencies />

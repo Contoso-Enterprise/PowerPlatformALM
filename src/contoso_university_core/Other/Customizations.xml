@@ -7,11 +7,7 @@
   <Templates />
   <EntityMaps />
   <EntityRelationships />
-  <OrganizationSettings>
-    <customization>
-      <isappmode>False</isappmode>
-    </customization>
-  </OrganizationSettings>
+  <OrganizationSettings />
   <optionsets />
   <CustomControls />
   <EntityDataProviders />

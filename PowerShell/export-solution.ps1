@@ -29,6 +29,7 @@ switch($env)
 }
 $outputPath = 'solutions'
 $srcPath = 'src'
+<<<<<<< HEAD
 if($branch -ne '')
 {
     git checkout -b $branch
@@ -54,3 +55,11 @@ if($branch -ne '')
 else {
     git push
 }
+=======
+pac auth create --url $orgURL
+pac solution export --name ($solutionName) --path  ($outputPath + '\' + $solutionName +'.zip') -ow
+pac solution export --name ($solutionName) --path  ($outputPath  + '\' + $solutionName +'_managed.zip') -m -ow
+pac solution unpack -z ($outputPath+'\' +$solutionName + '.zip') -f ($srcPath +'\' + $solutionName )-p both -pca
+pac auth clear
+
+>>>>>>> release/0.1
