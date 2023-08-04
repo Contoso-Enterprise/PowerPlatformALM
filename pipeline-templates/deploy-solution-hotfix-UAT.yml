@@ -1,0 +1,58 @@
+name: Deploy Solution to Test
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'hotfix/**'
+  workflow_dispatch:
+    inputs:
+      solution_name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
+jobs: 
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Variables      
+      run: |        
+        echo "Solution Name var : ${{ vars.POWERPLATFORMSOLUTIONNAME }}"             
+        echo "URI ${{ vars.POWERPLATFORMURI }}"
+        echo "Target ${{ vars.POWERPLATFORMORGURI_STG }}"   
+    - name: Pack Solution
+      uses: microsoft/powerplatform-actions/pack-solution@v0
+      with:
+        solution-file: release/${{ github.event.inputs.solution_name }}.zip
+        solution-folder: src/${{ github.event.inputs.solution_name }}
+        solution-type: Both
+        process-canvas-apps: true
+    - name: Add and Commit
+      uses: EndBug/add-and-commit@v9
+      with:          
+        message: 'Commit Solution  ${{ vars.POWERPLATFORMSOLUTIONNAME }}'          
+        add: 'release/* --force'  
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: packed-solution
+        path: release/
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+    - name: import solution
+      uses: microsoft/powerplatform-actions/import-solution@v0
+      with:
+        environment-url: ${{ vars.POWERPLATFORMORGURI_STG }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+        solution-file: release/${{ github.event.inputs.solution_name }}_managed.zip
+        use-deployment-settings-file: true
+        deployment-settings-file: release/${{ github.event.inputs.solution_name }}_settings_test.json
+
