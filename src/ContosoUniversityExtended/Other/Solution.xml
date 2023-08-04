@@ -80,24 +80,10 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="ce_admissionbusinessprocessflow" behavior="0" />
       <RootComponent type="1" schemaName="cu_department" behavior="2" />
       <RootComponent type="1" schemaName="cu_major" behavior="2" />
-      <RootComponent type="29" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" behavior="0" />
-      <RootComponent type="300" schemaName="ce_admissioncanvasapp_a566a" behavior="0" />
-      <RootComponent type="300" schemaName="ce_universitycustompage_42561" behavior="0" />
-      <RootComponent type="62" schemaName="ce_Admission" behavior="0" />
-      <RootComponent type="80" schemaName="ce_Admission" behavior="0" />
     </RootComponents>
     <MissingDependencies>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_application" displayName="Application" solution="Active" />
-        <Dependent type="62" schemaName="ce_Admission" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_application" displayName="Application" solution="Active" />
-        <Dependent type="80" schemaName="ce_Admission" displayName="Admission" />
-      </MissingDependency>
       <MissingDependency>
         <Required type="1" schemaName="cu_department" displayName="Department" solution="Active" />
         <Dependent type="1" schemaName="cu_department" displayName="Department" />
@@ -105,54 +91,6 @@
       <MissingDependency>
         <Required type="1" schemaName="cu_major" displayName="Major" solution="Active" />
         <Dependent type="1" schemaName="cu_major" displayName="Major" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_semester" displayName="Semester" solution="Active" />
-        <Dependent type="62" schemaName="ce_Admission" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_semester" displayName="Semester" solution="Active" />
-        <Dependent type="80" schemaName="ce_Admission" displayName="Admission" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="10" schemaName="bpf_cu_major_ce_admissionbusinessprocessflow" displayName="bpf_cu_major_ce_admissionbusinessprocessflow" parentSchemaName="cu_major" parentDisplayName="Major" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Inactive Admission Business Process Flow on my Majors" displayName="Inactive Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{6b37194f-5fc6-4fe0-9632-19d4fc0ccb78}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Active Admission Business Process Flow on my Majors" displayName="Active Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{e2a69564-82e3-4d39-b1ef-063af4be15be}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="29" displayName="Admission Business Process Flow" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="10" schemaName="bpf_cu_major_ce_admissionbusinessprocessflow" displayName="bpf_cu_major_ce_admissionbusinessprocessflow" parentSchemaName="cu_major" parentDisplayName="Major" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="29" displayName="Admission Business Process Flow" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="60" displayName="Information" parentDisplayName="Admission Business Process Flow" id="{797209c8-a5c2-439f-ad70-9feca639462f}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="ownerid" displayName="Owner" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Inactive Admission Business Process Flow on my Majors" displayName="Inactive Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{6b37194f-5fc6-4fe0-9632-19d4fc0ccb78}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="ownerid" displayName="Owner" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Active Admission Business Process Flow on my Majors" displayName="Active Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{e2a69564-82e3-4d39-b1ef-063af4be15be}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="61" schemaName="msdyn_/Images/AppModule_Default_Icon.png" displayName="msdyn_/Images/AppModule_Default_Icon.png" solution="AppModuleWebResources (2.5)" />
-        <Dependent type="80" schemaName="ce_Admission" displayName="Admission" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
