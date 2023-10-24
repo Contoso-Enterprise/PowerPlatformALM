@@ -80,18 +80,15 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="ce_admissionbusinessprocessflow" behavior="0" />
       <RootComponent type="1" schemaName="cu_application" behavior="0" />
       <RootComponent type="1" schemaName="cu_department" behavior="0" />
       <RootComponent type="1" schemaName="cu_major" behavior="0" />
       <RootComponent type="1" schemaName="cu_semester" behavior="0" />
+      <RootComponent type="29" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" behavior="0" />
       <RootComponent type="29" id="{91cd3696-976c-ee11-8df0-000d3a1b9171}" behavior="0" />
       <RootComponent type="300" schemaName="cu_contosouniversity_8f4f5" behavior="0" />
     </RootComponents>
-    <MissingDependencies>
-      <MissingDependency>
-        <Required type="1" schemaName="ce_admissionbusinessprocessflow" displayName="Admission Business Process Flow" solution="Active" />
-        <Dependent type="1" schemaName="cu_major" displayName="Major" />
-      </MissingDependency>
-    </MissingDependencies>
+    <MissingDependencies />
   </SolutionManifest>
 </ImportExportXml>
