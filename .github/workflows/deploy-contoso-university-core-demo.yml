@@ -24,7 +24,7 @@ jobs:
             - name: Import Contoso_university Core
               uses: microsoft/powerplatform-actions/import-solution@v1.2.0
               with:
-                environment-url: https://org439c3f54.crm.dynamics.com/
+                environment-url: https://org12a26e6e.crm.dynamics.com/
                 app-id: ${{ secrets.Appid }}
                 client-secret: ${{ secrets.secret }}
                 tenant-id: ${{ secrets.tenantid }}
