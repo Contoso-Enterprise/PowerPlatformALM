@@ -12,14 +12,14 @@ jobs:
       steps:
         - uses: actions/checkout@v4.1.1
         - uses: microsoft/powerplatform-actions@v1.2.0
-            with:
-              solution-file: out/contoso_university_core.zip
-              solution-folder: contents/contoso_university_core
-              solution-type: Both
-        -  uses: actions/upload-artifact@v3.1.3
-            with :
-              name: packed-solution
-              path: out/
+          with:
+            solution-file: out/contoso_university_core.zip
+            solution-folder: contents/contoso_university_core
+            solution-type: Both
+        - uses: actions/upload-artifact@v3.1.3
+          with:
+            name: packed-solution
+            path: out/
         
               
         
