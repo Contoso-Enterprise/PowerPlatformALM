@@ -1,0 +1,28 @@
+name: Deploy Contoso_university_core Demo
+
+on:
+    workflow_run:
+        workflows: ["Pack Contoso_University_Core Demo"]
+        branches: [main]
+        types:
+            - completed
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        if: ${{ github.event.workflow_run.conclusion == 'success'}}
+        environment: dev-demo
+        steps:
+            - uses: dawidd6/action-download-artifact@v2
+              with:
+                workflow: pack-contoso-university-core-demo.yml
+                name: packed-solution
+            - uses: microsoft/powerplatform-actions/pack-solution@v1.2.0
+              with:
+                environment-url: https://org439c3f54.crm.dynamics.com/
+                app-id: ${{ secrets.Appid }}
+                client-secret: ${{ secrets.secret }}
+                tenant-id: ${{ secrets.tenantid }}
+                solution-file: contoso_university_core_managed.zip
+                
