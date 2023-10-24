@@ -1,0 +1,15 @@
+name: Pack Contoso_University_Core
+
+on:
+  push:
+    paths:
+      - contents/**
+  workflow_dispatch:
+
+jobs:
+  build:
+    run-on: ubuntu-latest
+      steps:
+        uses: actions/checkout@v2
+        
+        
