@@ -1,0 +1,11 @@
+<powerpagesites>
+  <powerpagesite powerpagesiteid="9834ff1d-0fac-4634-86ce-3613d5cbe1b7">
+    <content>{"defaultlanguage":"fc79d428-40a0-4d91-a081-bf39f8830b97","footerwebtemplateid":"85dbaf24-2926-4975-89d1-0ca9feafe93c","headerwebtemplateid":"80463a1f-03ca-4366-b580-b635376621b9","statecode":0,"statuscode":1,"website_language":1033}</content>
+    <datamodelversion>2.0</datamodelversion>
+    <iscustomizable>1</iscustomizable>
+    <name>Contoso University Registration - site-iqi2b</name>
+    <primarydomainname>site-iqi2b.powerappsportals.com</primarydomainname>
+    <statecode>0</statecode>
+    <statuscode>1</statuscode>
+  </powerpagesite>
+</powerpagesites>
