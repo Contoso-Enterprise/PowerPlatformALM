@@ -17,7 +17,7 @@ jobs:
       - uses: dawidd6/action-download-artifact@v3
         with:
           workflow: main.yml
-          name: packed-solution
+          name: packed solution
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/import-solution@v1
