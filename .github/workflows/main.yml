@@ -20,7 +20,7 @@ jobs:
           solution-type: Both
       - uses: actions/upload-artifact@v4
         with: 
-          name: packed solution
+          name: packed-solution
           path: out/
 
   
