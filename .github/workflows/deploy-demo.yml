@@ -22,7 +22,7 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/import-solution@v1
         with:
-          environment-url: https://org12a26e6e.crm.dynamics.com
+          environment-url: ${{ env.ENVURL }}
           app-id: ${{ secrets.APPID }}
           client-secret: ${{ secrets.SECRET }}
           tenant-id: ${{ secrets.TENANTID }}
