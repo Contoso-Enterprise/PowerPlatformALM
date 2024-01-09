@@ -22,7 +22,7 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/import-solution@v1
         with:
-          environment-url: ${{ env.ENVURL }}
+          environment-url: ${{ vars.ENVURL }}
           app-id: ${{ secrets.APPID }}
           client-secret: ${{ secrets.SECRET }}
           tenant-id: ${{ secrets.TENANTID }}
