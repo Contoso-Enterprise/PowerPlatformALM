@@ -1,0 +1,95 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Actions-ExportSolution 
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+    inputs:
+      solution-name:
+        description: "Solution Name"
+        type: string
+        required: true
+        default: 'OrgDemo'
+      environment-url:
+        type: string
+        required: true
+      app-id:
+        description: 'The application id to authenticate with. Setting this input makes app-id, tenant-id and client-secret required; specifying alternate "username" credential set of inputs will result in an error.'
+        required: true    
+      client-secret:
+        description: 'The client secret to authenticate with. Required if authenticating with app-id.'
+        required: true
+      tenant-id:
+        description: 'Tenant id if using app-id & client secret to authenticate.'
+        required: true
+    
+      VersionMajorIncrement:
+        type: number
+      VersionMinorIncrement:
+        type: number
+      VersionReleaseIncrement:
+        type: number
+      VersionPatchIncrement:
+        type: number
+      ClearEnvironmentVariableValues:
+        type: boolean
+      PublishCustomization:
+        type: boolean
+      isCommit:
+        type: boolean
+      commitMessage:
+        type: string
+        default: 'Commit update'
+    
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Install Power Platform Tools
+        uses: microsoft/powerplatform-actions/actions-install@v1
+  
+      - name: Export Unmanaged Solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ inputs.environment-url }}
+          app-id: ${{ inputs.app-id }}
+          client-secret: ${{ inputs.client-secret }}
+          tenant-id: ${{ inputs.tenant-id }}
+          solution-name: ${{ inputs.solution-name }}
+          solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
+          working-directory: 'out'
+      - name: Export Managed Solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ inputs.environment-url }}
+          app-id: ${{ inputs.app-id }}
+          client-secret: ${{ inputs.client-secret }}
+          tenant-id: ${{ inputs.tenant-id }}
+          solution-name: ${{ inputs.solution-name }}
+          solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
+          working-directory: 'out'
+          managed: true
+      - name: Unpack Solution
+        uses: microsoft/powerplatform-actions/unpack-solution@v1
+        with:
+          solution-file: 'out/solutions/${{ inputs.solution-name }}.zip'
+          solution-folder: 'out/src/${{ inputs.solution-name }}/'
+          solution-type: 'Both'
+          overwrite-files: true
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          Get-ChildItem -path 'out' -Recurse | foreach { write-host $_.FullName }
