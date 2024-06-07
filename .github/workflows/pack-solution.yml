@@ -1,4 +1,4 @@
-name: Pack Solution from Development
+name: Pack Solution from Development with Actions
 on:
   #push:
   #  paths:
@@ -30,7 +30,6 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:          
