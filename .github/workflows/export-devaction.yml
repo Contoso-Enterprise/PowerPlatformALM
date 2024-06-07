@@ -31,10 +31,6 @@ jobs:
   export:
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
-      environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
-      app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-      tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      environment: 'Contoso Development'
       solution-name: ${{ inputs.solution-name }}
-    secrets:
-      client-secret: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
        
