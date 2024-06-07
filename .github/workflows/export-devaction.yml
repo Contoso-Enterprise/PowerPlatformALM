@@ -28,7 +28,7 @@ jobs:
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
     - name: Export Solution Action
-      uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
+      uses: actions/export-solution.yml@main
       with: 
         environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
