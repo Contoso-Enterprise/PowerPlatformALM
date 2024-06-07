@@ -18,10 +18,6 @@ on:
         type: string
         description: 'The application id to authenticate with. Setting this input makes app-id, tenant-id and client-secret required; specifying alternate "username" credential set of inputs will result in an error.'
         required: true    
-      client-secret:
-        type: string
-        description: 'The client secret to authenticate with. Required if authenticating with app-id.'
-        required: true
       tenant-id:
         type: string
         description: 'Tenant id if using app-id & client secret to authenticate.'
@@ -29,11 +25,15 @@ on:
       commitMessage:
         type: string
         default: 'Commit update'
-    
+    secrets:
+      client-secret:
+        description: 'The client secret to authenticate with. Required if authenticating with app-id.'
+        required: true
+      
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  export:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -53,14 +53,14 @@ jobs:
         with:
           environment-url: ${{ inputs.environment-url }}
           app-id: ${{ inputs.app-id }}
-          client-secret: ${{ inputs.client-secret }}
+          client-secret: ${{ secrets.client-secret }}
           tenant-id: ${{ inputs.tenant-id }}  
       - name: Export Unmanaged Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
           environment-url: ${{ inputs.environment-url }}
           app-id: ${{ inputs.app-id }}
-          client-secret: ${{ inputs.client-secret }}
+          client-secret: ${{ secrets.client-secret }}
           tenant-id: ${{ inputs.tenant-id }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
@@ -70,7 +70,7 @@ jobs:
         with:
           environment-url: ${{ inputs.environment-url }}
           app-id: ${{ inputs.app-id }}
-          client-secret: ${{ inputs.client-secret }}
+          client-secret: ${{ secrets.client-secret }}
           tenant-id: ${{ inputs.tenant-id }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
