@@ -27,7 +27,7 @@ jobs:
       shell: pwsh
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
-    - uses: ./github/workflows/action-exportsolution.yml
+    - uses: ./github/workflows/action-exportsolution.yml@main
       with: 
         environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
