@@ -13,8 +13,8 @@ on:
         required: false
         default:  'main'
 jobs:
-  runs-on: ubuntu-latest
   export:
+    runs-on: ubuntu-latest
     environment: 'Contoso Development'
     steps:
     - uses: actions/checkout@v3
