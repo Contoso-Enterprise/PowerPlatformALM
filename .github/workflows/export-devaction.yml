@@ -14,8 +14,8 @@ on:
         default:  'main'
 jobs:
   setup:
-    runs-on: ubuntu-latest
     environment: 'Contoso Development'
+    runs-on: ubuntu-latest
     steps:
     ##- uses: actions/checkout@v4
     - name: Variables      
@@ -36,5 +36,5 @@ jobs:
       tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       solution-name: ${{ inputs.solution-name }}
     secrets:
-      client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+      client-secret: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
        
