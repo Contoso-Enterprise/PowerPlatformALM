@@ -11,29 +11,15 @@ on:
         type: string
         required: true
         default: 'OrgDemo'
-      environment-url:
+      environment:
         type: string
-        required: true
-      app-id:
-        type: string
-        description: 'The application id to authenticate with. Setting this input makes app-id, tenant-id and client-secret required; specifying alternate "username" credential set of inputs will result in an error.'
-        required: true    
-      tenant-id:
-        type: string
-        description: 'Tenant id if using app-id & client secret to authenticate.'
-        required: true
-      commitMessage:
-        type: string
-        default: 'Commit update'
-    secrets:
-      client-secret:
-        description: 'The client secret to authenticate with. Required if authenticating with app-id.'
         required: true
       
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   export:
+    environment: ${{ inputs.environment }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -51,27 +37,27 @@ jobs:
       - name: who-am-i action
         uses: microsoft/powerplatform-actions/who-am-i@v0
         with:
-          environment-url: ${{ inputs.environment-url }}
-          app-id: ${{ inputs.app-id }}
-          client-secret: ${{ secrets.client-secret }}
-          tenant-id: ${{ inputs.tenant-id }}  
+          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       - name: Export Unmanaged Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: ${{ inputs.environment-url }}
-          app-id: ${{ inputs.app-id }}
-          client-secret: ${{ secrets.client-secret }}
-          tenant-id: ${{ inputs.tenant-id }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
           working-directory: 'out'
       - name: Export Managed Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: ${{ inputs.environment-url }}
-          app-id: ${{ inputs.app-id }}
-          client-secret: ${{ secrets.client-secret }}
-          tenant-id: ${{ inputs.tenant-id }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
           working-directory: 'out'
