@@ -13,7 +13,7 @@ on:
         required: false
         default:  'main'
 jobs:
-  export:
+  setup:
     runs-on: ubuntu-latest
     environment: 'Contoso Development'
     steps:
@@ -27,12 +27,13 @@ jobs:
       shell: pwsh
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
-    - name: Export Solution Action
-      uses: ./.github/actions/action-exportsolution@main
-      with: 
-        environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
-        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-        solution-name: ${{ inputs.solution-name }}
+        
+  export:
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
+    with: 
+      environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+      app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+      client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+      tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      solution-name: ${{ inputs.solution-name }}
        
