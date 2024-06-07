@@ -5,7 +5,7 @@ on:
   #    - src/**
   workflow_dispatch:
     inputs:
-      solution_name:
+      solution-name:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
@@ -22,10 +22,15 @@ jobs:
           solution-folder: src/${{ github.event.inputs.solution_name }}
           solution-type: Both
           process-canvas-apps: true
+      - name: Export Solution
+        uses: actions/actions-exportsolution@1
+        with: 
+          solution-name: ${{ inputs.solution-name }}
+          
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
         with:          
-          message: 'Commit Solution ${{ github.event.inputs.solution_name }}'          
+          message: 'Commit Solution ${{ github.event.inputs.solution-name }}'          
           add: 'release/* --force'  
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
