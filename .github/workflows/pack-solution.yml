@@ -12,7 +12,7 @@ on:
 jobs:
   export:
     runs-on: ubuntu-latest
-
+    environment: 'Contoso Development'
     steps:
       - uses: actions/checkout@v3
       - name: Pack Solution
@@ -26,6 +26,10 @@ jobs:
         uses: actions/actions-exportsolution@1
         with: 
           solution-name: ${{ inputs.solution-name }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           
       - name: Add and Commit
         uses: EndBug/add-and-commit@v9
