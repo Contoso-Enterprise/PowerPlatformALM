@@ -1,4 +1,4 @@
-name: Pack Solution from Development with Actions
+name: Pack Solution from Development
 on:
   #push:
   #  paths:
