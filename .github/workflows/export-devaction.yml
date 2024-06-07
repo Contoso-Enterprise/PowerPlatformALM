@@ -33,4 +33,5 @@ jobs:
     with: 
       environment: 'Contoso Development'
       solution-name: ${{ inputs.solution-name }}
+    secrets: inherit
        
