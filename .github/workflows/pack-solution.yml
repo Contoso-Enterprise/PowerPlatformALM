@@ -23,7 +23,7 @@ jobs:
           solution-type: Both
           process-canvas-apps: true
       - name: Export Solution
-        uses: actions/actions-exportsolution@1
+        uses: actions-exportsolution@1
         with: 
           solution-name: ${{ inputs.solution-name }}
           environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
