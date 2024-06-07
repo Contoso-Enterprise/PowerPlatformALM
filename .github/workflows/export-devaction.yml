@@ -18,13 +18,15 @@ jobs:
     environment: 'Contoso Development'
     steps:
     - uses: actions/checkout@v4
-    - name: Debug output
-      run: Get-ChildItem -path ./ -Recurse | foreach { write-host $_.FullName }
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
         echo "URI ${{ vars.POWERPLATFORMURI }}"        
         echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
+    - name: Debug output
+      run: |
+        Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
+
     - uses: ./.github/workflows/action-exportsolution.yml
       with: 
         environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
