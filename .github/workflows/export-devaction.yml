@@ -28,7 +28,7 @@ jobs:
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
     - name: Export Solution Action
-      uses: ./.github/actions/export-solution.yml@main
+      uses: ./.github/actions/action-exportsolution
       with: 
         environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
