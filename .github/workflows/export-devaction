@@ -1,0 +1,35 @@
+name: Export Solution From Dev with Action
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      solution-name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
+      branch_name:
+        description: 'name of the git branch'
+        required: false
+        default:  'main'
+jobs:
+  runs-on: ubuntu-latest
+  export:
+    environment: 'Contoso Development'
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        lfs: true
+    - name: Variables      
+      run: |        
+        echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
+    - uses: ./.github/workflows/action-exportsolution.yml
+      with: 
+        environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+        app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+        client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+        tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+        solution-name: ${{ inputs.solution-name }}
+       
