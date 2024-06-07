@@ -33,7 +33,8 @@ jobs:
     with: 
       environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
       app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-      client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
       tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       solution-name: ${{ inputs.solution-name }}
+    secrets:
+      client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
        
