@@ -30,8 +30,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
-
+        run: |
+          echo ${{ vars.POWERPLATFORMORGURI_DEV }}
+          echo ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
       - name: who-am-i action
