@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'Contoso Development'
     steps:
-    - uses: actions/checkout@v4
+    ##- uses: actions/checkout@v4
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
@@ -27,7 +27,7 @@ jobs:
       shell: pwsh
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
-    - uses: ./.github/workflows/action-exportsolution.yml
+    - uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
       with: 
         environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
         app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
