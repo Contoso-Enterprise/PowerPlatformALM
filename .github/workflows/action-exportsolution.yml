@@ -23,21 +23,6 @@ on:
       tenant-id:
         description: 'Tenant id if using app-id & client secret to authenticate.'
         required: true
-    
-      VersionMajorIncrement:
-        type: number
-      VersionMinorIncrement:
-        type: number
-      VersionReleaseIncrement:
-        type: number
-      VersionPatchIncrement:
-        type: number
-      ClearEnvironmentVariableValues:
-        type: boolean
-      PublishCustomization:
-        type: boolean
-      isCommit:
-        type: boolean
       commitMessage:
         type: string
         default: 'Commit update'
