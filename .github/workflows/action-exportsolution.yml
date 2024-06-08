@@ -14,12 +14,35 @@ on:
       environment:
         type: string
         required: true
-      
+      ClearEnvironmentVariableValues:
+        description: 'Clear Environmtn variables current values'
+        type: boolean
+        default: false
+      isCommit:
+        type: boolean
+        default: false
+      commitMessage:
+        type: string
+      branchName:
+        type: string
+      VersionMajorIncrement:
+        type: number
+        default: 0
+      VersionMinorIncrement:
+        type: number
+        default: 0
+      VersionReleaseIncrement:
+        type: number
+        default: 0
+      VersionPatchIncrement:
+        type: number
+        default: 0      
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   export:
-    # environment: ${{ inputs.environment }}
+    environment: ${{ inputs.environment }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -37,6 +60,13 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - name: who-am-i action
         uses: microsoft/powerplatform-actions/who-am-i@v0
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      - name: Publish Solution Customizations
+        uses: microsoft/powerplatform-actions/publish-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
@@ -73,8 +103,105 @@ jobs:
           process-canvas-apps: true
           solution-type: 'Both'
           overwrite-files: true
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Deblug list of files
         shell: pwsh
         run: |
           Get-ChildItem -path 'out' -Recurse | foreach { write-host $_.FullName }
+      - name: Clear environment variables current values
+        shell: pwsh
+        run: |
+          if (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions") {
+          $deleteCurrentValues = $true
+
+          try {
+            $envars = Get-ChildItem -Path "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions" -Directory
+          }
+          catch {
+            write-Error $_
+            break
+          }
+          #loop through all environment variables
+          foreach ($envvar in $envars) {
+              write-host "#########################"
+              write-host "Environment Variable Definition: " $envvar.FullName
+              try {
+                $envardef = Get-ChildItem -path $envvar.FullName -Filter '*.xml'
+              }
+              catch {
+                write-Error $_
+                break
+              }
+              $envardefvalue = select-xml -path $envardef.FullName -XPath "/environmentvariabledefinition"
+              if($envardefvalue.Node -ne $null)
+              {
+                  write-host "Environment Variable Schema Name: " $envardefvalue.Node.schemaname
+                  write-host "Environment Variable Default Value: " $envardefvalue.Node.defaultvalue
+              }
+              try {
+                $envarvalue = Get-ChildItem -path $envvar.FullName -Filter '*.json'
+              }
+              catch {
+                write-Error $_
+                break
+              }
+              if($envarvalue -eq $null){
+                  write-host "No environment variable current value"
+              } else {
+                  try {
+                    $envarcurrentvalue = (Get-Content -Path $envarvalue.FullName) | ConvertFrom-Json -Depth 3
+                  }
+                  catch {
+                    write-Error $_
+                    break
+                  }
+                  write-host "Environment Variable Curret Value: " $envarcurrentvalue.environmentvariablevalues.environmentvariablevalue.value    
+                  if($deleteCurrentValues)
+                  {
+                      try {
+                        Remove-Item -Path $envarvalue.FullName    
+                      }
+                      catch {
+                        write-Error $_
+                        break
+                      }
+                      write-host "Environment Variable Current Value Deleted"
+                  }
+              }
+            }
+          }
+          else {
+            write-host "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions not found"
+          }
+      - name: 'Update Solution Version'
+        shell: pwsh
+        run: |
+          If (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/Other/Solution.xml") {
+            try{
+              [xml]$solutionXml = Get-Content -Path "out/${{ inputs.solution-name }}/src/Other/Solution.xml" 
+            }
+            catch {
+              write-Error $_
+              break
+            }
+            $version = $solutionXml.ImportExportXml.SolutionManifest.Version
+            Write-Host "Current solution version: $version"
+            $setVersion = $version.Split(".")
+            $setVersion[0] = [int]$setVersion[0] + ${{ inputs.VersionMajorIncrement }}
+            $setVersion[1] = [int]$setVersion[1] + ${{ inputs.VersionMinorIncrement }}
+            $setVersion[2] = [int]$setVersion[2] + ${{ inputs.VersionReleaseIncrement }}
+            $setVersion[3] = [int]$setVersion[3] + ${{ inputs.VersionPatchIncrement }}
+            $newVersion = $setVersion[0] + "." + $setVersion[1] + "."  + $setVersion[2] + "."  + $setVersion[3]
+            write-host "New solution version: $newVersion"
+            $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
+            try {
+              $solutionXml.Save("out/${{ inputs.solution-name }}/src/Other/Solution.xml")
+            }
+            catch {
+              write-Error $_
+              break
+            }
+            write-host "solution version updated"
+          }
+          else {
+            Write-host "out/${{ inputs.solution-name }}/Other/Solution.xml file not found"
+          }
