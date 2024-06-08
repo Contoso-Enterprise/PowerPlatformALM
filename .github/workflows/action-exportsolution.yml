@@ -114,11 +114,11 @@ jobs:
         if:  ${{ inputs.ClearEnvironmentVariableValues}} == true
         shell: pwsh
         run: |
-          if (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions") {
+          if (Test-Path -LiteralPath "src/${{ inputs.solution-name }}/environmentvariabledefinitions") {
           $deleteCurrentValues = $true
 
           try {
-            $envars = Get-ChildItem -Path "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions" -Directory
+            $envars = Get-ChildItem -Path "src/${{ inputs.solution-name }}/environmentvariabledefinitions" -Directory
           }
           catch {
             write-Error $_
@@ -174,15 +174,15 @@ jobs:
             }
           }
           else {
-            write-host "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions not found"
+            write-host "src/${{ inputs.solution-name }}/environmentvariabledefinitions not found"
           }
       - name: 'Update Solution Version'
         if: ${{ inputs.VersionMajorIncrement }} >= 0 || ${{ inputs.VersionMinorIncrement }} >= 0 || ${{ inputs.VersionReleaseIncrement }} >= 0 || ${{ inputs.VersionPatchIncrement }} >= 0 
         shell: pwsh
         run: |
-          If (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/Other/Solution.xml") {
+          If (Test-Path -LiteralPath "src/${{ inputs.solution-name }}/Other/Solution.xml") {
             try{
-              [xml]$solutionXml = Get-Content -Path "out/${{ inputs.solution-name }}/src/Other/Solution.xml" 
+              [xml]$solutionXml = Get-Content -Path "src/${{ inputs.solution-name }}/Other/Solution.xml" 
             }
             catch {
               write-Error $_
@@ -199,7 +199,7 @@ jobs:
             write-host "New solution version: $newVersion"
             $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
             try {
-              $solutionXml.Save("out/${{ inputs.solution-name }}/src/Other/Solution.xml")
+              $solutionXml.Save("src/${{ inputs.solution-name }}/Other/Solution.xml")
             }
             catch {
               write-Error $_
@@ -208,5 +208,5 @@ jobs:
             write-host "solution version updated"
           }
           else {
-            Write-host "out/${{ inputs.solution-name }}/Other/Solution.xml file not found"
+            Write-host "src/${{ inputs.solution-name }}/Other/Solution.xml file not found"
           }
