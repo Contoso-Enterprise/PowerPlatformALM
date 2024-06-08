@@ -33,5 +33,10 @@ jobs:
     with: 
       environment: 'Contoso Development'
       solution-name: ${{ inputs.solution-name }}
+      ClearEnvironmentVariableValues: true
+      isCommit: true
+      branchName: "dev01"
+      commitMessage: "New Updates to commit"
+      VersionReleaseIncrement: 1
     secrets: inherit
        
