@@ -31,21 +31,21 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo ${{ vars.POWERPLATFORMORGURI_DEV }}
+          echo ${{ vars.POWERPLATFORMORGURI }}
           echo ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
       - name: who-am-i action
         uses: microsoft/powerplatform-actions/who-am-i@v0
         with:
-          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
       - name: Export Unmanaged Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
