@@ -51,7 +51,6 @@ jobs:
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
-          working-directory: 'out'
       - name: Export Managed Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
@@ -61,13 +60,12 @@ jobs:
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
           solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
-          working-directory: 'out'
           managed: true
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
-          solution-file: 'out/solutions/${{ inputs.solution-name }}.zip'
-          solution-folder: 'out/src/${{ inputs.solution-name }}/'
+          solution-file: 'solutions/${{ inputs.solution-name }}.zip'
+          solution-folder: 'src/${{ inputs.solution-name }}/'
           solution-type: 'Both'
           overwrite-files: true
       # Runs a set of commands using the runners shell
