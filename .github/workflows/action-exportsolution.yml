@@ -108,6 +108,7 @@ jobs:
         run: |
           Get-ChildItem -path 'out' -Recurse | foreach { write-host $_.FullName }
       - name: Clear environment variables current values
+        if:  ${{ inputs.ClearEnvironmentVariableValues}} == true
         shell: pwsh
         run: |
           if (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions") {
@@ -173,6 +174,7 @@ jobs:
             write-host "out/${{ inputs.solution-name }}/src/environmentvariabledefinitions not found"
           }
       - name: 'Update Solution Version'
+        if: ${{ inputs.VersionMajorIncrement }} >= 0 || ${{ inputs.VersionMinorIncrement }} >= 0 || ${{ inputs.VersionReleaseIncrement }} >= 0 || ${{ inputs.VersionPatchIncrement }} >= 0 
         shell: pwsh
         run: |
           If (Test-Path -LiteralPath "out/${{ inputs.solution-name }}/src/Other/Solution.xml") {
