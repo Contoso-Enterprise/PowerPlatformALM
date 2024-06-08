@@ -8,7 +8,7 @@ on:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
-      branch_name:
+      branch-name:
         description: 'name of the git branch'
         required: false
         default:  'main'
@@ -35,7 +35,7 @@ jobs:
       solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
-      branchName : 'dev01'
+      branchName : ${{ inputs.branch-name }}
       commitMessage: 'New Updates to commit'
       VersionReleaseIncrement: 1
     secrets: inherit
