@@ -3,7 +3,7 @@ name: action-createBranch
 
 # Controls when the workflow will run
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       branchName:
         type: string
@@ -14,13 +14,20 @@ on:
         options:
         - hotfix
         - feature
-        - development
-        
-createBranch:
-  steps: 
-     uses: borgespro/create-squad-release-branches@v1.0.6
-     with:
-       prefix: ${{ inputs.branchType }}
-       branch: ${{ inputs.branchName }}
-       
-    
+        - development    
+  workflow_call:
+    inputs:
+      branchName:
+        type: string
+        required: true
+      branchType:
+        type: string
+        description: Branch type
+jobs:
+  createbranch:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Create Branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        with:
+         branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
