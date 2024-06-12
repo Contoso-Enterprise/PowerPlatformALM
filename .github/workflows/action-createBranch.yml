@@ -1,0 +1,26 @@
+
+name: action-createBranch 
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      branchName:
+        type: string
+        required: true
+      branchType:
+        type: choice
+        description: Branch type
+        options:
+        - hotfix
+        - feature
+        - development
+        
+createBranch:
+  steps: 
+     uses: borgespro/create-squad-release-branches@v1.0.6
+     with:
+       prefix: ${{ inputs.branchType }}
+       branch: ${{ inputs.branchName }}
+       
+    
