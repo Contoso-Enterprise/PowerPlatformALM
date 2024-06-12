@@ -12,12 +12,34 @@ on:
         description: 'name of the git branch'
         required: false
         default:  'main'
+      branch-type:
+        description: 'type of branch'
+        required: true
+        type: choice
+        options:
+        - hotfix
+        - feature
+        - development 
+      branchisNew:
+        description: 'Is new Branch creation required'
+        type: boolean
+        default: false
 jobs:
   setup:
     environment: 'Contoso Development'
     runs-on: ubuntu-latest
     steps:
     ##- uses: actions/checkout@v4
+    - name: check-branch-exists
+      uses: GuillaumeFalourd/branch-exists@v1
+      with:
+        branch: ${{ inputs.branch-type }}-${{ inputs.branch-name }}    
+    - if: steps.check-branch-exists.outputs.exists == 'true'
+      run: echo '${{ inputs.branch-type }}-${{ inputs.branch-name }} Branch exists'
+    
+    - if: steps.check-branch-exists.outputs.exists == 'false'
+      run: echo '${{ inputs.branch-type }}-${{ inputs.branch-name }} Branch NOT FOUND'
+      
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
@@ -27,7 +49,7 @@ jobs:
       shell: pwsh
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
-        
+    
   export:
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
