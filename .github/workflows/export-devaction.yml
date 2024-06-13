@@ -40,6 +40,12 @@ jobs:
     - if: steps.check-branch-exists.outputs.exists == 'false'
       run: echo '${{ inputs.branch-type }}-${{ inputs.branch-name }} Branch NOT FOUND'
       
+    - if: steps.check-branch-exists.outputs.exists == 'false'
+      uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
+      with: 
+        branchName: ${{ inputs.branch-name }}
+        branchType: ${{ inputs.branch-type }}
+      
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
@@ -57,7 +63,7 @@ jobs:
       solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
-      branchName : ${{ inputs.branch-name }}
+      branchName : ${{ inputs.branch-type }}-${{ inputs.branch-name }}
       commitMessage: 'New Updates to commit'
       VersionReleaseIncrement: 1
     secrets: inherit
