@@ -39,11 +39,13 @@ jobs:
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
   createBranch:
+    needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
     with: 
       branchName: ${{ inputs.branch-name }}
       branchType: ${{ inputs.branch-type }}
   export:
+    needs: [createBranch]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
       environment: 'Contoso Development'
