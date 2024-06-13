@@ -44,6 +44,7 @@ jobs:
     with: 
       branchName: ${{ inputs.branch-name }}
       branchType: ${{ inputs.branch-type }}
+    secrets: inherit
   export:
     needs: [createBranch]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
