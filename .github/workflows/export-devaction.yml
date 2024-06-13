@@ -50,11 +50,11 @@ jobs:
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
   createBranch:
-      uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
-      if: steps.check-branch-exists.outputs.exists == 'false'
-      with: 
-        branchName: ${{ inputs.branch-name }}
-        branchType: ${{ inputs.branch-type }}
+    if: steps.check-branch-exists.outputs.exists == 'false'
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
+    with: 
+      branchName: ${{ inputs.branch-name }}
+      branchType: ${{ inputs.branch-type }}
   export:
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
