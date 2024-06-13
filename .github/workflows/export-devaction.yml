@@ -40,7 +40,8 @@ jobs:
     - if: steps.check-branch-exists.outputs.exists == 'false'
       run: echo '${{ inputs.branch-type }}-${{ inputs.branch-name }} Branch NOT FOUND'
       
-    - if: steps.check-branch-exists.outputs.exists == 'false'
+    - name: Create Branch
+      if: steps.check-branch-exists.outputs.exists == 'false'
       uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
       with: 
         branchName: ${{ inputs.branch-name }}
