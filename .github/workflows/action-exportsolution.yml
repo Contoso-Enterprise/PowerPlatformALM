@@ -25,6 +25,8 @@ on:
         type: string
       branchName:
         type: string
+      branchType:
+        type: string
       VersionMajorIncrement:
         type: number
         default: 0
@@ -52,7 +54,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
-           ref: ${{ inputs.branchName }}
+           ref: ${{ inputs.branchType }}-${{ inputs.branchName }}
         
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -210,3 +212,10 @@ jobs:
           else {
             Write-host "src/${{ inputs.solution-name }}/Other/Solution.xml file not found"
           }
+      - name: Commit to branch
+        if: ${{ inputs.isCommit == true }}
+        uses: EndBug/add-and-commit@v9
+        with: 
+          message: ${{ inputs.commitMessage }}'
+          new-branch: ${{ inputes.branchType }}-${{ inputs.branchName }}
+          add: 'src/. --force'
