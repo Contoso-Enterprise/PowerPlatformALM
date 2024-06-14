@@ -216,6 +216,6 @@ jobs:
         if: ${{ inputs.isCommit == true }}
         uses: EndBug/add-and-commit@v9
         with: 
-          message: ${{ inputs.commitMessage }}'
-          new-branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
-          add: 'src/. --force'
+          message: ${{ inputs.commitMessage }}
+          new_branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
+          add: '. --force'
