@@ -20,10 +20,6 @@ on:
         - hotfix
         - feature
         - development 
-      branchisNew:
-        description: 'Is new Branch creation required'
-        type: boolean
-        default: false
 jobs:
   setup:
     environment: 'Contoso Development'
