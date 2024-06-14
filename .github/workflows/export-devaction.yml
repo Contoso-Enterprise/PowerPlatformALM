@@ -53,8 +53,9 @@ jobs:
       solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
-      branchName : ${{ inputs.branch-type }}-${{ inputs.branch-name }}
-      commitMessage: 'New Updates to commit'
+      branchName: ${{ inputs.branch-name }}
+      branchType: ${{ inputs.branch-type }}
+      commitMessage: 'Export Solution ${{ inputs.solution-name }}'
       VersionReleaseIncrement: 1
     secrets: inherit
        
