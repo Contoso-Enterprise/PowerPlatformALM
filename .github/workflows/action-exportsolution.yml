@@ -217,5 +217,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}'
-          new-branch: ${{ inputes.branchType }}-${{ inputs.branchName }}
+          new-branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
           add: 'src/. --force'
