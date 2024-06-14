@@ -21,8 +21,8 @@ jobs:
     - name: Variables      
       run: |        
         echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
-        echo "URI ${{ vars.POWERPLATFORMURI }}"        
-        echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
+        echo "ref ${{ github.ref }}"        
+        echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
     - name: Debug output
       shell: pwsh
       run: |
@@ -33,3 +33,4 @@ jobs:
     with: 
       environment: 'Contoso Development'
       solution-name: ${{ inputs.solution-name }}
+      branch-name: ${{
