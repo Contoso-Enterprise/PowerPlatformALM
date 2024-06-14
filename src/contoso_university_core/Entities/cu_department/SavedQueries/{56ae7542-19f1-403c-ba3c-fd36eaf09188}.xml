@@ -32,6 +32,7 @@
     <IntroducedVersion>1.0.0.1</IntroducedVersion>
     <LocalizedNames>
       <LocalizedName description="Active Departments" languagecode="1033" />
+      <LocalizedName description="Départements actifs" languagecode="1036" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

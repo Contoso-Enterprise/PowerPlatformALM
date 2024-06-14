@@ -29,6 +29,7 @@
     <IntroducedVersion>1.0.0.1</IntroducedVersion>
     <LocalizedNames>
       <LocalizedName description="Semester Advanced Find View" languagecode="1033" />
+      <LocalizedName description="Vue de recherche avancée du semestre" languagecode="1036" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

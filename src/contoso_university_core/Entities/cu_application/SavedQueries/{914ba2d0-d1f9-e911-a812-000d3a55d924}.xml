@@ -22,9 +22,11 @@
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
       <LocalizedName description="My Applications" languagecode="1033" />
+      <LocalizedName description="Mes demandes" languagecode="1036" />
     </LocalizedNames>
     <Descriptions>
       <Description description="Active Applications owned by me" languagecode="1033" />
+      <Description description="Applications actives qui me appartiennent" languagecode="1036" />
     </Descriptions>
   </savedquery>
 </savedqueries>

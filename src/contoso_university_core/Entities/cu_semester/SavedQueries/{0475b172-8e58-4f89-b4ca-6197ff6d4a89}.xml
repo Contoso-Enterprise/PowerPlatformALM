@@ -32,6 +32,7 @@
     <IntroducedVersion>1.0.0.1</IntroducedVersion>
     <LocalizedNames>
       <LocalizedName description="Active Semesters" languagecode="1033" />
+      <LocalizedName description="Semestres actifs" languagecode="1036" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

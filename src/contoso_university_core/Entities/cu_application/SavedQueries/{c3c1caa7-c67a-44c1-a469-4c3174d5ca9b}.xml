@@ -35,6 +35,7 @@
     <IntroducedVersion>1.0.0.0</IntroducedVersion>
     <LocalizedNames>
       <LocalizedName description="Quick Find Active Applications" languagecode="1033" />
+      <LocalizedName description="Recherche rapide des applications actives" languagecode="1036" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>
