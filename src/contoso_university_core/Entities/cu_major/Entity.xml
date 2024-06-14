@@ -84,7 +84,7 @@
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>text</Format>
-          <MaxLength>1024</MaxLength>
+          <MaxLength>256</MaxLength>
           <Length>6192</Length>
           <displaynames>
             <displayname description="Testing column for Microsoft" languagecode="1033" />
