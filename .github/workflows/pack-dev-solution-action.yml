@@ -9,7 +9,7 @@ on:
       - 'src/contoso_university_core'
   pull_request:
      branches:
-      - 'development/**'
+      - 'development**'
       - 'main'
   workflow_dispatch:
     inputs:
