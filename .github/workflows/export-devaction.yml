@@ -46,7 +46,7 @@ jobs:
   #    branchType: ${{ inputs.branch-type }}
   #  secrets: inherit
   export:
-    needs: [createBranch]
+    needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
       environment: 'Contoso Development'
