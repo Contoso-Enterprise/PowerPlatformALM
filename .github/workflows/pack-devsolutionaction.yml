@@ -1,0 +1,35 @@
+name: Pack Contoso_University_Core with Actions
+
+on:
+  push:
+    branches:
+      - 'development-**'
+      - 'hotfix-**'
+    paths:
+      - 'src/contoso_university_core'
+  workflow_dispatch:
+    inputs:
+      solution-name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
+jobs:
+  setup:
+    environment: 'Contoso Development'
+    runs-on: ubuntu-latest
+    steps:    
+    - name: Variables      
+      run: |        
+        echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
+    - name: Debug output
+      shell: pwsh
+      run: |
+        Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
+  pack:
+    needs: [setup]
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-packsolution.yml@main
+    with: 
+      environment: 'Contoso Development'
+      solution-name: ${{ inputs.solution-name }}
