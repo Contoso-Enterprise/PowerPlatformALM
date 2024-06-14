@@ -33,4 +33,4 @@ jobs:
     with: 
       environment: 'Contoso Development'
       solution-name: ${{ inputs.solution-name }}
-      branch-name: ${{
+      branch-name: ${{ github.ref }}
