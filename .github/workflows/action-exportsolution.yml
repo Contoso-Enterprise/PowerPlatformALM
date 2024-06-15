@@ -6,7 +6,7 @@ name: action-exportsolution
 on:
   workflow_call:
     inputs:
-      solution-name:
+      solutionName:
         description: "Solution Name"
         type: string
         required: true
@@ -57,7 +57,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
       #  with:
-      #     ref: ${{ inputs.branchType }}-${{ inputs.branchName }}
+      #     ref: ${{ inputs.branchType }}/${{ inputs.branchName }}
         
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -87,8 +87,8 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ inputs.solution-name }}
-          solution-output-file: 'solutions/${{ inputs.solution-name }}.zip'
+          solution-name: ${{ inputs.solutionName }}
+          solution-output-file: 'solutions/${{ inputs.solutionName }}.zip'
           overwrite: true
           export-general-settings: true
       - name: Export Managed Solution
@@ -98,16 +98,16 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ inputs.solution-name }}
-          solution-output-file: 'solutions/${{ inputs.solution-name }}_managed.zip'
+          solution-name: ${{ inputs.solutionName }}
+          solution-output-file: 'solutions/${{ inputs.solutionName }}_managed.zip'
           managed: true
           overwrite: true
           export-general-settings: true
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
-          solution-file: 'solutions/${{ inputs.solution-name }}.zip'
-          solution-folder: 'src/${{ inputs.solution-name }}/'
+          solution-file: 'solutions/${{ inputs.solutionName }}.zip'
+          solution-folder: 'src/${{ inputs.solutionName }}/'
           process-canvas-apps: true
           solution-type: 'Both'
           overwrite-files: true
@@ -119,11 +119,11 @@ jobs:
         if:  ${{ inputs.ClearEnvironmentVariableValues}} == true
         shell: pwsh
         run: |
-          if (Test-Path -LiteralPath "src/${{ inputs.solution-name }}/environmentvariabledefinitions") {
+          if (Test-Path -LiteralPath "src/${{ inputs.solutionName }}/environmentvariabledefinitions") {
           $deleteCurrentValues = $true
 
           try {
-            $envars = Get-ChildItem -Path "src/${{ inputs.solution-name }}/environmentvariabledefinitions" -Directory
+            $envars = Get-ChildItem -Path "src/${{ inputs.solutionName }}/environmentvariabledefinitions" -Directory
           }
           catch {
             write-Error $_
@@ -179,15 +179,15 @@ jobs:
             }
           }
           else {
-            write-host "src/${{ inputs.solution-name }}/environmentvariabledefinitions not found"
+            write-host "src/${{ inputs.solutionName }}/environmentvariabledefinitions not found"
           }
       - name: 'Update Solution Version'
         if: ${{ inputs.VersionMajorIncrement }} >= 0 || ${{ inputs.VersionMinorIncrement }} >= 0 || ${{ inputs.VersionReleaseIncrement }} >= 0 || ${{ inputs.VersionPatchIncrement }} >= 0 
         shell: pwsh
         run: |
-          If (Test-Path -LiteralPath "src/${{ inputs.solution-name }}/Other/Solution.xml") {
+          If (Test-Path -LiteralPath "src/${{ inputs.solutionName }}/Other/Solution.xml") {
             try{
-              [xml]$solutionXml = Get-Content -Path "src/${{ inputs.solution-name }}/Other/Solution.xml" 
+              [xml]$solutionXml = Get-Content -Path "src/${{ inputs.solutionName }}/Other/Solution.xml" 
             }
             catch {
               write-Error $_
@@ -204,7 +204,7 @@ jobs:
             write-host "New solution version: $newVersion"
             $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
             try {
-              $solutionXml.Save("src/${{ inputs.solution-name }}/Other/Solution.xml")
+              $solutionXml.Save("src/${{ inputs.solutionName }}/Other/Solution.xml")
             }
             catch {
               write-Error $_
@@ -213,12 +213,12 @@ jobs:
             write-host "solution version updated"
           }
           else {
-            Write-host "src/${{ inputs.solution-name }}/Other/Solution.xml file not found"
+            Write-host "src/${{ inputs.solutionName }}/Other/Solution.xml file not found"
           }
       - name: Commit to branch
         if: ${{ inputs.isCommit == true }}
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}
-          new_branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
+          new_branch: ${{ inputs.branchType }}/${{ inputs.branchName }}
           add: '. --force'

@@ -4,7 +4,7 @@ name: action-packsolution
 on:
   workflow_call:
     inputs:
-      solution-name:
+      solutionName:
         description: "Solution Name"
         type: string
         required: true
@@ -33,6 +33,6 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: release/${{ inputs.solution-name }}.zip
-          solution-folder: src/${{ inputs.solution-name }}
+          solution-file: release/${{ inputs.solutionName }}.zip
+          solution-folder: src/${{ inputs.solutionName }}
           solution-type: Both
