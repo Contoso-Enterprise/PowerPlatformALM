@@ -19,6 +19,7 @@ on:
         default:  'contoso_university_core'
 env:
   solutionName: 'contoso_university_core'
+  branchName: ${{ github.GITHUB_REF }}
 jobs:
   setup:
     environment: 'Contoso Development'
