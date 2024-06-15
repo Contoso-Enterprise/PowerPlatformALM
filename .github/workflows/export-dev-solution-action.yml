@@ -4,7 +4,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      solution-name:
+      solutionName:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
@@ -54,12 +54,12 @@ jobs:
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
       environment: ${{ inputs.sourceEnvironment }}
-      solution-name: ${{ inputs.solution-name }}
+      solutionName: ${{ inputs.solutionName }}
       ClearEnvironmentVariableValues: true
       isCommit: true
       branchName: ${{ inputs.branch-name }}
       branchType: ${{ inputs.branch-type }}
-      commitMessage: 'Export Solution ${{ inputs.solution-name }}'
+      commitMessage: 'Export Solution ${{ inputs.solutionName }}'
       VersionReleaseIncrement: 1
     secrets: inherit
        
