@@ -17,9 +17,6 @@ on:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
-env:
-  solutionName: 'contoso_university_core'
-  branchName: ${{ github.GITHUB_REF }}
 jobs:
   setup:
     environment: 'Contoso Development'
@@ -31,7 +28,7 @@ jobs:
     steps:    
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ env.solutionName }}"        
+        echo "Solution Name :'contoso_university_core'"        
         echo "ref ${{ github.ref }}"        
         echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
     - name: Debug output
@@ -42,5 +39,5 @@ jobs:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-packsolution.yml@main
     with: 
-      solution-name: ${{ env.solutionName }}
+      solution-name: 'contoso_university_core'
       branch-name: ${{ github.ref }}
