@@ -17,9 +17,17 @@ on:
         required: true
         type: choice
         options:
-        - hotfix
         - feature
+        - hotfix
         - development 
+      sourceEnvironment:
+        description: 'Source Development Environment'
+        type: choice
+        required: true
+        options:
+        - 'Contoso Development'
+        - 'System Administrator Developer Environment'
+        default: 'Contoso Development'
 jobs:
   setup:
     environment: 'Contoso Development'
@@ -45,7 +53,7 @@ jobs:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
     with: 
-      environment: 'Contoso Development'
+      environment: ${{ inputs.sourceEnvironment }}
       solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
