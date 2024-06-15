@@ -3,13 +3,13 @@ name: Pack Contoso_University_Core with Actions
 on:
   push:
     branches:
-      - 'development-**'
-      - 'hotfix-**'
+      - 'development/**'
+      - 'hotfix/**'
     paths:
       - 'src/contoso_university_core'
   pull_request:
      branches:
-      - 'development**'
+      - 'development/**'
       - 'main'
   workflow_dispatch:
     inputs:
