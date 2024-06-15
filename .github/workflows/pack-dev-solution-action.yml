@@ -10,13 +10,15 @@ on:
   pull_request:
      branches:
       - 'development/**'
-      - 'main'
+      - 'main'     
   workflow_dispatch:
     inputs:
-      solution-name:
+      solutionName:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
+env:
+  solutionName: 'contoso_university_core'
 jobs:
   setup:
     environment: 'Contoso Development'
@@ -28,7 +30,7 @@ jobs:
     steps:    
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
+        echo "Solution Name : ${{ env.solutionName }}"        
         echo "ref ${{ github.ref }}"        
         echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
     - name: Debug output
@@ -39,6 +41,5 @@ jobs:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-packsolution.yml@main
     with: 
-      environment: 'Contoso Development'
-      solution-name: ${{ inputs.solution-name }}
+      solution-name: ${{ env.solutionName }}
       branch-name: ${{ github.ref }}
