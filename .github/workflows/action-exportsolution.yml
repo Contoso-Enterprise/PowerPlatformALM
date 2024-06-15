@@ -87,7 +87,7 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solutionName: ${{ inputs.solutionName }}
+          solution-name: ${{ inputs.solutionName }}
           solution-output-file: 'solutions/${{ inputs.solutionName }}.zip'
           overwrite: true
           export-general-settings: true
@@ -98,7 +98,7 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solutionName: ${{ inputs.solutionName }}
+          solution-name: ${{ inputs.solutionName }}
           solution-output-file: 'solutions/${{ inputs.solutionName }}_managed.zip'
           managed: true
           overwrite: true
