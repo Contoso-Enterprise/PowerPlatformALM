@@ -220,5 +220,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}
-          new_branch: ${{ inputs.branchType }}/${{ inputs. }}
+          new_branch: ${{ inputs.branchType }}/${{ inputs.branchName }}
           add: '. --force'
