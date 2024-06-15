@@ -20,6 +20,10 @@ on:
 jobs:
   setup:
     environment: 'Contoso Development'
+    permissions:
+      actions: read
+      repository-projects: write
+      contents: write
     runs-on: ubuntu-latest
     steps:    
     - name: Variables      
