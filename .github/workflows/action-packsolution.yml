@@ -9,9 +9,6 @@ on:
         type: string
         required: true
         default: 'OrgDemo'
-      environment:
-        type: string
-        required: true
       branch-name:
         type: string
         required: true
