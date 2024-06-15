@@ -8,11 +8,11 @@ on:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
-      branch-name:
+      branchName:
         description: 'name of the git branch'
         required: false
         default:  'main'
-      branch-type:
+      branchType:
         description: 'type of branch'
         required: true
         type: choice
@@ -35,7 +35,7 @@ jobs:
     steps:    
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ github.event.inputs.solution_name }}"        
+        echo "Solution Name : ${{ github.event.inputs.solutionName }}"        
         echo "URI ${{ vars.POWERPLATFORMURI }}"        
         echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
     - name: Debug output
@@ -46,8 +46,8 @@ jobs:
   #  needs: [setup]
   #  uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
   #  with: 
-  #    branchName: ${{ inputs.branch-name }}
-  #    branchType: ${{ inputs.branch-type }}
+  #    branchName: ${{ inputs.branchName }}
+  #    branchType: ${{ inputs.branchType }}
   #  secrets: inherit
   export:
     needs: [setup]
@@ -57,8 +57,8 @@ jobs:
       solutionName: ${{ inputs.solutionName }}
       ClearEnvironmentVariableValues: true
       isCommit: true
-      branchName: ${{ inputs.branch-name }}
-      branchType: ${{ inputs.branch-type }}
+      branchName: ${{ inputs.branchName }}
+      branchType: ${{ inputs.branchType }}
       commitMessage: 'Export Solution ${{ inputs.solutionName }}'
       VersionReleaseIncrement: 1
     secrets: inherit
