@@ -37,7 +37,7 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: ${{ inputs.folderPath }}/release/${{ env.release-date }} /${{ inputs.solutionName }}.zip
+          solution-file: ${{ inputs.folderPath }}/release/${{ env.release-date }}/${{ inputs.solutionName }}.zip
           solution-folder: ${{ inputs.folderPath }}/src/${{ inputs.solutionName }}
           solution-type: Both
       - name: Commit to relase branch
