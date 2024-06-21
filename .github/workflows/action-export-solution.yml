@@ -44,7 +44,7 @@ on:
         required: false
         default: '.'
 env:
-  release-date: ''
+  release-date: '$(%Y%m%d)'
     type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
