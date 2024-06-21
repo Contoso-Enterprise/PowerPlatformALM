@@ -51,7 +51,7 @@ jobs:
   #  secrets: inherit
   export:
     needs: [setup]
-    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-exportsolution.yml@main
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-export-solution.yml@main
     with: 
       environment: ${{ inputs.sourceEnvironment }}
       solutionName: ${{ inputs.solutionName }}
@@ -60,6 +60,7 @@ jobs:
       branchName: ${{ inputs.branchName }}
       branchType: ${{ inputs.branchType }}
       commitMessage: 'Export Solution ${{ inputs.solutionName }}'
+      folderPath: ''
       VersionReleaseIncrement: 1
     secrets: inherit
        

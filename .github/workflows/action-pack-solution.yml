@@ -12,6 +12,10 @@ on:
       branch-name:
         type: string
         required: true
+      folderPath:
+        type: string
+        required: false
+        default: ''
 jobs:
   # This workflow contains a single job called "build"
   export:
@@ -30,6 +34,6 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: release/${{ inputs.solutionName }}.zip
-          solution-folder: src/${{ inputs.solutionName }}
+          solution-file: ${{ inputs.folderPath }}/release/${{ inputs.solutionName }}.zip
+          solution-folder: ${{ inputs.folderPath }}/src/${{ inputs.solutionName }}
           solution-type: Both
