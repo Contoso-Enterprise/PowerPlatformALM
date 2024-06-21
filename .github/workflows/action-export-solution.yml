@@ -72,6 +72,7 @@ jobs:
         run: |
           echo ${{ vars.POWERPLATFORMORGURI }}
           echo ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          echo ${{ env.release-date }}
       - name: Install Power Platform Tools
         uses: microsoft/powerplatform-actions/actions-install@v1
       - name: who-am-i action
