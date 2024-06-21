@@ -43,7 +43,9 @@ on:
         type: string
         required: false
         default: '.'
-
+env:
+  release-date: ''
+    type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -68,7 +70,7 @@ jobs:
       #     ref: ${{ inputs.branchType }}/${{ inputs.branchName }}
         
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Variables 
         run: |
           echo ${{ vars.POWERPLATFORMORGURI }}
           echo ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
