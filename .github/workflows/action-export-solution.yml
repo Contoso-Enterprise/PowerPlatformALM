@@ -61,7 +61,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Set release-date
-        run: echo "release-date=$(date + '%Y%m%d')" >> $GITHUB_ENV
+        run: echo "release-date=$(date + '%Y%m%d')" >> "$GITHUB_ENV"
 
       - name: Checkout branch
         uses: actions/checkout@v4
