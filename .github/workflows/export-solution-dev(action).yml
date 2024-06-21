@@ -11,7 +11,7 @@ on:
       branchName:
         description: 'name of the git branch'
         required: false
-        default:  'main'
+        default:  '001'
       branchType:
         description: 'type of branch'
         required: true
