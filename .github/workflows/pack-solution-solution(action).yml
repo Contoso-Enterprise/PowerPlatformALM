@@ -1,4 +1,4 @@
-name: Pack Contoso_University_Core with Actions
+name: Pack Solution with Actions
 
 on:
   push:
