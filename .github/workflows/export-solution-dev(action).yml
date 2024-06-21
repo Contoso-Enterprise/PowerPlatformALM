@@ -60,7 +60,7 @@ jobs:
       branchName: ${{ inputs.branchName }}
       branchType: ${{ inputs.branchType }}
       commitMessage: 'Export Solution ${{ inputs.solutionName }}'
-      folderPath: ''
+      folderPath: '.'
       VersionReleaseIncrement: 1
     secrets: inherit
        

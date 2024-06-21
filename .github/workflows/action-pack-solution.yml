@@ -15,7 +15,7 @@ on:
       folderPath:
         type: string
         required: false
-        default: ''
+        default: '.'
 
 jobs:
   # This workflow contains a single job called "build"
