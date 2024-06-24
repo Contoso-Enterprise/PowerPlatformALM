@@ -33,30 +33,30 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Set release-date
         run: |
-          $releasedate = (Get-Date).toString('yyyyMMdd');
-          echo "release-date=$releasedate"  | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
-      - name: Set source-path
+      - name: Set environment variables
         run: |
-          write-host "${{ inputs.folder-path }}";
-          write-host $inputs.'folder-path';
+          write-host "github var${{ inputs.folder-path }}";
+          write-host "pwsh var: $inputs.'folder-path'"";
+          $releaseDate = (Get-Date).toString('yyyyMMdd');
           if (($inputs.'folder-path').length -gt 1 ){
-            $folderPath = $inputs.'folder-path' + '/src/' + $inputs.'solution-name'
-            $releasePath = $inputs.'folder-path' + '/release/'+ $ENV.'release-date' + '/' + $inputs.'solution-name'
+            $folderPath = $inputs.'folder-path' + '/src/' + $inputs:'solution-name'
+            $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' + $inputs:'solution-name'
           } else
           {
             $folderPath = 'src/' + $inputs.'solution-name'
-            $releasePath = 'release/'+ $ENV.'release-date' + '/' + $inputs.'solution-name'
+            $releasePath = 'release/'+ $releasDate + '/' + $inputs.'solution-name'
           }
+          echo "release-date=$releaseDate"  | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
           echo "source-path=$folderPath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
-      - name: Set release-path if empty
-        if: ${{ inputs.folderPath }} == '.'
-        run: echo "release-path=$('release/${{ env.release-date }}/')" >> "$GITHUB_ENV"
-      - name: Set release-path if not empty
-        if: ${{ inputs.folderPath }} <> '.' 
-        run: echo "release-path=$('${{ inputs.folderPath }}/release/${{ env.release-date }}/')" >> "$GITHUB_ENV"
+      # - name: Set release-path if empty
+      #   if: ${{ inputs.folderPath }} == '.'
+      #   run: echo "release-path=$('release/${{ env.release-date }}/')" >> "$GITHUB_ENV"
+      # - name: Set release-path if not empty
+      #   if: ${{ inputs.folderPath }} <> '.' 
+      #   run: echo "release-path=$('${{ inputs.folderPath }}/release/${{ env.release-date }}/')" >> "$GITHUB_ENV"
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
