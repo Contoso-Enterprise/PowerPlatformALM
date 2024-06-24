@@ -4,7 +4,7 @@ name: action-packsolution
 on:
   workflow_call:
     inputs:
-      solutionName:
+      solution-name:
         description: "Solution Name"
         type: string
         required: true
@@ -40,7 +40,15 @@ jobs:
         run: |
           write-host "${{ inputs.folder-path }}";
           write-host $inputs.folder-path;
-          echo "source-path=hello" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+          if ($inputs.folder-path.length -gt  '.' ){
+            $folderPath = $inputs.folder-path + '/src/' + $inputs.solution-name
+            $releasePath = $inputs.folder-path + '/release/'+ $ENV.release-date + '/' + $inputs.solution-name
+          } else
+          {
+            $folderPath = 'src/' + $inputs.solution-name
+            $releasePath = 'release/'+ $ENV.release-date + '/' + $inputs.solution-name
+          }
+          echo "source-path=$folderPath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
       - name: Set release-path if empty
         if: ${{ inputs.folderPath }} == '.'
@@ -56,8 +64,8 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: ${{ inputs.folderPath }}/release/${{ env.release-date }}/${{ inputs.solutionName }}.zip
-          solution-folder: ${{ inputs.folderPath }}/src/${{ inputs.solutionName }}
+          solution-file: ${{ inputs.folderPath }}/release/${{ env.release-date }}/${{ inputs.solution-name }}.zip
+          solution-folder: ${{ inputs.folderPath }}/src/${{ inputs.solution-name }}
           solution-type: Both
       - name: Commit to relase branch
         if: ${{ inputs.isCommit }} == true

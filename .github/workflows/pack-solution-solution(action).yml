@@ -56,5 +56,5 @@ jobs:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-pack-solution.yml@main
     with: 
-      solutionName: 'contoso_university_core'
+      solution-name: 'contoso_university_core'
       branch-name: ${{ github.ref }}
