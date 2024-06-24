@@ -13,7 +13,7 @@ on:
       - 'main'     
   workflow_dispatch:
     inputs:
-      solutionName:
+      solution-name:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
@@ -26,13 +26,21 @@ on:
         - development
         default:
           feature
-      branchName:
+      branch-name:
         description: 'name of the git branch'
         required: false
         default:  '001'
+      source-environment:
+        description: 'Source Power Platform environment'
+        type: choice
+        options:
+        - 'Contoso Development'
+        - 'System Administrator Dev enviornment'
+
+
 jobs:
   setup:
-    environment: 'Contoso Development'
+    environment: ${{ inputs.source-environment }}
     permissions:
       actions: read
       repository-projects: write
@@ -56,5 +64,5 @@ jobs:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-pack-solution.yml@main
     with: 
-      solution-name: 'contoso_university_core'
-      branch-name: ${{ github.ref }}
+      solution-name: ${{ inputs.solution-name }}
+      branch-name: '${{ inputs.branch-type }}/${{ inputs.branch-name}}'
