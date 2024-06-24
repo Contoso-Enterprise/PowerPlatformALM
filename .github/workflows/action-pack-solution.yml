@@ -35,7 +35,7 @@ jobs:
         run: echo "release-date=$(date +'%Y%m%d')" >> "$GITHUB_ENV"
       - name: Set source-path
         run: |
-          write-host $Env
+          write-host $Env:inputs
           echo "source-path=hello" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
       - name: Set release-path if empty
