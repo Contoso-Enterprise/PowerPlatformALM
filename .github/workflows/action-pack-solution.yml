@@ -68,6 +68,10 @@ jobs:
           solution-file: ${{ env.release-path }}.zip
           solution-folder: ${{ env.source-path }}
           solution-type: Both
+      - name: Debug output
+        shell: pwsh
+        run: |
+          Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
       - name: Commit to relase branch
         if: ${{ inputs.isCommit }} == true
         uses: EndBug/add-and-commit@v9
