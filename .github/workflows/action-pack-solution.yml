@@ -78,4 +78,4 @@ jobs:
         with: 
           message: ${{ inputs.commitMessage }}
           new_branch: ${{ github.GITHUB_REF }}
-          add: '${{ env.release }}/. --force'
+          add: '${{ env.release-path }}/. --force'
