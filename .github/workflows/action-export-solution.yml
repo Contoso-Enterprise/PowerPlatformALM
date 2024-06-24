@@ -6,7 +6,7 @@ name: action-exportsolution
 on:
   workflow_call:
     inputs:
-      solutionName:
+      solution-name:
         description: "Solution Name"
         type: string
         required: true
@@ -95,8 +95,8 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ inputs.solutionName }}
-          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solutionName }}.zip'
+          solution-name: ${{ inputs.solution-name }}
+          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}.zip'
           overwrite: true
           export-general-settings: true
       - name: Export Managed Solution
@@ -106,16 +106,16 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ inputs.solutionName }}
-          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solutionName }}_managed.zip'
+          solution-name: ${{ inputs.solution-name }}
+          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}_managed.zip'
           managed: true
           overwrite: true
           export-general-settings: true
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
-          solution-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solutionName }}.zip'
-          solution-folder: '${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/'
+          solution-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}.zip'
+          solution-folder: '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/'
           process-canvas-apps: true
           solution-type: 'Both'
           overwrite-files: true
@@ -127,11 +127,11 @@ jobs:
         if:  ${{ inputs.ClearEnvironmentVariableValues}} == true
         shell: pwsh
         run: |
-          if (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/environmentvariabledefinitions") {
+          if (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions") {
           $deleteCurrentValues = $true
 
           try {
-            $envars = Get-ChildItem -Path "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/environmentvariabledefinitions" -Directory
+            $envars = Get-ChildItem -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions" -Directory
           }
           catch {
             write-Error $_
@@ -187,15 +187,15 @@ jobs:
             }
           }
           else {
-            write-host "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/environmentvariabledefinitions not found"
+            write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions not found"
           }
       - name: 'Update Solution Version'
         if: ${{ inputs.VersionMajorIncrement }} >= 0 || ${{ inputs.VersionMinorIncrement }} >= 0 || ${{ inputs.VersionReleaseIncrement }} >= 0 || ${{ inputs.VersionPatchIncrement }} >= 0 
         shell: pwsh
         run: |
-          If (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/Other/Solution.xml") {
+          If (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml") {
             try{
-              [xml]$solutionXml = Get-Content -Path "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/Other/Solution.xml" 
+              [xml]$solutionXml = Get-Content -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml" 
             }
             catch {
               write-Error $_
@@ -212,7 +212,7 @@ jobs:
             write-host "New solution version: $newVersion"
             $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
             try {
-              $solutionXml.Save("${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/Other/Solution.xml")
+              $solutionXml.Save("${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml")
             }
             catch {
               write-Error $_
@@ -221,7 +221,7 @@ jobs:
             write-host "solution version updated"
           }
           else {
-            Write-host "${{ inputs.folderPath }}/src/${{ inputs.solutionName }}/Other/Solution.xml file not found"
+            Write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml file not found"
           }
       - name: Commit to branch
         if: ${{ inputs.isCommit == true }}
