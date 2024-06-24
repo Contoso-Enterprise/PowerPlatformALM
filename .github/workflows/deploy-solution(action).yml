@@ -1,0 +1,41 @@
+name: Deploy Solution with Actions
+
+on:
+  pull_request:
+     branches:
+      - 'release/**'
+      - 'main'
+  workflow_dispatch:
+    inputs:
+      solution-name:
+        description: 'name of the solution to worked on from Power Platform'
+        required: true
+        default:  'contoso_university_core'
+      branch-type:
+        required: false
+        type: choice
+        options:
+        - feature
+        - hotfix
+        - development
+        default:
+          feature
+      branch-name:
+        description: 'name of the git branch'
+        required: false
+        default:  '001'
+jobs:
+  deploy-staing:
+    run-on: ubuntu-latest
+    environment: 'Contoso Staging'
+    runs-on: ubuntu-latest
+    steps:    
+    - env:
+        EVENT_CONTEXT: ${{ toJSON(github.event) }}
+      run: |
+        echo $EVENT_CONTEXT
+    - name: Variables      
+      run: |        
+        echo "Solution Name :'contoso_university_core'"        
+        echo "ref ${{ github.ref }}"        
+        echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
