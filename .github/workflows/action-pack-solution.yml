@@ -43,7 +43,7 @@ jobs:
           } else
           {
             $folderPath = 'src/' + $solutionName
-            $releasePath = 'release/'+ $releasDate + '/' + $solutionName
+            $releasePath = 'release/'+ $releaseDate + '/' + $solutionName
           }
           write-Host $releaseDate;
           write-Host $folderPath;
