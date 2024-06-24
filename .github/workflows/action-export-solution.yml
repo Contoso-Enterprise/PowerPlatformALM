@@ -15,7 +15,7 @@ on:
         type: string
         required: true
       ClearEnvironmentVariableValues:
-        description: 'Clear Environmtn variables current values'
+        description: 'Clear Environment variables current values'
         type: boolean
         default: false
       isCommit:
