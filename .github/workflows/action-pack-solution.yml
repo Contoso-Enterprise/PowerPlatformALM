@@ -37,8 +37,8 @@ jobs:
           write-host "pwsh var: $inputs.'folder-path'"";
           $releaseDate = (Get-Date).toString('yyyyMMdd');
           if (($inputs.'folder-path').length -gt 1 ){
-            $folderPath = $inputs.'folder-path' + '/src/' + $inputs:'solution-name'
-            $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' + $inputs:'solution-name'
+            $folderPath = $inputs.'folder-path' + '/src/' + $inputs.'solution-name'
+            $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' + $inputs.'solution-name'
           } else
           {
             $folderPath = 'src/' + $inputs.'solution-name'
