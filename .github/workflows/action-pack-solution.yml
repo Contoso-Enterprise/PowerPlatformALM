@@ -56,7 +56,7 @@ jobs:
         with:
           branch: ${{ inputs.branch-name }}
       - name: debug check exists
-        run: echo "${{ steps.check-branch-exists.outputs.EXISTS }}"
+        run: echo steps.check-branch-exists.outputs
       - name: Checkout branch if exists
         if: steps.check-branch-exists.outputs.EXISTS == true
         uses: actions/checkout@v4
