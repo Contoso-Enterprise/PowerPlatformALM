@@ -34,10 +34,10 @@ jobs:
       - name: Set release-date
         run: echo "release-date=$(date +'%Y%m%d')" >> "$GITHUB_ENV"
       - name: Set release-path if empty
-        if ${{ inputs.folderPath == '.' }}
+        if ${{ inputs.folderPath }} == '.'
         run: echo "release-path=$('release/${{ env.release-date }}/')"
       - name: Set release-path if not empty
-        if ${{ inputs.folderPath != '.' }}
+        if ${{ inputs.folderPath }} != '.' 
         run: echo "release-path=$('${{ inputs.folderPath }}/release/${{ env.release-date }}/')"
 
       - name: Checkout branch
@@ -52,7 +52,7 @@ jobs:
           solution-folder: ${{ inputs.folderPath }}/src/${{ inputs.solutionName }}
           solution-type: Both
       - name: Commit to relase branch
-        if: ${{ inputs.isCommit == true }}
+        if: ${{ inputs.isCommit }} == true
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}
