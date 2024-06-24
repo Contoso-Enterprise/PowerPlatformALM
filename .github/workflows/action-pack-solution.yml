@@ -36,7 +36,7 @@ jobs:
           write-host "github var${{ inputs.folder-path }}";
           write-host "pwsh var: $inputs.'folder-path'";
           $releaseDate = (Get-Date).toString('yyyyMMdd');
-          $solutionName = ${{ Inputs.solution-name }};
+          $solutionName = '${{ Inputs.solution-name }}';
           if (($inputs.'folder-path').length -gt 1 ){
             $folderPath = $inputs.'folder-path' + '/src/' + $solutionName
             $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' + $solutionName
