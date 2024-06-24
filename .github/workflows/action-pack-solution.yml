@@ -57,5 +57,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}
-          new_branch: ${{ GITHUB_REF }}
+          new_branch: ${{ github.GITHUB_REF }}
           add: '${{ inputs.folderPath }}/release/. --force'
