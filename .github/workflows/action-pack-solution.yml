@@ -12,7 +12,7 @@ on:
       branch-name:
         type: string
         required: true
-      folderPath:
+      folder-path:
         type: string
         required: false
         default: '.'
@@ -38,7 +38,7 @@ jobs:
         shell: pwsh
       - name: Set source-path
         run: |
-          write-host ${{ inputs.folder-path }};
+          write-host "${{ inputs.folder-path }}";
           write-host $inputs.folder-path;
           echo "source-path=hello" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
         shell: pwsh
