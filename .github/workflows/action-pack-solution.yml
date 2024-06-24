@@ -33,8 +33,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Set environment variables
         run: |
-          write-host "github var${{ inputs.folder-path }}";
-          write-host "pwsh var: $inputs.'folder-path'";
           $releaseDate = (Get-Date).toString('yyyyMMdd');
           $solutionName = '${{ Inputs.solution-name }}';
           if (($inputs.'folder-path').length -gt 1 ){
@@ -67,8 +65,8 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: ${{ env.source-path }}.zip
-          solution-folder: ${{ env.release-path }}
+          solution-file: ${{ env.release-path }}.zip
+          solution-folder: ${{ env.source-path }}
           solution-type: Both
       - name: Commit to relase branch
         if: ${{ inputs.isCommit }} == true
