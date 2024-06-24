@@ -31,9 +31,6 @@ jobs:
         run: |
           echo $EVENT_CONTEXT
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Set release-date
-        run: |
-        shell: pwsh
       - name: Set environment variables
         run: |
           write-host "github var${{ inputs.folder-path }}";
