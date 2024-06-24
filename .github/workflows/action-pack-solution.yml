@@ -40,7 +40,7 @@ jobs:
         run: |
           write-host "${{ inputs.folder-path }}";
           write-host $inputs.folder-path;
-          if ($inputs.folder-path.length -gt  '.' ){
+          if (($inputs.folder-path).length -gt  '.' ){
             $folderPath = $inputs.folder-path + '/src/' + $inputs.solution-name
             $releasePath = $inputs.folder-path + '/release/'+ $ENV.release-date + '/' + $inputs.solution-name
           } else
