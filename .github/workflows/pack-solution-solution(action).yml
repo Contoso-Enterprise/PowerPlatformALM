@@ -26,6 +26,10 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:    
+    - env:
+        EVENT_CONTEXT: ${{ toJSON(github.event) }}
+      run: |
+        echo $EVENT_CONTEXT
     - name: Variables      
       run: |        
         echo "Solution Name :'contoso_university_core'"        
