@@ -58,7 +58,8 @@ jobs:
       - name: Checkout branch if exists
         if: steps.check-branch-exists.outputs.exists == true
         uses: actions/checkout@v4
-           ref: ${{ inputs.branch-name }}
+        with:
+          ref: ${{ inputs.branch-name }}
       - name: Checkout branch main
         if: steps.check-branch-exists.outputs.exists != true
         uses: actions/checkout@v4
