@@ -17,6 +17,19 @@ on:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
+      branch-type:
+        required: false
+        type: choice
+        options:
+        - feature
+        - hotfix
+        - development
+        default:
+          feature
+      branchName:
+        description: 'name of the git branch'
+        required: false
+        default:  '001'
 jobs:
   setup:
     environment: 'Contoso Development'
