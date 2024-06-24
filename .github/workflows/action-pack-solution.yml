@@ -39,8 +39,6 @@ jobs:
       - name: Set release-path if not empty
         if: ${{ inputs.folderPath }} != '.' 
         run: echo "release-path=$('${{ inputs.folderPath }}/release/${{ env.release-date }}/')"
-      - name: Set Branch name
-
       - name: Checkout branch
         uses: actions/checkout@v4
         with:
