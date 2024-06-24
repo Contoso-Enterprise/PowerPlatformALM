@@ -18,12 +18,13 @@ on:
         - feature
         - hotfix
         - development
+        - main
         default:
-          feature
+          main
       branch-name:
         description: 'name of the git branch'
         required: false
-        default:  '001'
+        default:  ''
 jobs:
   deploy-staing:
     run-on: ubuntu-latest
