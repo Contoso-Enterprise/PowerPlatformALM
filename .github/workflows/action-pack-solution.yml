@@ -36,12 +36,12 @@ jobs:
           $releaseDate = (Get-Date).toString('yyyyMMdd');
           $solutionName = '${{ Inputs.solution-name }}';
           if (($inputs.'folder-path').length -gt 1 ){
-            $folderPath = $inputs.'folder-path' + '/src/' + $solutionName
-            $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' + $solutionName
+            $folderPath = $inputs.'folder-path' + '/src/' 
+            $releasePath = $inputs.'folder-path' + '/release/'+ $releaseDate + '/' 
           } else
           {
-            $folderPath = 'src/' + $solutionName
-            $releasePath = 'release/'+ $releaseDate + '/' + $solutionName
+            $folderPath = 'src/' 
+            $releasePath = 'release/'+ $releaseDate + '/'
           }
           write-Host $releaseDate;
           write-Host $folderPath;
@@ -67,8 +67,8 @@ jobs:
         uses: microsoft/powerplatform-actions/actions-install@v1
       - uses: microsoft/powerplatform-actions/pack-solution@v1
         with:
-          solution-file: ${{ env.release-path }}.zip
-          solution-folder: ${{ env.source-path }}
+          solution-file: ${{ env.release-path }}${{ inputs.solution-name }}.zip
+          solution-folder: ${{ env.source-path }}${{ inputs.solution-name }}
           solution-type: Both
       - name: Debug output
         shell: pwsh
@@ -79,4 +79,4 @@ jobs:
         with: 
           message: ${{ inputs.commitMessage }}
           new_branch: ${{ inputs.branch-name }}
-          add: '${{ env.release-path }}/. --force'
+          add: '${{ env.release-path }}. --force'
