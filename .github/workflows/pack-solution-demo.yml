@@ -1,9 +1,9 @@
 name: Pack Contoso_University_Core
 
 on:
-  push:
-    paths:
-      - src/**
+  #push:
+  #  paths:
+  #    - src/**
   workflow_dispatch:
 
 jobs:
