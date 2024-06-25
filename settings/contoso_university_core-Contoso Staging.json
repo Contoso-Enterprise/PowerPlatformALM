@@ -16,12 +16,12 @@
   "ConnectionReferences": [
     {
       "LogicalName": "ce_ContosoUniversityDataverseConnectionReference",
-      "ConnectionId": "5c22590f1f7e472eabb2ae5718caf575",
+      "ConnectionId": "bff37c8c189c40809cf6a76247438e41",
       "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
     },
     {
       "LogicalName": "cu_ContosoUniversitySPOITConRef",
-      "ConnectionId": "a9ee4063cb2640a8b2a6cc92a84138ee",
+      "ConnectionId": "shared-sharepointonl-c2fcf346-5ff2-4163-8275-da17c6a32ddf",
       "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
     }
   ]

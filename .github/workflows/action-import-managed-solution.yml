@@ -130,7 +130,6 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           path: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-
       - name: import managed Solution
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
@@ -139,7 +138,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-          #import-as-holding: true
+          import-as-holding: true
           #stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
