@@ -77,7 +77,7 @@ jobs:
             {
               $releasePath = $inputs.'folder-path' + '/release/'+ $releaseName + '/'
             } else {
-              $releasePath = 'release/' $releaseName
+              $releasePath = 'release/' + $releaseName +'/'
             }
           } else {
             write-host "release name: null"     
