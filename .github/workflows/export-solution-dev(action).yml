@@ -4,15 +4,15 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
-      solutionName:
+      solution-name:
         description: 'name of the solution to worked on from Power Platform'
         required: true
         default:  'contoso_university_core'
-      branchName:
+      branch-name:
         description: 'name of the git branch'
         required: false
         default:  '001'
-      branchType:
+      branch-type:
         description: 'type of branch'
         required: true
         type: choice
@@ -35,7 +35,7 @@ jobs:
     steps:    
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ github.event.inputs.solutionName }}"        
+        echo "Solution Name : ${{ github.event.inputs.solution-name }}"        
         echo "URI ${{ vars.POWERPLATFORMURI }}"        
         echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
     - name: Debug output
@@ -46,20 +46,20 @@ jobs:
   #  needs: [setup]
   #  uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-createBranch.yml@main
   #  with: 
-  #    branchName: ${{ inputs.branchName }}
-  #    branchType: ${{ inputs.branchType }}
+  #    branch-name: ${{ inputs.branch-name }}
+  #    branch-type: ${{ inputs.branch-type }}
   #  secrets: inherit
   export:
     needs: [setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-export-solution.yml@main
     with: 
       environment: ${{ inputs.sourceEnvironment }}
-      solutionName: ${{ inputs.solutionName }}
+      solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
-      branchName: ${{ inputs.branchName }}
-      branchType: ${{ inputs.branchType }}
-      commitMessage: 'Export Solution ${{ inputs.solutionName }}'
+      branch-name: ${{ inputs.branch-name }}
+      branch-type: ${{ inputs.branch-type }}
+      commitMessage: 'Export Solution ${{ inputs.solution-name }}'
       folderPath: '.'
       VersionReleaseIncrement: 1
     secrets: inherit

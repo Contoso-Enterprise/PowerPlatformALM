@@ -23,9 +23,9 @@ on:
         default: false
       commitMessage:
         type: string
-      branchName:
+      branch-name:
         type: string
-      branchType:
+      branch-type:
         type: string
       VersionMajorIncrement:
         type: number
@@ -66,7 +66,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v4
       #  with:
-      #     ref: ${{ inputs.branchType }}/${{ inputs.branchName }}
+      #     ref: ${{ inputs.branch-type }}/${{ inputs.branch-name }}
         
       # Runs a single command using the runners shell
       - name: Variables 
@@ -232,5 +232,5 @@ jobs:
           author_name: 'System Administrator'
           author_email: admin@MngEnvMCAP157851.onmicrosoft.com
           message: ${{ inputs.commitMessage }}
-          new_branch: ${{ inputs.branchType }}/${{ inputs.branchName }}
+          new_branch: ${{ inputs.branch-type }}/${{ inputs.branch-name }}
           add: '${{ inputs.folderPath }}/src/. --force'

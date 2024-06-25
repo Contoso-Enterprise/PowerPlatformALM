@@ -45,5 +45,5 @@ jobs:
     with: 
       environment: 'Contoso Staging'
       solution-name: ${{ inputs.solution-name }}
-      folderPath: '.'
+      folder-path: '.'
     secrets: inherit
