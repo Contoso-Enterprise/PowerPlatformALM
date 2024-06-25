@@ -44,6 +44,6 @@ jobs:
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-solution.yml@main
     with: 
       environment: 'Contoso Staging'
-      solutionName: ${{ inputs.solution-name }}
+      solution-name: ${{ inputs.solution-name }}
       folderPath: '.'
     secrets: inherit
