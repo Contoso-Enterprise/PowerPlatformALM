@@ -29,7 +29,7 @@ jobs:
   deploy-setup:
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
-    steps:    
+    steps: 
     - env:
         EVENT_CONTEXT: ${{ toJSON(github.event) }}
       run: |
@@ -53,6 +53,6 @@ jobs:
     with: 
       environment: 'Contoso Staging'
       solution-name: ${{ inputs.solution-name }}
-      branch-name: ${{ env.branch-name }}
+      branch-name: '${{ env.branch-name }}'
       folder-path: '.'
     secrets: inherit
