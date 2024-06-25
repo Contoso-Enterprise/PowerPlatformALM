@@ -85,8 +85,8 @@ jobs:
             {
               if (Test-Path -LiteralPath "$($inputs.'folder-path')/release") {
                 write-host "tested $($inputs.'folder-path')/release successful"
-                $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -verbose | where {$_.PSIsContainer -eq 'true' } | sort CreationTime -Descending | select -first 1
-                $latestRelease | ft
+                $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | Sort-Object -Property 'CreationTime' -Descending -top 1
+                $latestRelease | select *
                 write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = $inputs.'folder-path' + '/release/' + $releaseName + '/' 
@@ -96,8 +96,8 @@ jobs:
             } else {
               if (Test-Path -LiteralPath "release") {
                 write-host "tested release successful"
-                $latestRelease = Get-ChildItem -path "release" -verbose | where {$_.PSIsContainer -eq 'true' } | sort CreationTime -Descending | select -first 1
-                $latestRelease | ft
+                $latestRelease = Get-ChildItem -path "release" -Directory | Sort-Object -Property 'CreationTime' -Descending -top 1
+                $latestRelease | select *
                 write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = 'release/'+ $releaseName + '/'
