@@ -26,7 +26,7 @@ on:
         required: false
         default:  ''
 jobs:
-  deploy-setup:
+  deploy-staging-setup:
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
     steps: 
@@ -40,10 +40,20 @@ jobs:
         write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
       shell: pwsh
   deploy-staging:
-    needs: [deploy-setup]
+    needs: [deploy-staging-setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-unmanaged-solution.yml@main
     with: 
       environment: 'Contoso Staging'
+      solution-name: ${{ inputs.solution-name }}
+      branch-name: '${{ inputs.branch-name }}'
+      branch-type: '${{ inputs.branch-type }}'
+      folder-path: '.'
+    secrets: inherit
+  deploy-production:
+    needs: [deploy-staging]
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-unmanaged-solution.yml@main
+    with: 
+      environment: 'Contoso production'
       solution-name: ${{ inputs.solution-name }}
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'

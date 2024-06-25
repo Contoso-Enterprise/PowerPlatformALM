@@ -130,7 +130,9 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-          stage-and-upgrade: true
+           import-as-holding: true
+          #stage-and-upgrade: true
+
       - name: Publish Solution Customizations
         uses: microsoft/powerplatform-actions/publish-solution@v1
         with:
