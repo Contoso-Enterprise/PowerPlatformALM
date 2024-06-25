@@ -50,7 +50,7 @@ jobs:
           } else {
             if (($inputs.'folder-path').length -gt 1 )
             {
-              $latestRelease = Get-ChildItem -path "$(inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
+              $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
               $releaseName = latestRelease.name
               $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
             } else {
