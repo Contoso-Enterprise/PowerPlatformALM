@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       actions: read
-      contents: read
+      contents: read-all
       # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout branch main
