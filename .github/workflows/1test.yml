@@ -69,7 +69,7 @@ jobs:
             } else {
               if (Test-Path -LiteralPath "release") {
                 write-host "tested release successful"
-                $latestRelease = Get-ChildItem -path "release" -verbose | where {$_.PSIsContainer -eq 'true' } | Sort-Object -Property 'CreationTime' -Descending -top 1
+                $latestRelease = Get-ChildItem -path "release" -Directory | Sort-Object -Property 'CreationTime' -Descending -top 1
                 $latestRelease | select *
                 write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
