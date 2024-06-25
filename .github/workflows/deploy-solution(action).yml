@@ -36,14 +36,23 @@ jobs:
         echo $EVENT_CONTEXT
     - name: Variables      
       run: |        
-        echo "Solution Name :'contoso_university_core'"        
-        echo "ref ${{ github.ref }}"        
-        echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
+        write-Host "ref ${{ github.ref }}"        
+        write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
+        if $( $inputs.'branch-type' -eq 'main')
+        {
+          $branchName = 'main'
+        } else {
+          $branchName = $inputs.'branch-type' + '/' +$inputs.'branch-name'
+        }
+        echo "branch-name=$branchName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
+
+      shell: pwsh
   deploy-staging:
     needs: [deploy-setup]
     uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-solution.yml@main
     with: 
       environment: 'Contoso Staging'
       solution-name: ${{ inputs.solution-name }}
+      branch-name: ${{ env.branch-name }}
       folder-path: '.'
     secrets: inherit
