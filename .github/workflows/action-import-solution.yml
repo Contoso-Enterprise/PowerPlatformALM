@@ -41,9 +41,8 @@ jobs:
       contents: read
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Set folder variables
+      - name: Set branch variables
         run: |
-          $solutionName = '${{ Inputs.solution-name }}';
           if ( $inputs.'branch-type' -eq 'main')
           {
             $branchName = 'main'
@@ -67,16 +66,26 @@ jobs:
       - name: Checkout branch main
         if: steps.check-branch-exists.outputs.exists != 'true'
         uses: actions/checkout@v4
-      - name: Set folder variables
+      - name: Set release variables
         run: |
+          $solutionName = '${{ Inputs.solution-name }}';
           if (($inputs.'release-name').length -gt 1)
           {
-            $releaseName = $inputs.'release-name'            
+            $releaseName = $inputs.'release-name'
+            write-host "release name: $releaseName"     
+            if (($inputs.'folder-path').length -gt 1 )
+            {
+              $releasePath = $inputs.'folder-path' + '/release/' $releaseName
+            } else {
+              $releasePath = 'release/' $releaseName
+            }
           } else {
+            write-host "release name: null"     
             if (($inputs.'folder-path').length -gt 1 )
             {
               if (Test-Path -LiteralPath "$($inputs.'folder-path')/release") {
                 $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
+                write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
               } else {
@@ -85,6 +94,7 @@ jobs:
             } else {
               if (Test-Path -LiteralPath "release") {
                 $latestRelease = Get-ChildItem -path "release" -Directory | sort CreationTime -Descending | select -first 1
+                write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = 'release/'+ $releaseName + '/'
               } else {
