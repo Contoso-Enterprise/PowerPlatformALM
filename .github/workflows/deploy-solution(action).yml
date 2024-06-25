@@ -1,10 +1,6 @@
 name: Deploy Solution with Actions
 
 on:
-  pull_request:
-     branches:
-      - 'release/**'
-      - 'main'
   workflow_dispatch:
     inputs:
       solution-name:
