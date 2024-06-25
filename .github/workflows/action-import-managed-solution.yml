@@ -137,14 +137,14 @@ jobs:
           #use-deployment-settings-file:true
           #deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
           run-asynchronously: true
-      - name: upgrade managed Solution
-        uses: microsoft/powerplatform-actions/upgrade-solution@v1
-        with:
-          environment-url: ${{ vars.POWERPLATFORMORGURI }}
-          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-name: ${{ inputs.solution-name }}
+      # - name: upgrade managed Solution
+      #   uses: microsoft/powerplatform-actions/upgrade-solution@v1
+      #   with:
+      #     environment-url: ${{ vars.POWERPLATFORMORGURI }}
+      #     app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+      #     client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+      #     tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      #     solution-name: ${{ inputs.solution-name }}
       # - name: Publish Solution Customizations
       #   uses: microsoft/powerplatform-actions/publish-solution@v1
       #   with:
