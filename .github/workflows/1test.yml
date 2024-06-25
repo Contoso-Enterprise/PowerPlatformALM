@@ -39,6 +39,9 @@ jobs:
     steps:
       - name: Checkout branch main
         uses: actions/checkout@v4
+      - name: Check solution exists
+        run: |
+          PowerShell/PowerPlatform-Utility.ps1
       - name: Set release variables
         run: |
           $solutionName = '${{ Inputs.solution-name }}';
