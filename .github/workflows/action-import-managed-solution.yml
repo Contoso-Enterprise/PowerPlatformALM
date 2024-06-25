@@ -139,11 +139,11 @@ jobs:
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
           import-as-holding: true
-          #stage-and-upgrade: true
+          stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
-          #use-deployment-settings-file:true
-          #deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
+          use-deployment-settings-file:true
+          deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
           run-asynchronously: true
       # - name: upgrade managed Solution
       #   uses: microsoft/powerplatform-actions/upgrade-solution@v1
