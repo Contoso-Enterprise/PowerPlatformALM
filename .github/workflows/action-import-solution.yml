@@ -77,7 +77,7 @@ jobs:
             {
               if (Test-Path -LiteralPath "$($inputs.'folder-path')/release") {
                 $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
-                $releaseName = latestRelease.name
+                $releaseName = $latestRelease.name
                 $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
               } else {
                 write-Error "Release folder not found"
@@ -85,7 +85,7 @@ jobs:
             } else {
               if (Test-Path -LiteralPath "release") {
                 $latestRelease = Get-ChildItem -path "release" -Directory | sort CreationTime -Descending | select -first 1
-                $releaseName = latestRelease.name
+                $releaseName = $latestRelease.name
                 $releasePath = 'release/'+ $releaseName + '/'
               } else {
                 write-Error "Release folder not found"
