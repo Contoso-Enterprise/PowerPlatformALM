@@ -26,7 +26,7 @@ on:
         required: false
         default:  ''
 jobs:
-  deploy-staing:
+  deploy-setup:
     run-on: ubuntu-latest
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
@@ -40,3 +40,11 @@ jobs:
         echo "Solution Name :'contoso_university_core'"        
         echo "ref ${{ github.ref }}"        
         echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
+  deploy-staging:
+    needs: [deploy-setup]
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-solution.yml@main
+    with: 
+      environment: 'Contoso Staging'
+      solutionName: ${{ inputs.solution-name }}
+      folderPath: '.'
+    secrets: inherit

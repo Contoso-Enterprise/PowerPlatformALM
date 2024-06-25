@@ -14,11 +14,9 @@ on:
       environment:
         type: string
         required: true
-      branchName:
+      branch-name:
         type: string
-      branchType:
-        type: string
-      folderPath:
+      folder-path:
         type: string
         required: false
         default: '.'
@@ -48,11 +46,13 @@ jobs:
           {
             $releasePath = 'release/'+ $inputs.'release-name' + '/'
           }
+          if ($inputs.'branch' )
           write-Host $releasePath;
           write-Host ${{ Inputs.solution-name}} ;
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         shell: pwsh
-      - id: check-branch-exists
+      - name: check-branch-exists
+        id: check-branch-exists
         uses: GuillaumeFalourd/branch-exists@v1
         with:
           branch: ${{ inputs.branch-name }}
@@ -75,14 +75,14 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-      - name: Export Unmanaged Solution
+      - name: import managed Solution
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
           stage-and-upgrade: true
       - name: Publish Solution Customizations
         uses: microsoft/powerplatform-actions/publish-solution@v1

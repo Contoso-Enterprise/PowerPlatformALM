@@ -29,18 +29,19 @@ jobs:
     steps: 
     ##- uses: actions/checkout@v4
       - name: check-branch-exists
+        id: check-branch-exists
         uses: GuillaumeFalourd/branch-exists@v1
         with:
           branch: ${{ inputs.branchType }}-${{ inputs.branchName }}
       - name: Branch exists
-        if: steps.check-branch-exists.outputs.exists == true
+        if: steps.check-branch-exists.outputs.exists == 'true'
         run: echo '${{ inputs.branchType }}-${{ inputs.branchName }} Branch exists'
       
       - name: Branch not found
-        if: steps.check-branch-exists.outputs.exists == false
+        if: steps.check-branch-exists.outputs.exists == 'false'
         run: echo '${{ inputs.branchType }}-${{ inputs.branchName }} Branch NOT FOUND'      
       - name: Create Branch
-        if: steps.check-branch-exists.outputs.exists == false  
+        if: steps.check-branch-exists.outputs.exists == 'false'  
         uses: peterjgrainger/action-create-branch@v2.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
