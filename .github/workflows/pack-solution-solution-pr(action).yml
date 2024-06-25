@@ -1,4 +1,4 @@
-name: Pack Solution with Actions
+name: PR Triggered Pack Solution with Actions 
 
 on:
   push:
