@@ -140,7 +140,7 @@ jobs:
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
-          use-deployment-settings-file:true
+          use-deployment-settings-file: true
           deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
           run-asynchronously: true
       # - name: upgrade managed Solution
