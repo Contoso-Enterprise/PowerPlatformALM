@@ -35,9 +35,7 @@ jobs:
     environment: ${{ inputs.environment }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: write
+    permissions: read-all
       # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout branch main
@@ -46,6 +44,14 @@ jobs:
         shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
+      - name: Check Powershell  exists
+        run: |
+          if ( Test-Path -LiteralPath 'PowerShell/PowerPlatform-Utility.ps1') {
+            write-host "found"
+          } else {
+            write-host "not found"
+          }
+        run: |'
       - name: Check solution exists
         run: |
           PowerShell/PowerPlatform-Utility.ps1
