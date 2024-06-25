@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: action-import-solution 
+name: action-import-managed-solution 
 
 # Controls when the workflow will run
 on:
@@ -87,7 +87,7 @@ jobs:
                 write-host "tested $($inputs.'folder-path')/release successful"
                 $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | Sort-Object -Property 'CreationTime' -Descending -top 1
                 $latestRelease | select *
-                write-host "latest release: ($latestRelease.Name)"
+                write-host "latest release: $($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = $inputs.'folder-path' + '/release/' + $releaseName + '/' 
               } else {
@@ -98,7 +98,7 @@ jobs:
                 write-host "tested release successful"
                 $latestRelease = Get-ChildItem -path "release" -Directory | Sort-Object -Property 'CreationTime' -Descending -top 1
                 $latestRelease | select *
-                write-host "latest release: ($latestRelease.Name)"
+                write-host "latest release: $($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = 'release/'+ $releaseName + '/'
               } else {
