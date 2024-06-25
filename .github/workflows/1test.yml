@@ -51,7 +51,7 @@ jobs:
           } else {
             write-host "not found"
           }
-        run: |'
+        shell: pwsh
       - name: Check solution exists
         run: |
           PowerShell/PowerPlatform-Utility.ps1
