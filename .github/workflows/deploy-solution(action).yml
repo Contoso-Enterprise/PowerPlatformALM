@@ -41,7 +41,7 @@ jobs:
       shell: pwsh
   deploy-staging:
     needs: [deploy-staging-setup]
-    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-unmanaged-solution.yml@main
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-managed-solution.yml@main
     with: 
       environment: 'Contoso Staging'
       solution-name: ${{ inputs.solution-name }}
