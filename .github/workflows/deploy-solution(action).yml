@@ -27,7 +27,6 @@ on:
         default:  ''
 jobs:
   deploy-setup:
-    run-on: ubuntu-latest
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
     steps:    
