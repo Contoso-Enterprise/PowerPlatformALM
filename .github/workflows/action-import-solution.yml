@@ -44,11 +44,18 @@ jobs:
       - name: Set environment variables
         run: |
           $solutionName = '${{ Inputs.solution-name }}';
-          if (($inputs.'folder-path').length -gt 1 ){
-            $releasePath = $inputs.'folder-path' + '/' + $inputs.'release-name' + '/' 
-          } else
+          if (($inputs.'release-name').length -gt 1)
           {
-            $releasePath = 'release/'+ $inputs.'release-name' + '/'
+            $releaseName = $inputs.'release-name'            
+          } else {
+            $latestRelease = Get-ChildItem -path "$(inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
+            $releaseName = latestRelease.name
+          }
+          if (($inputs.'folder-path').length -gt 1 )
+          {
+            $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
+          } else {
+            $releasePath = 'release/'+ $releaseName + '/'
           }
           if ( $inputs.'branch-type' -eq 'main')
           {
