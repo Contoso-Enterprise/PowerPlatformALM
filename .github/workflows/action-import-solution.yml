@@ -75,7 +75,7 @@ jobs:
             write-host "release name: $releaseName"     
             if (($inputs.'folder-path').length -gt 1 )
             {
-              $releasePath = $inputs.'folder-path' + '/release/' $releaseName
+              $releasePath = $inputs.'folder-path' + '/release/'+ $releaseName + '/'
             } else {
               $releasePath = 'release/' $releaseName
             }
@@ -87,7 +87,7 @@ jobs:
                 $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
                 write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
-                $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
+                $releasePath = $inputs.'folder-path' + '/release/' + $releaseName + '/' 
               } else {
                 write-Error "Release folder not found"
               }
