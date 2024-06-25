@@ -50,7 +50,7 @@ jobs:
           {
             $releasePath = 'release/'+ $inputs.'release-name' + '/'
           }
-          if $( $inputs.'branch-type' -eq 'main')
+          if ( $inputs.'branch-type' -eq 'main')
           {
             $branchName = 'main'
           } else {
