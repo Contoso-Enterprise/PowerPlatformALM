@@ -16,6 +16,10 @@ on:
         required: true
       branch-name:
         type: string
+        required: false
+      branch-type:
+        type: string
+        required: true
       folder-path:
         type: string
         required: false
@@ -46,8 +50,15 @@ jobs:
           {
             $releasePath = 'release/'+ $inputs.'release-name' + '/'
           }
+          if $( $inputs.'branch-type' -eq 'main')
+          {
+            $branchName = 'main'
+          } else {
+            $branchName = $inputs.'branch-type' + '/' +$inputs.'branch-name'
+          }
           write-Host $releasePath;
           write-Host ${{ Inputs.solution-name}} ;
+          echo "branch-name=$branchName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         shell: pwsh
       - name: check-branch-exists
