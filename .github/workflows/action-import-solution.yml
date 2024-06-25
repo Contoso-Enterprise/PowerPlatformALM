@@ -48,14 +48,16 @@ jobs:
           {
             $releaseName = $inputs.'release-name'            
           } else {
-            $latestRelease = Get-ChildItem -path "$(inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
-            $releaseName = latestRelease.name
-          }
-          if (($inputs.'folder-path').length -gt 1 )
-          {
-            $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
-          } else {
-            $releasePath = 'release/'+ $releaseName + '/'
+            if (($inputs.'folder-path').length -gt 1 )
+            {
+              $latestRelease = Get-ChildItem -path "$(inputs.'folder-path')/release" -Directory | sort CreationTime -Descending | select -first 1
+              $releaseName = latestRelease.name
+              $releasePath = $inputs.'folder-path' + '/' + $releaseName + '/' 
+            } else {
+              $latestRelease = Get-ChildItem -path "release" -Directory | sort CreationTime -Descending | select -first 1
+              $releaseName = latestRelease.name
+              $releasePath = 'release/'+ $releaseName + '/'
+            }
           }
           if ( $inputs.'branch-type' -eq 'main')
           {
