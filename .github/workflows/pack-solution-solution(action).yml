@@ -1,16 +1,6 @@
 name: Pack Solution with Actions
 
 on:
-  push:
-    branches:
-      - 'development/**'
-      - 'hotfix/**'
-    paths:
-      - 'src/contoso_university_core'
-  pull_request:
-     branches:
-      - 'development/**'
-      - 'main'     
   workflow_dispatch:
     inputs:
       solution-name:

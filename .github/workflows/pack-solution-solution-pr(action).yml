@@ -1,0 +1,38 @@
+name: Pack Solution with Actions
+
+on:
+  push:
+    branches:
+      - 'development/**'
+      - 'hotfix/**'
+    paths:
+      - 'src/contoso_university_core'
+  pull_request:
+    branches:
+      - 'release/**'
+      - 'main'     
+    paths:
+      - 'src/contoso_university_core'
+jobs:
+  setup:
+    environment: ${{ inputs.source-environment }}
+    permissions:
+      actions: read
+      repository-projects: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:    
+    - env:
+        EVENT_CONTEXT: ${{ toJSON(github.event) }}
+      run: |
+        echo $EVENT_CONTEXT
+    - name: Variables      
+      run: |        
+        echo "Solution Name :'contoso_university_core'"        
+        echo "ref ${{ github.ref }}"        
+        echo "GITHUB_REF ${{ github.GITHUB_REF }}"   
+
+    - name: Debug output
+      shell: pwsh
+      run: |
+        Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
