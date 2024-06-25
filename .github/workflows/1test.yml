@@ -4,7 +4,7 @@ name: action-test
 
 # Controls when the workflow will run
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       solution-name:
         description: "Solution Name"
