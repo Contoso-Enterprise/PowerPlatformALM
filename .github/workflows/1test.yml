@@ -11,15 +11,14 @@ on:
         type: string
         required: true
         default: 'OrgDemo'
-      environment:
-        type: string
-        required: true
       branch-name:
         type: string
         required: false
+        default: '002'
       branch-type:
         type: string
         required: true
+        default: 'feature'
       folder-path:
         type: string
         required: false
