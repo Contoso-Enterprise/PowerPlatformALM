@@ -70,7 +70,7 @@ jobs:
               if (Test-Path -LiteralPath "release") {
                 write-host "tested release successful"
                 $latestRelease = Get-ChildItem -path "release" -verbose | where {$_.PSIsContainer -eq 'true' } 
-                $latestRelease | select all
+                $latestRelease | select *
                 write-host "latest release: ($latestRelease.Name)"
                 $releaseName = $latestRelease.name
                 $releasePath = 'release/'+ $releaseName + '/'
