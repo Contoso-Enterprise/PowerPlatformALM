@@ -20,12 +20,7 @@ on:
         description: 'name of the git branch'
         required: false
         default:  '001'
-      source-environment:
-        description: 'Source Power Platform environment'
-        type: choice
-        options:
-        - 'Contoso Development'
-        - 'System Administrator Dev enviornment'
+
 
 
 jobs:
