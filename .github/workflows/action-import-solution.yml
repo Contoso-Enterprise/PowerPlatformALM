@@ -28,6 +28,10 @@ on:
         type: string
         required: false
         default: '.'
+      managed:
+        type: boolean
+        required: false
+        default: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -120,7 +124,9 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-      - name: check solution
+      #managed solution
+      - name: check managed solution
+        if: ${{ inputs.managed }} == true
         uses: microsoft/powerplatform-actions/check-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -129,6 +135,7 @@ jobs:
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           path: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
       - name: import managed Solution
+        if: ${{ inputs.managed }} == true
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -143,6 +150,33 @@ jobs:
           use-deployment-settings-file: true
           deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
           run-asynchronously: true
+      # unmanaged solution
+      - name: check unmanaged solution
+        if: ${{ inputs.managed }} == false
+        uses: microsoft/powerplatform-actions/check-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          path: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
+      - name: Import Unmanaged Solution
+        if: ${{ inputs.managed }} == false
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
+          import-as-holding: true
+          stage-and-upgrade: true
+          force-overwrite: true
+          publish-changes: true
+          use-deployment-settings-file: true
+          deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
+          run-asynchronously: true
+
       # - name: upgrade managed Solution
       #   uses: microsoft/powerplatform-actions/upgrade-solution@v1
       #   with:

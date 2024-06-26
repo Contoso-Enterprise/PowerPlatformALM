@@ -1,4 +1,4 @@
-name: Deploy Solution with Actions
+name: Deploy Managed Solution with Actions
 
 on:
   workflow_dispatch:
@@ -37,13 +37,14 @@ jobs:
       shell: pwsh
   deploy-staging:
     needs: [deploy-staging-setup]
-    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-managed-solution.yml@main
+    uses: adminMngEnvMCAP157851/PowerPlatformALM/.github/workflows/action-import-solution.yml@main
     with: 
       environment: 'Contoso Staging'
       solution-name: ${{ inputs.solution-name }}
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
+      managed: true
     secrets: inherit
   # deploy-production:
   #   needs: [deploy-staging]
