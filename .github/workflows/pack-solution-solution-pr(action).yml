@@ -8,11 +8,13 @@ on:
   #   paths:
   #     - 'src/contoso_university_core'
   pull_request:
+    types:
+      - closed
     branches:
       - 'release/**'
       - 'main'     
     paths:
-      - 'src/contoso_university_core'
+      - 'src/contoso_university_core/**'
 jobs:
   setup:
     environment: ${{ inputs.source-environment }}
