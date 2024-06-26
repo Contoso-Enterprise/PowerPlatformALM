@@ -1,5 +1,5 @@
 
-name: action-createBranch 
+name: workflow-create-Branch 
 
 # Controls when the workflow will run
 on:
