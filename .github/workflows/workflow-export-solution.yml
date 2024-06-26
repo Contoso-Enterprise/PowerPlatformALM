@@ -241,3 +241,4 @@ jobs:
           message: ${{ inputs.commitMessage }}
           new_branch: ${{ inputs.branch-type }}/${{ inputs.branch-name }}
           add: '${{ inputs.folderPath }}/src/. --force'
+          default_author: github_actor
