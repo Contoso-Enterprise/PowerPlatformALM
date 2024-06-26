@@ -143,7 +143,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-          import-as-holding: true
+          #import-as-holding: true
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
@@ -169,7 +169,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
-          import-as-holding: true
+          #import-as-holding: true
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
