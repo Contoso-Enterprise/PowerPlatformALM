@@ -5,6 +5,7 @@ on:
     branches:
       - 'development/**'
       - 'hotfix/**'
+      - 'main'
     paths:
       - 'src/contoso_university_core/**'
   pull_request:
