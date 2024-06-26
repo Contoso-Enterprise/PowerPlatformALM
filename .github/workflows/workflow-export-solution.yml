@@ -231,7 +231,7 @@ jobs:
           solution-target-folder: '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}'
           branch-name: ${{ inputs.branch-type }}/${{ inputs.branch-name }}
           repo-url: Contoso-Enterprise/PowerPlatformALM
-           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit to branch
         if: ${{ inputs.isCommit == true }}
         uses: EndBug/add-and-commit@v9
