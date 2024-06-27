@@ -29,6 +29,8 @@ jobs:
   setup:
     environment: 'Contoso Development'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:    
     - name: Variables      
       run: |        
@@ -47,7 +49,7 @@ jobs:
   #    branch-type: ${{ inputs.branch-type }}
   #  secrets: inherit
   export:
-    needs: [setup]
+    needs: [setup]      
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-export-solution.yml@main
     with: 
       environment: ${{ inputs.sourceEnvironment }}
