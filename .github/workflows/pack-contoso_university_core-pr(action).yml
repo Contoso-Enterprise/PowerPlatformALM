@@ -16,8 +16,6 @@ on:
       - 'main'     
     paths:
       - 'src/contoso_university_core/**'
-env:
-  solution-name: 'contoso_university_core'
 jobs:
   setup:
     environment: ${{ inputs.source-environment }}
@@ -29,6 +27,7 @@ jobs:
     steps:    
     - env:
         EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        solution-name: 'contoso_university_core'
       run: |
         echo $EVENT_CONTEXT
 
