@@ -10,7 +10,7 @@
       <Description description="Upgrade of Contoso University - Core" languagecode="1033" />
       <Description description="Mise à niveau de Contoso University - Core" languagecode="1036" />
     </Descriptions>
-    <Version>1.5.1.25</Version>
+    <Version>1.5.1.26</Version>
     <Managed>2</Managed>
     <Publisher>
       <UniqueName>contoso_university</UniqueName>
