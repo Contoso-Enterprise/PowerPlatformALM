@@ -37,7 +37,7 @@ jobs:
       run: |        
         echo "Solution Name : $env:solution-name
         echo "ref ${{ github.ref }}"        
-        echo $EVENT_CONTEXT.ref
+        echo ${{ EVENT_CONTEXT.ref }}
     - name: Debug output
       shell: pwsh
       run: |
@@ -45,5 +45,5 @@ jobs:
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
-      solution-name: $env:solution-name
-      branch-name: '$EVENT_CONTEXT.ref'
+      solution-name: ${{ env:solution-name }}
+      branch-name: '${{ EVENT_CONTEXT.ref }}'
