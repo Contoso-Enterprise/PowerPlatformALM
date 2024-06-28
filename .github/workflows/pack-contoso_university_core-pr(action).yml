@@ -37,8 +37,9 @@ jobs:
       run: | 
         echo "env Solution Name : $env:solution-name"
         echo "Solution Name : $solution-name"
+        echo "env Solution Name brace: ${{ env.solution-name }}"
         echo "ref ${{ github.ref }}"        
-        echo "$EVENT_CONTEXT.ref"
+        echo "${{ EVENT_CONTEXT.ref }}"
     - name: Debug output
       shell: pwsh
       run: |
