@@ -50,5 +50,5 @@ jobs:
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
-      solution-name: ${{ env.solution-name }}
+      solution-name: ${{ $env.solution-name }}
       branch-name: '${{ github.ref }}'
