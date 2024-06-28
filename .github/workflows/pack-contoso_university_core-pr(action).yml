@@ -45,4 +45,4 @@ jobs:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
       solution-name: ${{ env.solution-name }}
-      branch-name: '${{ inputs.branch-type }}/${{ inputs.branch-name}}'
+      branch-name: '${{ $EVENT_CONTEXT.ref }}'
