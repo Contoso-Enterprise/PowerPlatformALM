@@ -27,17 +27,20 @@ jobs:
       repository-projects: write
       contents: write
     runs-on: ubuntu-latest
-    steps:    
+    steps:
     - env:
         EVENT_CONTEXT: ${{ toJSON(github.event) }}
       run: |
         echo $EVENT_CONTEXT
 
     - name: Variables      
-      run: |        
-        echo "Solution Name : $env:solution-name
+      run: | 
+        echo "env Solution Name : $env:solution-name"
+        echo "Solution Name : $solution-name"
+        echo "env Solution Name brace: ${{ env:solution-name }}"
+        echo "Solution Name brace : ${{ solution-name}}"
         echo "ref ${{ github.ref }}"        
-        echo $EVENT_CONTEXT:ref
+        echo "$EVENT_CONTEXT.ref"
     - name: Debug output
       shell: pwsh
       run: |
@@ -46,4 +49,4 @@ jobs:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
       solution-name: $env:solution-name
-      branch-name: '$EVENT_CONTEXT:ref'
+      branch-name: '${{ github.ref }}'
