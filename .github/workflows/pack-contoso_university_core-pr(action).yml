@@ -33,7 +33,7 @@ jobs:
 
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ env.solution-name }}        
+        echo "Solution Name : $solution-name  
         echo "ref ${{ github.ref }}"        
         echo $EVENT_CONTEXT.ref
     - name: Debug output
