@@ -16,8 +16,6 @@ on:
       - 'main'     
     paths:
       - 'src/contoso_university_core/**'
-env:
-  solution-name: 'contoso_university_core'
 jobs:
   setup:
     environment: ${{ inputs.source-environment }}
@@ -29,12 +27,13 @@ jobs:
     steps:    
     - env:
         EVENT_CONTEXT: ${{ toJSON(github.event) }}
+        solution-name: 'contoso_university_core'
       run: |
         echo $EVENT_CONTEXT
 
     - name: Variables      
       run: |        
-        echo "Solution Name : ${{ env.solution-name }}        
+        echo "Solution Name : $solution-name  
         echo "ref ${{ github.ref }}"        
         echo $EVENT_CONTEXT.ref
     - name: Debug output
@@ -44,5 +43,5 @@ jobs:
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
-      solution-name: ${{ env.solution-name }}
-      branch-name: '${{ inputs.branch-type }}/${{ inputs.branch-name}}'
+      solution-name: $solution-name
+      branch-name: '$EVENT_CONTEXT.ref'
