@@ -59,6 +59,12 @@ jobs:
         echo "solution-name=${{ env.solution-name }}" >> $GITHUB_ENV
         echo "branch-name=${{ github.ref }}" >> $GITHUB_ENV
       shell: pwsh
+    - name: show variables
+      run: |
+        echo "${{ needs.pack-set-variables.outputs.solution-name }}"
+        echo "${{ needs.pack-set-variables.outputs.branch-name }}"
+        echo "${{ steps.pack-variables.outputs.solution-name }}"
+        echo "${{ steps.pack-variables.outputs.branch-name }}"
 
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
