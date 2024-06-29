@@ -50,7 +50,7 @@ jobs:
   pack-variables:
     runs-on: ubuntu-latest
     solution-name: ${{ steps.pack-variables.outputs.solution-name }}
-    branch-name: ${{ steps.pack-variables.outputs }}
+    branch-name: ${{ steps.pack-variables.outputs.branch-name }}
     steps:
     - name: Set environment variables to output
       id: pack-variables
