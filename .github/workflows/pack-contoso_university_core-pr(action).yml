@@ -63,5 +63,5 @@ jobs:
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
-      solution-name: ${{ pack-set-variables.outputs.solution-name }}
-      branch-name: '${{ pack-set-variables.outputs.branch-name }}'
+      solution-name: ${{ needs.pack-set-variables.outputs.solution-name }}
+      branch-name: '${{ needs.pack-set-variables.outputs.branch-name }}'
