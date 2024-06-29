@@ -55,11 +55,10 @@ jobs:
       branch-name: ${{ steps.pack-variables.outputs.branch-name }}
     steps:
     - name: Set environment variables to output
-      id: pack-variables
+      id: pack-variables-solution-name
       run: |
         echo "solution-name=${{ env.solution-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-name=${{ github.ref }}" >> "$GITHUB_OUTPUT"
-      shell: pwsh
     - name: show variables
       run: |
         echo "${{ needs.pack-set-variables.outputs.solution-name }}"
