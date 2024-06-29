@@ -49,14 +49,15 @@ jobs:
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
   pack-set-variables:
     runs-on: ubuntu-latest
-    solution-name: ${{ steps.pack-variables.outputs.solution-name }}
-    branch-name: ${{ steps.pack-variables.outputs.branch-name }}
+    outputs:
+      solution-name: ${{ steps.pack-variables.outputs.solution-name }}
+      branch-name: ${{ steps.pack-variables.outputs.branch-name }}
     steps:
     - name: Set environment variables to output
       id: pack-variables
       run: |
-        echo "solution-name=$env.solution-name" >> $GITHUB_ENV
-        echo "branch-name=$github.ref" >> $GITHUB_ENV
+        echo "solution-name=${{ env.solution-name }}" >> $GITHUB_ENV
+        echo "branch-name=${{ github.ref }}" >> $GITHUB_ENV
       shell: pwsh
 
   pack:
