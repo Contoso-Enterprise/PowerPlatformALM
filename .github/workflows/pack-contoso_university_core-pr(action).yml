@@ -47,7 +47,7 @@ jobs:
       shell: pwsh
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
-  pack-variables:
+  pack-set-variables:
     runs-on: ubuntu-latest
     solution-name: ${{ steps.pack-variables.outputs.solution-name }}
     branch-name: ${{ steps.pack-variables.outputs.branch-name }}
@@ -55,8 +55,9 @@ jobs:
     - name: Set environment variables to output
       id: pack-variables
       run: |
-        echo "solution-name=${{ env.solution-name }}" >> $GITHUB_ENV
-        echo "branch-name=${{ github.ref }}" >> $GITHUB_ENV
+        echo "solution-name=$env.solution-name" >> $GITHUB_ENV
+        echo "branch-name=$github.ref" >> $GITHUB_ENV
+      shell: pwsh
 
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
