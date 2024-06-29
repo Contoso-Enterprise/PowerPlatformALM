@@ -48,6 +48,7 @@ jobs:
       run: |
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
   pack-set-variables:
+    needs: setup
     runs-on: ubuntu-latest
     outputs:
       solution-name: ${{ steps.pack-variables.outputs.solution-name }}
@@ -67,6 +68,7 @@ jobs:
         echo "${{ steps.pack-variables.outputs.branch-name }}"
 
   pack:
+    needs: pack-set-variables
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
     with: 
       solution-name: ${{ needs.pack-set-variables.outputs.solution-name }}
