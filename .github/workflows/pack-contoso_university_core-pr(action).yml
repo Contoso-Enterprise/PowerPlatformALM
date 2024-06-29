@@ -49,14 +49,14 @@ jobs:
         Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
   pack-variables:
     runs-on: ubuntu-latest
-    solution-name: ${{ env.solution-name }}
-    branch-name: ${{ env.EVENT_CONTEXT.ref }}
+    solution-name: ${{ steps.pack-variables.outputs.solution-name }}
+    branch-name: ${{ steps.pack-variables.outputs }}
     steps:
     - name: Set environment variables to output
-      id: Pack-Variables
+      id: pack-variables
       run: |
-        echo "solution-name=$solution-name" >> $GITHUB_ENV
-        echo "branch-name=$branch-name" >> $GITHUB_ENV
+        echo "solution-name=${{ env.solution-name }}" >> $GITHUB_ENV
+        echo "branch-name=${{ github.ref }}" >> $GITHUB_ENV
 
   pack:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main
