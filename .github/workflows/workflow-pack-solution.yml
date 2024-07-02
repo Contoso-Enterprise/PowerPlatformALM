@@ -19,7 +19,7 @@ on:
 
 jobs:
   # This workflow contains a single job called "build"
-  export:
+  pack-solution:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions:
@@ -81,5 +81,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with: 
           message: ${{ inputs.commitMessage }}
-          new_branch: ${{ inputs.branch-name }}
+          #new_branch: ${{ inputs.branch-name }}
           add: '${{ env.release-path }}. --force'
