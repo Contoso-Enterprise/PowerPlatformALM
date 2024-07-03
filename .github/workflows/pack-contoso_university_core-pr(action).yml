@@ -21,6 +21,7 @@ env:
   solution-name: 'contoso_university_core'
 jobs:
   setup:
+    if: github.event.pull_request.merged == true
     environment: ${{ inputs.source-environment }}
     permissions:
       actions: read
