@@ -150,7 +150,7 @@ jobs:
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: true
-          deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
+          deployment-settings-file: ${{ inputs.settings-file }}
           run-asynchronously: true
       - name: import managed Solution with out settings file
         if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == ''
@@ -192,7 +192,7 @@ jobs:
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: true
-          deployment-settings-file: 'settings/${{ inputs.solution-name }}-${{ inputs.environment }}.json'
+          deployment-settings-file: ${{ inputs.settings-file }}
           run-asynchronously: true
       - name: Import Unmanaged Solution without settings file
         if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == ''

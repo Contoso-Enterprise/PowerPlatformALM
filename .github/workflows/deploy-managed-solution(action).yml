@@ -44,6 +44,7 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
+      settings-file: settings/${{ inputs.solution-name }}-Contoso Staging.json
       managed: true
     secrets: inherit
   # deploy-production:
