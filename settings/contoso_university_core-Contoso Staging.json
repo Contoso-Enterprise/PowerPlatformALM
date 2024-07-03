@@ -6,11 +6,11 @@
     },
     {
       "SchemaName": "cu_ContosoUniversitySPOITList",
-      "Value": "https://mngenvmcap157851.sharepoint.com/sites/ITSupport"
+      "Value": "b8a3fe08-79a2-4dcd-9440-4a9f8d770fb1"
     },
     {
       "SchemaName": "cu_ContosoUniversitySPOITSite",
-      "Value": "b8a3fe08-79a2-4dcd-9440-4a9f8d770fb1"
+      "Value": "https://mngenvmcap157851.sharepoint.com/sites/ITSupport"
     }
   ],
   "ConnectionReferences": [
