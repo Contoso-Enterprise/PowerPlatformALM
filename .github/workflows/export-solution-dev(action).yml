@@ -20,14 +20,14 @@ on:
         - feature
         - hotfix
         - development
-      sourceEnvironment:
+      source-Environment:
         description: 'Source Development Environment'
         type: environment
         required: true
         default: 'Contoso Development'
 jobs:
   setup:
-    environment: 'Contoso Development'
+    environment: ${{ inputs.source-Environment }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -52,7 +52,7 @@ jobs:
     needs: [setup]      
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-export-solution.yml@main
     with: 
-      environment: ${{ inputs.sourceEnvironment }}
+      environment: ${{ inputs.source-Environment }}
       solution-name: ${{ inputs.solution-name }}
       ClearEnvironmentVariableValues: true
       isCommit: true
