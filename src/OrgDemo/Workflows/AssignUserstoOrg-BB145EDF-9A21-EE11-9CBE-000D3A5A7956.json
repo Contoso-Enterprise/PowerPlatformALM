@@ -1,0 +1,453 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "admin_CoECoreDataverse2"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_webcontents": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "admin_CoECoreHTTPWithAzureAD"
+        },
+        "api": {
+          "name": "shared_webcontents"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "179eb760-6e28-4ee0-aade-df6131a29a93"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_Business_Units": {
+          "runAfter": {
+            "List_AADOrgGroups": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "449ea537-4f17-4e8a-8ace-eeb08688721d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "businessunits",
+              "$select": "name, businessunitid, isdisabled, parentbusinessunitid, divisionname",
+              "$expand": "parentbusinessunitid($select=name, businessunitid, isdisabled, parentbusinessunitid, divisionname)"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "List_Users": {
+          "runAfter": {
+            "List_Business_Units": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ba8c4139-2536-4420-8e7d-0d22cc6ba67d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "$select": "islicensed,systemuserid,lastname,firstname,userlicensetype,fullname,deletedstate,businessunitid,title,domainname,isdisabled, organizationid, ownerid, internalemailaddress, azureactivedirectoryobjectid, accessmode",
+              "$filter": "businessunitid/name eq '@{variables('ParentOrgName')}' and accessmode eq 0 and isdisabled eq false and islicensed eq true",
+              "$expand": "businessunitid($select=name,businessunitid)",
+              "$top": 10
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          },
+          "description": "businessunitid/name eq '@{variables('ParentOrgName')}' and accessmode ne 4 and isdisabled eq false and islicensed eq true"
+        },
+        "Initialize_ParentOrgName": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "735dea79-d777-41f9-bff6-b27ecffe7a73"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ParentOrgName",
+                "type": "string",
+                "value": "orgef0dfb20"
+              }
+            ]
+          }
+        },
+        "Initialize_AADOrgGroups": {
+          "runAfter": {
+            "Initialize_ParentOrgName": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c277c223-468e-45f4-ad5e-6e1db55bd691"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "AADOrgGroups",
+                "type": "array",
+                "value": [
+                  {
+                    "id": "00b05e4e-949a-42ca-9f5d-71e20fb27b4a",
+                    "name": "AAD-DYN-AllStaff-Marketing",
+                    "orgName": "Contoso Marketing",
+                    "orgId": "e7f242e6-d013-ee11-8f6e-000d3a5a7dae",
+                    "isDefault": false
+                  },
+                  {
+                    "id": "9ac644dc-fdb8-456f-a5f1-c68a7fc7e632",
+                    "name": "AAD-DYN-AllStaff-Sales",
+                    "orgName": "Contoso Sales",
+                    "orgId": "1b7835dd-d013-ee11-8f6e-000d3a5a7dae",
+                    "isDefault": false
+                  },
+                  {
+                    "id": "a89da7f8-ea49-4d0d-b54d-5e5b15d23ec7",
+                    "name": "AAD-DYN-AllStaff-Finance",
+                    "orgName": "Contoso Finance",
+                    "orgId": "89248f0-d013-ee11-8f6e-000d3a5a7dae",
+                    "isDefault": false
+                  },
+                  {
+                    "id": "d3ad171e-2b2c-4de8-98a3-e42d9f24eae6",
+                    "name": "AAD-DYN-AllStaff-Corporate",
+                    "orgName": "orgef0dfb20",
+                    "orgId": "468a0ba6-4a12-ee11-8f6d-00224805c2ac",
+                    "isDefault": true
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "Apply_to_each_User": {
+          "foreach": "@outputs('List_Users')?['body/value']",
+          "actions": {
+            "Compose": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "8f499e98-f9fb-4977-be16-f6574445dad6"
+              },
+              "type": "Compose",
+              "inputs": "@{items('Apply_to_each_User')?['azureactivedirectoryobjectid']}\n@{items('Apply_to_each_User')?['fullname']}"
+            },
+            "Filter_User_Group": {
+              "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "92ec280d-1aca-418d-a8e6-d36fec650275"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@variables('AADOrgGroups')",
+                "where": "@contains(item()?['memberString'], items('Apply_to_each_User')?['azureactivedirectoryobjectid'])\n"
+              }
+            },
+            "Condition": {
+              "actions": {
+                "Compose_2": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "2200f5c9-77f3-4f86-b76f-fc7d40027dc2"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{first(body('Filter_User_Group'))?['cont_name']}\n@{first(body('Filter_User_Group'))?['cont_groupid']}"
+                },
+                "Condition_2": {
+                  "actions": {
+                    "Update_a_row": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "78081c49-beb0-4ff2-83d3-0e033a0266ce"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "systemusers",
+                          "recordId": "@items('Apply_to_each_User')?['systemuserid']",
+                          "item/businessunitid@odata.bind": "businessunits(@{first(body('Filter_User_Group'))?['cont_BusinessUnit']?['businessunitid']})"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Compose_2": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@first(body('Filter_User_Group'))?['cont_isdefault']",
+                      "@false"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7f941982-0088-45cd-8c48-854ec3f78898"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_User_Group": [
+                  "Succeeded"
+                ]
+              },
+              "expression": {
+                "equals": [
+                  "@empty(body('Filter_User_Group'))",
+                  "@false"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "02b9fd56-d68a-43c3-adaa-6e3fff6e4aca"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Group": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "024450a7-2c02-4133-9031-6faeb9bcb1f9"
+          },
+          "type": "Foreach"
+        },
+        "Apply_to_each_Group": {
+          "foreach": "@variables('AADOrgGroups')",
+          "actions": {
+            "Add_members": {
+              "runAfter": {
+                "Apply_to_each_member": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "6b679929-d835-4cae-8d13-02a6c066262f"
+              },
+              "type": "Select",
+              "inputs": {
+                "from": "@variables('AADOrgGroups')",
+                "select": "@if(equals(item()?['cont_groupid'],items('Apply_to_each_Group')?['cont_groupid']),\r\n\taddProperty(\r\n        addProperty(\r\n\t\t    item(),\r\n\t\t    'members',\r\n\t\t    body('Query_Group_Members')?['value']\r\n        ),\r\n\t\t'memberString',\r\n\t\tvariables('AADOrgGroupMembers')\r\n\t),\r\n\titem()\r\n)\r\n"
+              }
+            },
+            "Update_AADOrgGroup_with_Members": {
+              "runAfter": {
+                "Add_members": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5c39cc6b-d801-44c7-82f3-e2f61f144550"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "AADOrgGroups",
+                "value": "@body('Add_members')"
+              }
+            },
+            "Query_Group_Members": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "6bf3db7e-8d87-47e5-b4e7-3e3c3931578f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://graph.microsoft.com/v1.0/groups/@{items('Apply_to_each_Group')?['cont_groupid']}/members?$select=id,displayname,userPrincipalName,mail"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Apply_to_each_member": {
+              "foreach": "@body('Query_Group_Members')?['value']",
+              "actions": {
+                "Append_to_string_variable": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "c69c195a-33f3-49aa-92ed-e9afe6d2a9e5"
+                  },
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "AADOrgGroupMembers",
+                    "value": "@{items('Apply_to_each_member')?['id']},"
+                  }
+                }
+              },
+              "runAfter": {
+                "Set_AADOrgGroupMembers": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e4d9c180-f023-4f5b-ac9d-3468ecf02808"
+              },
+              "type": "Foreach"
+            },
+            "Set_AADOrgGroupMembers": {
+              "runAfter": {
+                "Query_Group_Members": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "5cc0ec20-f7d8-4462-931e-d1cee1d88b57"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "AADOrgGroupMembers",
+                "value": "@{null}"
+              }
+            }
+          },
+          "runAfter": {
+            "Set_AADOrgGroups": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5b3dfeca-7a3d-4722-95e3-2c624fd80411"
+          },
+          "type": "Foreach"
+        },
+        "Initialize_AADOrgGroupMembers": {
+          "runAfter": {
+            "Initialize_AADOrgGroups": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d3462c23-ecdc-47dc-9b2f-fa4780d5b67a"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "AADOrgGroupMembers",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "List_AADOrgGroups": {
+          "runAfter": {
+            "Initialize_AADOrgGroupMembers": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "73d01632-2d9e-47f2-bda7-9093b94f211a"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cont_aadgrouporgmappings",
+              "$select": "cont_aadgrouporgmappingid, cont_name, cont_isdefault, cont_groupid, cont_BusinessUnit",
+              "$expand": "cont_BusinessUnit($select=name, businessunitid, isdisabled, parentbusinessunitid, divisionname)"
+            },
+            "authentication": {
+              "type": "Raw",
+              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+            }
+          }
+        },
+        "Set_AADOrgGroups": {
+          "runAfter": {
+            "List_Users": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fc38d555-bf2a-4e7c-8346-202e1eaace11"
+          },
+          "type": "SetVariable",
+          "inputs": {
+            "name": "AADOrgGroups",
+            "value": "@outputs('List_AADOrgGroups')?['body/value']"
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
