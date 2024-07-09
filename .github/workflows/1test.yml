@@ -27,12 +27,16 @@ on:
         type: string
         required: false
         default: '.'
+      source-environment:
+        type: environment
+        required: true
+        default: 'Contoso Development'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   export:
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.source-environment }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     permissions: 
@@ -45,7 +49,7 @@ jobs:
       - name: Check solution exists
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $token = Connect-Dataverse -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} -dataverseHost ${{ vars.POWERPLATFORMORGURI }}
+          $token = Connect-Dataverse -dataverseHost ${{ vars.POWERPLATFORMORGURI }} -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
           write-host $token
         shell: pwsh
       - name: Deblug list of files
