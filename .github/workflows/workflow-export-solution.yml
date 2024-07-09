@@ -103,7 +103,7 @@ jobs:
       - name: Export Managed Solution
         uses: microsoft/powerplatform-actions/export-solution@v1
         with:
-          environment-url: ${{ vars.POWERPLATFORMORGURI_DEV }}
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
