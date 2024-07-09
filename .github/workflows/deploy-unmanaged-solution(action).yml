@@ -45,7 +45,7 @@ jobs:
     needs: [deploy-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
     with: 
-      environment: 'Contoso Development'
+      environment:  ${{ inputs.target-environment }}
       solution-name: ${{ inputs.solution-name }}
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
