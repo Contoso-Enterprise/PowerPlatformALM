@@ -1,3 +1,4 @@
+import-module '.\dataverse-webapi-functions.psm1'
 <#
 This function returns the Access Token.
 Testable outside of agent

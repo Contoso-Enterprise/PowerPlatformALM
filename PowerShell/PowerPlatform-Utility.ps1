@@ -39,3 +39,39 @@ function Copy-Pdpkg-File{
         Write-Host "Release Assets Directory is unavailable to copy pdpkg file; Path - $releaseAssetsDirectory"
     }
 }
+function Connect-Dataverse
+{
+    param (
+        [Parameter(Mandatory)] [String]$tenantID,
+        [Parameter(Mandatory)] [String]$clientId,
+        [Parameter(Mandatory)] [String]$clientSecret,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [String]$aadHost = 'login.microsoftonline.com'
+    )
+    $token = Get-SpnToken -tenantID $tenantID -clientId $clientId -clientSecret $clientSecret -dataverseHost $dataverseHost -aadHost $aadHost
+    return $token
+}
+function Get-DataverseSolutions
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost
+
+    )
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder 'solutions'
+    return $response.value
+}
+function Get-DataverseSolution
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [String]$solutionUniqueName
+    )
+    write-host $solutionUniqueName
+    write-host ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
+    write-host $dataverseHost
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
+    return $response.value
+}
+$results = Get-DataverseSolution -token $token -dataverseHost $dataverseHost -solutionUniqueName 'contoso_university_core'
