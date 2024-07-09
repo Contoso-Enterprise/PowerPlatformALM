@@ -74,4 +74,4 @@ function Get-DataverseSolution
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
     return $response.value
 }
-$results = Get-DataverseSolution -token $token -dataverseHost $dataverseHost -solutionUniqueName 'contoso_university_core'
+
