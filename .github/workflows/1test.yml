@@ -40,6 +40,10 @@ jobs:
     steps:
       - name: Checkout branch main
         uses: actions/checkout@v4
+      - name: Check solution exists
+        run: |
+          PowerShell/PowerPlatform-Utility.ps1
+          $token = Connect-Dataverse -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} -dataverseHost ${{ vars.POWERPLATFORMORGURI }}
       - name: Deblug list of files
         shell: pwsh
         run: |
@@ -52,10 +56,6 @@ jobs:
             write-host "not found"
           }
         shell: pwsh
-      - name: Check solution exists
-        run: |
-          PowerShell/PowerPlatform-Utility.ps1
-          Connect-Dataverse -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} -dataverseHost ${{ vars.POWERPLATFORMORGURI }}
       - name: Set release variables
         run: |
           $solutionName = '${{ Inputs.solution-name }}';
