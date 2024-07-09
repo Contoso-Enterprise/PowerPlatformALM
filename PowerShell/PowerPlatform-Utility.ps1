@@ -46,7 +46,7 @@ function Connect-Dataverse
         [Parameter(Mandatory)] [String]$clientId,
         [Parameter(Mandatory)] [String]$clientSecret,
         [Parameter(Mandatory)] [String]$dataverseHost,
-        [Parameter(Mandatory)] [String]$aadHost = 'login.microsoftonline.com'
+        [String]$aadHost = 'login.microsoftonline.com'
     )
     $token = Get-SpnToken -tenantID $tenantID -clientId $clientId -clientSecret $clientSecret -dataverseHost $dataverseHost -aadHost $aadHost
     return $token
