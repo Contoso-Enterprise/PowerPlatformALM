@@ -143,7 +143,6 @@
       <RootComponent type="29" id="{7e929609-e81c-ee11-8f6e-000d3a5a7956}" behavior="0" />
       <RootComponent type="29" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" behavior="0" />
       <RootComponent type="29" id="{a0013e46-e71c-ee11-8f6e-000d3a5a7956}" behavior="0" />
-      <RootComponent type="29" id="{bb145edf-9a21-ee11-9cbe-000d3a5a7956}" behavior="0" />
       <RootComponent type="29" id="{fbdb5f7a-b130-ee11-bdf3-6045bdd96914}" behavior="0" />
       <RootComponent type="300" schemaName="cont_orgdatacanvasapp_58372" behavior="0" />
       <RootComponent type="300" schemaName="cont_orgdatacustomdialog_ef86d" behavior="0" />
@@ -253,14 +252,6 @@
       <MissingDependency>
         <Required type="connectionreference" displayName="admin_CoECoreDataverse" solution="CenterofExcellenceCoreComponents (4.31)" id.connectionreferencelogicalname="admin_CoECoreDataverse" />
         <Dependent type="29" displayName="Org Data Flow" id="{a0013e46-e71c-ee11-8f6e-000d3a5a7956}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="connectionreference" displayName="admin_CoECoreDataverse2" solution="CenterofExcellenceCoreComponents (4.31)" id.connectionreferencelogicalname="admin_CoECoreDataverse2" />
-        <Dependent type="29" displayName="Assign Users to Org" id="{bb145edf-9a21-ee11-9cbe-000d3a5a7956}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="connectionreference" displayName="admin_CoECoreHTTPWithAzureAD" solution="CenterofExcellenceCoreComponents (4.31)" id.connectionreferencelogicalname="admin_CoECoreHTTPWithAzureAD" />
-        <Dependent type="29" displayName="Assign Users to Org" id="{bb145edf-9a21-ee11-9cbe-000d3a5a7956}" />
       </MissingDependency>
       <MissingDependency>
         <Required type="SettingDefinition" displayName="FluentThemingPreview" solution="msdyn_PowerAppsThemingSettings (1.0.0.13)" id.uniquename="FluentThemingPreview" />
