@@ -47,6 +47,7 @@ jobs:
           PowerShell/PowerPlatform-Utility.ps1
           $token = Connect-Dataverse -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} -dataverseHost ${{ vars.POWERPLATFORMORGURI }}
           write-host $token
+        shell: pwsh
       - name: Deblug list of files
         shell: pwsh
         run: |
