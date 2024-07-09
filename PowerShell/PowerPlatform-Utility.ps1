@@ -1,4 +1,4 @@
-import-module 'Powershell\dataverse-webapi-functions.psm1'
+import-module './Powershell/dataverse-webapi-functions.psm1' -verbose - force
 
 function Install-Pac-Cli{
 	param(
