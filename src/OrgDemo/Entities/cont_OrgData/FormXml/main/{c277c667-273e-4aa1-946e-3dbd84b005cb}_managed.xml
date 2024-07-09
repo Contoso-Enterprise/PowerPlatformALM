@@ -113,7 +113,7 @@
                     <row>
                       <cell locklevel="0" id="{54bff3f9-09e7-497a-8b69-d40834357eb9}" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Owning Business Unit" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
                         <control id="owningbusinessunit" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="owningbusinessunit" uniqueid="{49d19c4d-4b3d-4117-997e-f55d7baf64b9}" />
                       </cell>
@@ -121,7 +121,7 @@
                     <row>
                       <cell locklevel="0" id="{7730ae8c-f19f-4555-9090-6db69341e8e0}" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
                         <control id="cont_name" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cont_name" uniqueid="{9c74a4ff-69a2-4ad4-8617-4c8ab3ad2605}" />
                       </cell>
@@ -129,7 +129,7 @@
                     <row>
                       <cell locklevel="0" id="{81e1a8a4-bd57-466c-8936-5973ea182a5b}" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Name" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
                         <control id="cont_name" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cont_name" uniqueid="{f4566296-50d6-4480-81e7-d47f6450f2f5}" />
                       </cell>

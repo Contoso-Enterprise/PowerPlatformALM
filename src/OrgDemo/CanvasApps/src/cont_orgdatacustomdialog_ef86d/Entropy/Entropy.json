@@ -477,7 +477,7 @@
   "RuleScreenIdWithoutScreen": {},
   "TemplateVersions": {},
   "VolatileProperties": {
-    "AnalysisLoadTime": 0.32130300000000001,
+    "AnalysisLoadTime": 0.321303,
     "ControlCount": {
       "combobox": 3,
       "form": 1,
@@ -488,7 +488,7 @@
       "screen": 1,
       "typedDataCard": 7
     },
-    "DeserializationLoadTime": 2.2523037000000001
+    "DeserializationLoadTime": 2.2523037
   },
   "WasLocalDatabaseReferencesEmpty": false
 }
