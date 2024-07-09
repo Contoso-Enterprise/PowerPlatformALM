@@ -20,44 +20,48 @@
     <RolePrivilege name="prvAssignCategory" level="Local" />
     <RolePrivilege name="prvAssigncont_OrgData" level="Local" />
     <RolePrivilege name="prvAssigncont_UserData" level="Basic" />
+    <RolePrivilege name="prvAssignUserQuery" level="Basic" />
     <RolePrivilege name="prvCreateAccount" level="Basic" />
     <RolePrivilege name="prvCreateActivity" level="Local" />
     <RolePrivilege name="prvCreateCategory" level="Local" />
     <RolePrivilege name="prvCreatecont_OrgData" level="Local" />
     <RolePrivilege name="prvCreatecont_UserData" level="Basic" />
     <RolePrivilege name="prvCreateSharePointData" level="Global" />
+    <RolePrivilege name="prvCreateUserQuery" level="Basic" />
     <RolePrivilege name="prvDeleteAccount" level="Local" />
     <RolePrivilege name="prvDeleteActivity" level="Local" />
     <RolePrivilege name="prvDeleteCategory" level="Local" />
+    <RolePrivilege name="prvDeleteUserQuery" level="Basic" />
     <RolePrivilege name="prvFlow" level="Global" />
     <RolePrivilege name="prvReadAccount" level="Local" />
     <RolePrivilege name="prvReadActivity" level="Local" />
-    <RolePrivilege name="prvReadAppModule" level="Global" />
     <RolePrivilege name="prvReadBusinessUnit" level="Local" />
-    <RolePrivilege name="prvReadCallbackRegistration" level="Local" />
-    <RolePrivilege name="prvReadCanvasApp" level="Local" />
     <RolePrivilege name="prvReadCategory" level="Local" />
     <RolePrivilege name="prvReadcont_OrgData" level="Local" />
     <RolePrivilege name="prvReadcont_OrgLookup" level="Global" />
     <RolePrivilege name="prvReadcont_UserData" level="Basic" />
     <RolePrivilege name="prvReadEntity" level="Global" />
-    <RolePrivilege name="prvReadPluginAssembly" level="Global" />
-    <RolePrivilege name="prvReadPluginType" level="Global" />
+    <RolePrivilege name="prvReadQuery" level="Global" />
     <RolePrivilege name="prvReadSdkMessage" level="Global" />
     <RolePrivilege name="prvReadSdkMessageProcessingStep" level="Global" />
     <RolePrivilege name="prvReadSdkMessageProcessingStepImage" level="Global" />
+    <RolePrivilege name="prvReadSdkMessageProcessingStepSecureConfig" level="Global" />
     <RolePrivilege name="prvReadSharePointData" level="Global" />
     <RolePrivilege name="prvReadSharePointDocument" level="Global" />
+    <RolePrivilege name="prvReadUserQuery" level="Basic" />
+    <RolePrivilege name="prvReadWorkflow" level="Global" />
     <RolePrivilege name="prvShareAccount" level="Local" />
     <RolePrivilege name="prvShareActivity" level="Local" />
     <RolePrivilege name="prvShareCategory" level="Local" />
     <RolePrivilege name="prvSharecont_OrgData" level="Basic" />
     <RolePrivilege name="prvSharecont_UserData" level="Basic" />
+    <RolePrivilege name="prvShareUserQuery" level="Basic" />
     <RolePrivilege name="prvWriteAccount" level="Local" />
     <RolePrivilege name="prvWriteActivity" level="Local" />
     <RolePrivilege name="prvWriteCategory" level="Local" />
     <RolePrivilege name="prvWritecont_OrgData" level="Basic" />
     <RolePrivilege name="prvWritecont_UserData" level="Basic" />
     <RolePrivilege name="prvWriteSharePointData" level="Global" />
+    <RolePrivilege name="prvWriteUserQuery" level="Basic" />
   </RolePrivileges>
 </Role>
