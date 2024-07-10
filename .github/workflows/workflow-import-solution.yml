@@ -126,6 +126,24 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      - name: Check solution exists
+        id: check-solution-exists
+        run: |
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $token = Connect-Dataverse -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
+          $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
+          if($solutionUniqueName -in $results.uniquename)
+          {
+              echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+          }
+          else 
+          {
+              echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+          }
+        shell: pwsh
+      - name: Test pwsh output
+        run: |
+          echo ${{ env.check-solution-exists }}
       #managed solution
       - name: check managed solution
         if: ${{ inputs.managed }} == true
@@ -136,8 +154,9 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           path: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
+      #managed solution & setting file & solution exists
       - name: import managed Solution with settings file
-        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} != ''
+        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} == true
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -145,15 +164,15 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-          #import-as-holding: true
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: true
           deployment-settings-file: ${{ inputs.settings-file }}
           run-asynchronously: true
-      - name: import managed Solution with out settings file
-        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == ''
+      #managed solution & setting file & solution not exists
+      - name: import managed Solution with settings file
+        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} != true
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -161,8 +180,36 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
-          #import-as-holding: true
+          force-overwrite: true
+          publish-changes: true
+          use-deployment-settings-file: true
+          deployment-settings-file: ${{ inputs.settings-file }}
+          run-asynchronously: true
+      #managed solution & no setting file & solution exists
+      - name: import managed Solution with out settings file
+        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} == true
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
           stage-and-upgrade: true
+          force-overwrite: true
+          publish-changes: true
+          use-deployment-settings-file: false
+          run-asynchronously: true
+      #managed solution & no setting file & solution not exists
+      - name: import managed Solution with out settings file
+        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} != true
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: false
@@ -178,8 +225,9 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           path: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
+      # unmanaged solution & solution file & solution exist
       - name: Import Unmanaged Solution with settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} != ''
+        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} == true
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -187,15 +235,15 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
-          #import-as-holding: true
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: true
           deployment-settings-file: ${{ inputs.settings-file }}
           run-asynchronously: true
-      - name: Import Unmanaged Solution without settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == ''
+      # unmanaged solution & solution file & solution not exist
+      - name: Import Unmanaged Solution with settings file
+        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} != true
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -203,25 +251,37 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
-          #import-as-holding: true
+          force-overwrite: true
+          publish-changes: true
+          use-deployment-settings-file: true
+          deployment-settings-file: ${{ inputs.settings-file }}
+          run-asynchronously: true
+      # unmanaged solution & not solution file & solution exist
+      - name: Import Unmanaged Solution without settings file
+        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} == true
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
           stage-and-upgrade: true
           force-overwrite: true
           publish-changes: true
           use-deployment-settings-file: false
           run-asynchronously: true
-
-      # - name: upgrade managed Solution
-      #   uses: microsoft/powerplatform-actions/upgrade-solution@v1
-      #   with:
-      #     environment-url: ${{ vars.POWERPLATFORMORGURI }}
-      #     app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-      #     client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-      #     tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-      #     solution-name: ${{ inputs.solution-name }}
-      # - name: Publish Solution Customizations
-      #   uses: microsoft/powerplatform-actions/publish-solution@v1
-      #   with:
-      #     environment-url: ${{ vars.POWERPLATFORMORGURI }}
-      #     app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
-      #     client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
-      #     tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+      # unmanaged solution & not solution file & solution not exist
+      - name: Import Unmanaged Solution without settings file
+        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} != true
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ vars.POWERPLATFORMORGURI }}
+          app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
+          client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
+          tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
+          solution-file: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
+          force-overwrite: true
+          publish-changes: true
+          use-deployment-settings-file: false
+          run-asynchronously: true

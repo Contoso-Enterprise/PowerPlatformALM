@@ -67,16 +67,7 @@ jobs:
         shell: pwsh
       - name: Test pwsh output
         run: |
-          echo "${{ steps.check-solution-exists.outputs }}"
           echo ${{ env.check-solution-exists }}
-      - name: Check Powershell  exists
-        run: |
-          if ( Test-Path -LiteralPath 'PowerShell/PowerPlatform-Utility.ps1') {
-            write-host "found"
-          } else {
-            write-host "not found"
-          }
-        shell: pwsh
       - name: Set release variables
         run: |
           $solutionName = '${{ Inputs.solution-name }}';
