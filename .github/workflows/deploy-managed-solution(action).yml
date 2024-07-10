@@ -61,7 +61,7 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
-      settings-file: '${{ env.setting-file }}'
+      settings-file: ${{ env.setting-file }}
       managed: true
     secrets: inherit
   deploy-production-setup:
@@ -95,6 +95,6 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
-      settings-file: '${{ env.setting-file }}'
+      settings-file: ${{ env.setting-file }}
       managed: true
     secrets: inherit
