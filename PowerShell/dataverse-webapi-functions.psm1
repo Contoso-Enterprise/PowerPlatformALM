@@ -10,8 +10,16 @@ function Get-SpnToken {
         [Parameter(Mandatory)] [String]$dataverseHost,
         [Parameter(Mandatory)] [String]$aadHost
     )
-    $body = @{client_id = $clientId; client_secret = $clientSecret; grant_type = "client_credentials"; scope = "https://$dataverseHost/.default"; }
-    $OAuthReq = Invoke-RestMethod -Method Post -Uri "https://$aadHost/$tenantId/oauth2/v2.0/token" -Body $body
+    if ($dataverseHost -notcontains 'https://')
+    {
+        $dataverseHost = "https://$dataverseHost"
+    }
+    if ($aadHost -notcontains)
+    {
+        $aadHost = "https://$aadHost" 
+    }
+    $body = @{client_id = $clientId; client_secret = $clientSecret; grant_type = "client_credentials"; scope = "$dataverseHost/.default"; }
+    $OAuthReq = Invoke-RestMethod -Method Post -Uri "$aadHost/$tenantId/oauth2/v2.0/token" -Body $body
 
     return $OAuthReq.access_token
 }
