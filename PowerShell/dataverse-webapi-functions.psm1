@@ -10,11 +10,11 @@ function Get-SpnToken {
         [Parameter(Mandatory)] [String]$dataverseHost,
         [Parameter(Mandatory)] [String]$aadHost
     )
-    if ($dataverseHost -notcontains 'https://')
+    if ($dataverseHost -notlike'https://*')
     {
         $dataverseHost = "https://$dataverseHost"
     }
-    if ($aadHost -notcontains 'https://')
+    if ($aadHost -notlike 'https://*')
     {
         $aadHost = "https://$aadHost" 
     }
