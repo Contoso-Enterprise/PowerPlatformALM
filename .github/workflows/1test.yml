@@ -55,7 +55,7 @@ jobs:
           . "PowerShell/PowerPlatform-Utility.ps1"
           $token = Connect-Dataverse -dataverseHost ${{ vars.POWERPLATFORMORGURI }} -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
           write-host $token
-          $results = Get-DataverseSolution -token $token -dataverseHost $dataverseHost -solutionUniqueName '${{ inputs.solution-name }}'
+          $results = Get-DataverseSolution -token $token -dataverseHost ${{ vars.POWERPLATFORMORGURI }} -solutionUniqueName '${{ inputs.solution-name }}'
           write-host $results
           $results
 
