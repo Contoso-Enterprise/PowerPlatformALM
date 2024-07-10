@@ -50,7 +50,6 @@ jobs:
         } else {
           $settingFile = ''
         }
-
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
       shell: pwsh
   deploy-staging:
@@ -66,6 +65,7 @@ jobs:
       managed: true
     secrets: inherit
   deploy-production-setup:
+    needs: [deploy-staging]
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
     steps: 
