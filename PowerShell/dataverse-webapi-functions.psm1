@@ -74,7 +74,11 @@ function Set-RequestUrl {
         [Parameter(Mandatory)] [String]$dataverseHost,
         [Parameter(Mandatory)] [String]$requestUrlRemainder
     )
-    $requestUrl = "https://$dataverseHost/api/data/v9.2/$requestUrlRemainder"
+    if ($dataverseHost -notlike 'https://*')
+    {
+        $dataverseHost = "https://$dataverseHost"
+    }
+    $requestUrl = "$dataverseHost/api/data/v9.2/$requestUrlRemainder"
     return $requestUrl    
 }
 
