@@ -57,9 +57,14 @@ jobs:
           write-host $token
           $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
           write-host $results
-          $results
-
-
+          if($solutionUniqueName -in $results.uniquename)
+          {
+              write-output $true >> $GITHUB_OUTPUT
+          }
+          else 
+          {
+              write-output $false >> $GITHUB_OUTPUT
+          }
         shell: pwsh
       - name: Check Powershell  exists
         run: |
