@@ -46,16 +46,16 @@ jobs:
     steps:
       - name: Checkout branch main
         uses: actions/checkout@v4
+      - name: Deblug list of files
+        shell: pwsh
+        run: |
+          Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
       - name: Check solution exists
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $token = Connect-Dataverse -dataverseHost ${{ vars.POWERPLATFORMORGURI }} -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
           write-host $token
         shell: pwsh
-      - name: Deblug list of files
-        shell: pwsh
-        run: |
-          Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
       - name: Check Powershell  exists
         run: |
           if ( Test-Path -LiteralPath 'PowerShell/PowerPlatform-Utility.ps1') {
