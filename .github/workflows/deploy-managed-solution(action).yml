@@ -61,16 +61,14 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
-      settings-file: ${{ env.setting-file }}
+      settings-file: '${{ env.setting-file }}'
       managed: true
     secrets: inherit
   deploy-production-setup:
     needs: [deploy-staging]
-    environment: 'Contoso Staging'
+    environment: 'Contoso Production'
     runs-on: ubuntu-latest
     steps: 
-    - env:
-        EVENT_CONTEXT: ${{ toJSON(github.event) }}
     - name: Production Variables      
       run: |        
         write-Host "ref ${{ github.ref }}"        
@@ -97,6 +95,6 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
-      settings-file: ${{ env.setting-file }}
+      settings-file: '${{ env.setting-file }}'
       managed: true
     secrets: inherit
