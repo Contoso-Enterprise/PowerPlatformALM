@@ -14,7 +14,7 @@ function Get-SpnToken {
     {
         $dataverseHost = "https://$dataverseHost"
     }
-    if ($aadHost -notcontains)
+    if ($aadHost -notcontains 'https://')
     {
         $aadHost = "https://$aadHost" 
     }
