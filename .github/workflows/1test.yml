@@ -55,16 +55,14 @@ jobs:
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $token = Connect-Dataverse -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
-          write-host $token
           $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
-          write-host $results
           if($solutionUniqueName -in $results.uniquename)
           {
-              write-output $true >> $GITHUB_OUTPUT
+              write-output "$true" >> $GITHUB_OUTPUT
           }
           else 
           {
-              write-output $false >> $GITHUB_OUTPUT
+              write-output "$false" >> $GITHUB_OUTPUT
           }
         shell: pwsh
       - name: Test pwsh output
