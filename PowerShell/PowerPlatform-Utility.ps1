@@ -70,9 +70,6 @@ function Get-DataverseSolution
         [Parameter(Mandatory)] [String]$dataverseHost,
         [Parameter(Mandatory)] [String]$solutionUniqueName
     )
-    write-host $solutionUniqueName
-    write-host ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
-    write-host $dataverseHost
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
     return $response.value
 }
