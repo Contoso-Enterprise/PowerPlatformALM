@@ -58,11 +58,11 @@ jobs:
           $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
           if($solutionUniqueName -in $results.uniquename)
           {
-              write-output "$true" >> $GITHUB_OUTPUT
+              write-host "$true" >> $GITHUB_OUTPUT
           }
           else 
           {
-              write-output "$false" >> $GITHUB_OUTPUT
+              write-host "$false" >> $GITHUB_OUTPUT
           }
         shell: pwsh
       - name: Test pwsh output
