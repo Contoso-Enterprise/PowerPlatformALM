@@ -43,6 +43,10 @@ on:
         type: string
         required: false
         default: '.'
+      delete-existing-source:
+        type: boolean
+        default: false
+        required: false
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -112,6 +116,21 @@ jobs:
           managed: true
           overwrite: true
           export-general-settings: true
+      - name: Delete existing source file
+        if: ${{ inputs.delete-existing-source }} == true
+        run: |
+          if (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}") {
+            try {
+              Remove-Item -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}"
+              write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }} deleted"
+            }
+            catch {
+              write-host "error deleting ${{ inputs.folderPath }}/src/${{ inputs.solution-name }}"
+            }
+          } else {
+            write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }} no found."
+          }
+        shell: pwsh
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
