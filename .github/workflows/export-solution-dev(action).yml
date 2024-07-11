@@ -25,6 +25,11 @@ on:
         type: environment
         required: true
         default: 'Contoso Development'
+      delete-existing-source:
+        description: 'delete existing source file before export'
+        type: boolean
+        required: false
+        default: false
 jobs:
   setup:
     environment: ${{ inputs.source-Environment }}
