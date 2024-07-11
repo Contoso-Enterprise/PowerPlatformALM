@@ -29,6 +29,13 @@
   <EntityDataProviders />
   <CanvasApps />
   <connectionreferences>
+    <connectionreference connectionreferencelogicalname="cont_OrgDemo_Dataverse_ConnectionReference">
+      <connectionreferencedisplayname>OrgDemo_Dataverse_ConnectionReference</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
     <connectionreference connectionreferencelogicalname="cont_sharedazuread_e55dd">
       <connectionreferencedisplayname>Azure AD OrgDemo-e55dd</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_azuread</connectorid>

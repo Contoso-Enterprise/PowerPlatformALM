@@ -1,10 +1,10 @@
 {
   "properties": {
     "connectionReferences": {
-      "shared_commondataserviceforapps_1": {
+      "shared_commondataserviceforapps": {
         "runtimeSource": "embedded",
         "connection": {
-          "connectionReferenceLogicalName": "admin_CoECoreDataverse"
+          "connectionReferenceLogicalName": "cont_OrgDemo_Dataverse_ConnectionReference"
         },
         "api": {
           "name": "shared_commondataserviceforapps"
@@ -41,6 +41,13 @@
                   "items": {
                     "type": "object",
                     "properties": {
+                      "text": {
+                        "title": "Test Input",
+                        "type": "string",
+                        "x-ms-dynamically-added": true,
+                        "description": "Please enter your input",
+                        "x-ms-content-hint": "TEXT"
+                      },
                       "entity": {
                         "type": "object",
                         "properties": {
@@ -52,18 +59,11 @@
                         "required": [
                           "entity"
                         ]
-                      },
-                      "text": {
-                        "title": "Test Input",
-                        "type": "string",
-                        "x-ms-dynamically-added": true,
-                        "description": "Please enter your input",
-                        "x-ms-content-hint": "TEXT"
                       }
                     },
                     "required": [
-                      "entity",
-                      "text"
+                      "text",
+                      "entity"
                     ]
                   }
                 }
@@ -74,7 +74,7 @@
             },
             "host": {
               "connection": {
-                "name": "@parameters('$connections')['shared_commondataserviceforapps_1']['connectionId']"
+                "name": "@parameters('$connections')['shared_commondataserviceforapps']['connectionId']"
               }
             },
             "operationId": "FlowStepRun",
