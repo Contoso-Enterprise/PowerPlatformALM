@@ -250,10 +250,6 @@
         <Dependent type="60" displayName="Information" parentDisplayName="Org Data" id="{c277c667-273e-4aa1-946e-3dbd84b005cb}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="connectionreference" displayName="admin_CoECoreDataverse" solution="CenterofExcellenceCoreComponents (4.31)" id.connectionreferencelogicalname="admin_CoECoreDataverse" />
-        <Dependent type="29" displayName="Org Data Flow" id="{a0013e46-e71c-ee11-8f6e-000d3a5a7956}" />
-      </MissingDependency>
-      <MissingDependency>
         <Required type="SettingDefinition" displayName="FluentThemingPreview" solution="msdyn_PowerAppsThemingSettings (1.0.0.13)" id.uniquename="FluentThemingPreview" />
         <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cont_OrgDataMDAdemo,settingdefinitionid.uniquename=FluentThemingPreview" id.parentappmoduleid.uniquename="cont_OrgDataMDAdemo" id.settingdefinitionid.uniquename="FluentThemingPreview" />
       </MissingDependency>
