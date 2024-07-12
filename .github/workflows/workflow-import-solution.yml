@@ -135,11 +135,11 @@ jobs:
           $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName $solutionName
           if($solutionName -in $results.uniquename)
           {
-              echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+              echo "check-solution-exists=true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
           }
           else 
           {
-              echo "check-solution-exists=$false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+              echo "check-solution-exists=false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
           }
         shell: pwsh
       - name: Test pwsh output
@@ -147,7 +147,7 @@ jobs:
           echo ${{ env.check-solution-exists }}
       #managed solution
       - name: check managed solution
-        if: ${{ inputs.managed }} == true
+        if: ${{ inputs.managed }} == 'true'
         uses: microsoft/powerplatform-actions/check-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -157,7 +157,7 @@ jobs:
           path: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
       #managed solution & setting file & solution exists
       - name: import upgrade managed Solution with settings file
-        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} == true)
+        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} == 'true')
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -173,7 +173,7 @@ jobs:
           run-asynchronously: true
       #managed solution & setting file & solution not exists
       - name: import new managed Solution with settings file
-        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} != true)
+        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} != 'true')
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
