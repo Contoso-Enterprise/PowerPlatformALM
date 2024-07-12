@@ -157,7 +157,7 @@ jobs:
           path: '${{ env.release-path }}${{ inputs.solution-name }}_managed.zip'
       #managed solution & setting file & solution exists
       - name: import upgrade managed Solution with settings file
-        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} == 'true')
+        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} == true)
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -173,7 +173,7 @@ jobs:
           run-asynchronously: true
       #managed solution & setting file & solution not exists
       - name: import new managed Solution with settings file
-        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} != 'true')
+        if: (${{ inputs.managed }} == true) && (${{ inputs.setting-file }} != '') && (${{ env.check-solution-exists }} != true)
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
