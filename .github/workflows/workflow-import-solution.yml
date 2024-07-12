@@ -132,7 +132,7 @@ jobs:
           . "PowerShell/PowerPlatform-Utility.ps1"
           $token = Connect-Dataverse -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
           $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
-          if($solutionUniqueName -in $results.uniquename)
+          if($solutionName -in $results.uniquename)
           {
               echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
           }
