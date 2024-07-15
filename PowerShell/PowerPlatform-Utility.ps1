@@ -77,7 +77,7 @@ function Get-SolutionVersion
 {
     param (
         [Parameter(Mandatory)] [String]$solutionName,
-        [Parameter(Mandatory)] [String]$folderPath,
+        [String]$folderPath = ''
 
     )
     if (Test-Path -LiteralPath "$folderPath/src/$solutionName/Other/Solution.xml") 
