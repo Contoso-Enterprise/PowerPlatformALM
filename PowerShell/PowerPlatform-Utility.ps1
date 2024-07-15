@@ -78,12 +78,18 @@ function Get-SolutionVersion
     param (
         [Parameter(Mandatory)] [String]$solutionName,
         [String]$folderPath = ''
-
     )
-    if (Test-Path -LiteralPath "$folderPath/src/$solutionName/Other/Solution.xml") 
+    if ($folderPath = '')
+    {
+        $SolutionFilePath = "src/$solutionName/Other/Solution.xml"
+    }
+    else {
+        $SolutionFilePath = "$folderPath/src/$solutionName/Other/Solution.xml"
+    }
+    if (Test-Path -LiteralPath $SolutionFilePath ) 
     {
         try{
-            [xml]$solutionXml = Get-Content -Path "$folderPath/src/$solutionName/Other/Solution.xml" 
+            [xml]$solutionXml = Get-Content -Path $SolutionFilePath
         }
         catch {
             write-Error $_
@@ -94,7 +100,7 @@ function Get-SolutionVersion
         return $version
     }
     else {
-        write-host "$folderPath/src/$solutionName/Other/Solution.xml not found"
+        write-host "$SolutionFilePath not found"
     }
     return $null
 }
