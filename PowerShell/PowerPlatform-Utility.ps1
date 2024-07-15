@@ -73,4 +73,28 @@ function Get-DataverseSolution
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
     return $response.value
 }
+function Get-SolutionVersion
+{
+    param (
+        [Parameter(Mandatory)] [String]$solutionName,
+        [Parameter(Mandatory)] [String]$folderPath,
 
+    )
+    if (Test-Path -LiteralPath "$folderPath/src/$solutionName/Other/Solution.xml") 
+    {
+        try{
+            [xml]$solutionXml = Get-Content -Path "$folderPath/src/$solutionName/Other/Solution.xml" 
+        }
+        catch {
+            write-Error $_
+            break
+        }
+        $version = $solutionXml.ImportExportXml.SolutionManifest.Version
+        Write-Host "Current solution version: $version"
+        return $version
+    }
+    else {
+        write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml not found"
+    }
+    retrn $null
+}
