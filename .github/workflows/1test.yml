@@ -70,6 +70,7 @@ jobs:
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
+          write-host $version
         shell: pwsh
       - name: Test pwsh output
         run: |
