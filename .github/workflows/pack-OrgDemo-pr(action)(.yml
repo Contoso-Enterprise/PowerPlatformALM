@@ -22,7 +22,7 @@ env:
   solution-name: 'OrgDemo'
 jobs:
   setup:
-    if: github.event.pull_request.merged == true
+    if: ${{ github.event.pull_request.merged == true }}
     environment: ${{ inputs.source-environment }}
     permissions:
       actions: read
