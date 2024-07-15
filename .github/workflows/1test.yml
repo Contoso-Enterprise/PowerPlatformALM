@@ -69,8 +69,8 @@ jobs:
         id: check-solution-version
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Get-SolutionVersion -solutionName 'OrgDemo' -folderPath ''
-
+          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
+        shell: pwsh
       - name: Test pwsh output
         run: |
           echo ${{ env.check-solution-exists }}
