@@ -79,7 +79,7 @@ function Get-SolutionVersion
         [Parameter(Mandatory)] [String]$solutionName,
         [String]$folderPath = ''
     )
-    if ($folderPath = '')
+    if ($folderPath -eq '')
     {
         $SolutionFilePath = "src/$solutionName/Other/Solution.xml"
     }
