@@ -147,7 +147,7 @@ jobs:
           echo ${{ env.check-solution-exists }}
       #managed solution
       - name: check managed solution
-        if: ${{ inputs.managed }} == 'true'
+        if: ${{ inputs.managed == 'true'}}
         uses: microsoft/powerplatform-actions/check-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -188,7 +188,7 @@ jobs:
           run-asynchronously: true
       #managed solution & no setting file & solution exists
       - name: import upgrade managed Solution with out settings file
-        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} == true
+        if: ${{ inputs.managed == true && inputs.setting-file == '' &&  env.check-solution-exists  == true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -203,7 +203,7 @@ jobs:
           run-asynchronously: true
       #managed solution & no setting file & solution not exists
       - name: import new managed Solution with out settings file
-        if: ${{ inputs.managed }} == true && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} != true
+        if: ${{ inputs.managed == true && inputs.setting-file == '' && env.check-solution-exists != true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -218,7 +218,7 @@ jobs:
 
       # unmanaged solution
       - name: check unmanaged solution
-        if: ${{ inputs.managed }} == false
+        if: ${{ inputs.managed == false }}
         uses: microsoft/powerplatform-actions/check-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -228,7 +228,7 @@ jobs:
           path: '${{ env.release-path }}${{ inputs.solution-name }}.zip'
       # unmanaged solution & solution file & solution exist
       - name: Import upgrade Unmanaged Solution with settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} == true
+        if: ${{ inputs.managed == false && inputs.setting-file != '' && env.check-solution-exists == true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -244,7 +244,7 @@ jobs:
           run-asynchronously: true
       # unmanaged solution & solution file & solution not exist
       - name: Import new Unmanaged Solution with settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} != '' && ${{ env.check-solution-exists }} != true
+        if: ${{ inputs.managed  == false && inputs.setting-file != '' && env.check-solution-exists != true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -259,7 +259,7 @@ jobs:
           run-asynchronously: true
       # unmanaged solution & not solution file & solution exist
       - name: Import upgrade Unmanaged Solution without settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} == true
+        if: ${{ inputs.managed == false && inputs.setting-file == '' && env.check-solution-exists == true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
@@ -274,7 +274,7 @@ jobs:
           run-asynchronously: true
       # unmanaged solution & not solution file & solution not exist
       - name: Import new Unmanaged Solution without settings file
-        if: ${{ inputs.managed }} == false && ${{ inputs.setting-file }} == '' && ${{ env.check-solution-exists }} != true
+        if: ${{ inputs.managed == false && inputs.setting-file == '' && env.check-solution-exists != true }}
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
           environment-url: ${{ vars.POWERPLATFORMORGURI }}
