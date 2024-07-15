@@ -17,8 +17,9 @@ jobs:
         echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
-        echo "${{ github.GITHUB_ACTOR }}"
-        echo "${{ github.GITHUB_ACTOR_ID }}"
+        echo "author ${github.event.commits[0].author.name}"
+        echo "Actor ${{ github.actor }}"
+        echo "triggering actor ${{ github.triggering_actor }}"
 
     - name : set varable
       uses: marcdomain/set-variables@v1
