@@ -94,7 +94,7 @@ function Get-SolutionVersion
         return $version
     }
     else {
-        write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml not found"
+        write-host "$folderPath/src/$solutionName/Other/Solution.xml not found"
     }
     retrn $null
 }
