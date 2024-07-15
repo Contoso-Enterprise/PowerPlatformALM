@@ -17,8 +17,7 @@ jobs:
         echo "variable : var URI ${{ vars.POWERPLATFORMORGURI }}"
         echo "variable Target ${{ vars.POWERPLATFORMTARGETENVIRONMENT }}"
         echo "variable Source ${{ vars.POWERPLATFORMSOURCEENVIRONMENT }}"
-        echo "author ${{ github.event.commits[0].author.name }}"
-        echo "Actor ${{ github.actor }}"
+        echo "Actor ${{ github.actor }} ${{ github.actor_id }} "
         echo "triggering actor ${{ github.triggering_actor }}"
 
     - name : set varable
