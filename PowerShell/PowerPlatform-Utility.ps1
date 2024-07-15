@@ -96,6 +96,7 @@ function Get-SolutionVersion
             break
         }
         $version = $solutionXml.ImportExportXml.SolutionManifest.Version
+        Write-Host "Current solution version: $version"
         return $version
     }
     else {
