@@ -65,6 +65,12 @@ jobs:
               echo "check-solution-exists=$false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
           }
         shell: pwsh
+      - name: Check solution version
+        id: check-solution-version
+        run: |
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $version = Get-SolutionVersion -solutionName 'OrgDemo' -folderPath ''
+
       - name: Test pwsh output
         run: |
           echo ${{ env.check-solution-exists }}
