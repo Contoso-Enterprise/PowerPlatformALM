@@ -65,12 +65,12 @@ jobs:
       - name: debug check exists
         run: echo "${{ steps.check-branch-exists.outputs }}"
       - name: Checkout branch if exists
-        if: {{ steps.check-branch-exists.outputs.exists == 'true' }}
+        if: ${{ steps.check-branch-exists.outputs.exists == 'true' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch-name }}
       - name: Checkout branch main
-        if: {{ steps.check-branch-exists.outputs.exists != 'true' }}
+        if: ${{ steps.check-branch-exists.outputs.exists != 'true' }}
         uses: actions/checkout@v4
       - name: Set release variables
         run: |
