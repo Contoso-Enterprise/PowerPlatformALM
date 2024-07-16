@@ -51,5 +51,6 @@ jobs:
         id: check-solution-version
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}'
+          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
           write-host $version
+        shell: pwsh
