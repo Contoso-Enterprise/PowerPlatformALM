@@ -61,3 +61,6 @@ jobs:
           $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
           echo "solution-version=$version" >> $GITHUB_OUTPUT
         shell: pwsh
+      - name: check output solution version
+        run: |
+          echo ${{ steps.get-solution-version-step.outputs.solution-version }}
