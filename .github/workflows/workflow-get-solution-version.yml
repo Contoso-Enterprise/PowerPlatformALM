@@ -50,10 +50,6 @@ jobs:
       - name: Checkout branch main
         if: ${{ steps.check-branch-exists.outputs.exists != true }}
         uses: actions/checkout@v4
-      - name: Deblug list of files
-        shell: pwsh
-        run: |
-          Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
       - name: Get solution version
         id: get-solution-version-step
         run: |
