@@ -17,6 +17,10 @@ on:
         type: string
         required: false
         default: 'main'
+    outputs:
+      solution-version:
+        description: "Solution Version"
+        value: ${{ jobs.get-solution-version.outputs.solution-version }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
