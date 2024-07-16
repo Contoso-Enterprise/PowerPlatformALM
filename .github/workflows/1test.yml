@@ -127,8 +127,8 @@ jobs:
           $version = GeIncrement-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '' -MajorVersionIncrement 1
           write-host $version
         shell: pwsh
-      - name: update solution version
-        id: update-solution-version
+      - name: clear solution env
+        id: clear-solution-env
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folderPath '' -MajorVersionIncrement 1
