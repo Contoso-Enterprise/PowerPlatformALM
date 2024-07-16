@@ -109,10 +109,11 @@ function Increment-SolutionVersion
     param (
         [Parameter(Mandatory)] [String]$solutionName,
         [String]$folderPath = '',
-        [Int]$MajorVersion,
-        [Int]$MinorVersion,
-        [Int]$ReleaseVersion,
-        [Int]$PatchVersion
+        [Int]$MajorVersionIncrement,
+        [Int]$MinorVersionIncrement,
+        [Int]$ReleaseVersionIncrement,
+        [Int]$PatchVersionIncrement,
+        [boolean]$updateVersion
     )
     if ($folderPath -eq '')
     {
@@ -133,25 +134,107 @@ function Increment-SolutionVersion
         $version = $solutionXml.ImportExportXml.SolutionManifest.Version
         Write-Host "Current solution version: $version"
         $setVersion = $version.Split(".")
-        $setVersion[0] = [int]$setVersion[0] + ${{ inputs.VersionMajorIncrement }}
-        $setVersion[1] = [int]$setVersion[1] + ${{ inputs.VersionMinorIncrement }}
-        $setVersion[2] = [int]$setVersion[2] + ${{ inputs.VersionReleaseIncrement }}
-        $setVersion[3] = [int]$setVersion[3] + ${{ inputs.VersionPatchIncrement }}
+        $setVersion[0] = [int]$setVersion[0] + $MajorVersionIncrement
+        $setVersion[1] = [int]$setVersion[1] + $MinorVersionIncrement
+        $setVersion[2] = [int]$setVersion[2] + $ReleaseVersionIncrement
+        $setVersion[3] = [int]$setVersion[3] + $PatchVersionIncrement
         $newVersion = $setVersion[0] + "." + $setVersion[1] + "."  + $setVersion[2] + "."  + $setVersion[3]
         write-host "New solution version: $newVersion"
         $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
-        try {
-            $solutionXml.Save("${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml")
+        if ($updateVersion) {
+            try {
+                $solutionXml.Save($SolutionFilePath)
+            }
+            catch {
+                write-Error $_
+                break
+            }
+            write-host "solution version updated"
+        } else {
+            write-host "solution version not updated"
         }
-        catch {
-            write-Error $_
-            break
-        }
-        write-host "solution version updated"
         return $newVersion
     }
     else {
         write-host "$SolutionFilePath not found"
     }
     return $null
+}
+
+function Clear-CurentEnvironmentVariables
+{
+    param (
+        [Parameter(Mandatory)] [String]$solutionName,
+        [String]$folderPath = '',
+        [boolean]$deleteCurrentValues
+    )
+    if ($folderPath -eq '')
+    {
+        $SolutionFilePath = "src/$solutionName/environmentvariabledefinitions"
+    }
+    else {
+        $SolutionFilePath = "$folderPath/src/$solutionName/environmentvariabledefinitions"
+    }
+    if (Test-Path -LiteralPath $SolutionFilePath ) 
+    {
+        try {
+            $envars = Get-ChildItem -Path $SolutionFilePath -Directory
+        }
+        catch {
+            write-Error $_
+            break
+        }
+        #loop through all environment variables
+        foreach ($envvar in $envars) 
+        {
+            write-host "#########################"
+            write-host "Environment Variable Definition: " $envvar.FullName
+            try {
+                $envardef = Get-ChildItem -path $envvar.FullName -Filter '*.xml'
+            }
+            catch {
+                write-Error $_
+            break
+            }
+            $envardefvalue = select-xml -path $envardef.FullName -XPath "/environmentvariabledefinition"
+            if($envardefvalue.Node -ne $null)
+            {
+                write-host "Environment Variable Schema Name: " $envardefvalue.Node.schemaname
+                write-host "Environment Variable Default Value: " $envardefvalue.Node.defaultvalue
+            }
+            try {
+                $envarvalue = Get-ChildItem -path $envvar.FullName -Filter '*.json'
+            }
+            catch {
+                write-Error $_
+            break
+            }
+            if($envarvalue -eq $null){
+                write-host "No environment variable current value"
+            } else {
+                try {
+                    $envarcurrentvalue = (Get-Content -Path $envarvalue.FullName) | ConvertFrom-Json -Depth 3
+                }
+                catch {
+                    write-Error $_
+                    break
+                }
+                write-host "Environment Variable Curret Value: " $envarcurrentvalue.environmentvariablevalues.environmentvariablevalue.value    
+                if($deleteCurrentValues)
+                {
+                    try {
+                        Remove-Item -Path $envarvalue.FullName    
+                    }
+                    catch {
+                        write-Error $_
+                        break
+                    }
+                    write-host "Environment Variable Current Value Deleted"
+                }
+            }
+        }
+    }
+    else {
+        write-host "$SolutionFilePath not found"
+    }    
 }
