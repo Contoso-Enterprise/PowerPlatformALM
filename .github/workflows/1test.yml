@@ -50,31 +50,31 @@ jobs:
         shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
-      - name: Check solution exists
-        id: check-solution-exists
-        run: |
-          . "PowerShell/PowerPlatform-Utility.ps1"
-          $token = Connect-Dataverse -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
-          $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
-          if($solutionUniqueName -in $results.uniquename)
-          {
-              echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
-          }
-          else 
-          {
-              echo "check-solution-exists=$false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
-          }
-        shell: pwsh
-      - name: Check solution version
-        id: check-solution-version
-        run: |
-          . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
-          write-host $version
-        shell: pwsh
-      - name: Test pwsh output
-        run: |
-          echo ${{ env.check-solution-exists }}
+      # - name: Check solution exists
+      #   id: check-solution-exists
+      #   run: |
+      #     . "PowerShell/PowerPlatform-Utility.ps1"
+      #     $token = Connect-Dataverse -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -tenantId ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }} -clientId ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }} -clientSecret ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }} 
+      #     $results = Get-DataverseSolution -token $token -dataverseHost '${{ vars.POWERPLATFORMORGURI }}' -solutionUniqueName '${{ inputs.solution-name }}'
+      #     if($solutionUniqueName -in $results.uniquename)
+      #     {
+      #         echo "check-solution-exists=$true" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+      #     }
+      #     else 
+      #     {
+      #         echo "check-solution-exists=$false" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+      #     }
+      #   shell: pwsh
+      # - name: Check solution version
+      #   id: check-solution-version
+      #   run: |
+      #     . "PowerShell/PowerPlatform-Utility.ps1"
+      #     $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
+      #     write-host $version
+      #   shell: pwsh
+      # - name: Test pwsh output
+      #   run: |
+      #     echo ${{ env.check-solution-exists }}
       - name: Set release variables
         run: |
           $solutionName = '${{ Inputs.solution-name }}';
