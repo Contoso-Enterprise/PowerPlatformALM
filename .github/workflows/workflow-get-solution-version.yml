@@ -31,7 +31,7 @@ jobs:
     permissions:
       contents: read
     outputs:
-      solution-version: ${{ steps.get-solution-version.outputs.solution-version }}
+      solution-version: ${{ steps.get-solution-version-step.outputs.solution-version }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -55,7 +55,7 @@ jobs:
         run: |
           Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
       - name: Get solution version
-        id: get-solution-version
+        id: get-solution-version-step
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
