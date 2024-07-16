@@ -60,7 +60,7 @@ jobs:
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
           echo "solution-version=$version" >> $GITHUB_OUTPUT
-          echo "solution-version=$version" | Out-File -FilePath $GITHUB_OUTPUT -Encoding utf8 -Append;
+          echo "solution-version=$version" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
         shell: pwsh
       - name: check output solution version
         run: |
