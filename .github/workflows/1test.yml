@@ -131,7 +131,7 @@ jobs:
         id: clear-solution-env
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folderPath '' -MajorVersionIncrement 1
+          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folderPath ''
           write-host $version
         shell: pwsh
 
