@@ -113,7 +113,7 @@ function Increment-SolutionVersion
         [Int]$MinorVersionIncrement,
         [Int]$ReleaseVersionIncrement,
         [Int]$PatchVersionIncrement,
-        [boolean]$updateVersion
+        [boolean]$updateVersion = $false
     )
     if ($folderPath -eq '')
     {
@@ -166,7 +166,7 @@ function Clear-CurentEnvironmentVariables
     param (
         [Parameter(Mandatory)] [String]$solutionName,
         [String]$folderPath = '',
-        [boolean]$deleteCurrentValues
+        [boolean]$deleteCurrentValues = $false
     )
     if ($folderPath -eq '')
     {

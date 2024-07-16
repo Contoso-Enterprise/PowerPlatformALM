@@ -120,6 +120,23 @@ jobs:
           echo "release-name=$releaseName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         shell: pwsh
+      - name: update solution version
+        id: update-solution-version
+        run: |
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $version = GeIncrement-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '' -MajorVersionIncrement 1
+          write-host $version
+        shell: pwsh
+      - name: update solution version
+        id: update-solution-version
+        run: |
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folderPath '' -MajorVersionIncrement 1
+          write-host $version
+        shell: pwsh
+
+
+
   get-solution-version:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-get-solution-version.yml@main
     with: 
