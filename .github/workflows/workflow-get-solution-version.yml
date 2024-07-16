@@ -36,12 +36,12 @@ jobs:
         run: echo "${{ steps.check-branch-exists.outputs }}"
 
       - name: Checkout branch if exists
-        if: ${{ steps.check-branch-exists.outputs.exists == 'true' }}
+        if: ${{ steps.check-branch-exists.outputs.exists == true }}
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch-name }}
       - name: Checkout branch main
-        if: ${{ steps.check-branch-exists.outputs.exists != 'true' }}
+        if: ${{ steps.check-branch-exists.outputs.exists != true }}
         uses: actions/checkout@v4
       - name: Check solution version
         id: check-solution-version
