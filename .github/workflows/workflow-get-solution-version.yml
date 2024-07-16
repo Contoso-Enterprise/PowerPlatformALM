@@ -54,5 +54,5 @@ jobs:
         id: get-solution-version-step
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
+          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}'
           echo "solution-version=$version" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
