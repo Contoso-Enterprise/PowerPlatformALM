@@ -26,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      solution-version: ${{ steps.get-solution-version.outputs.solution-version }}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - id: check-branch-exists
@@ -47,10 +50,10 @@ jobs:
         shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
-      - name: Check solution version
-        id: check-solution-version
+      - name: Get solution version
+        id: get-solution-version
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath ''
-          write-host $version
+          echo "solution-version=$version" >> $GITHUB_OUTPUT
         shell: pwsh

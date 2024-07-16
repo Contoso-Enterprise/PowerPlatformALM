@@ -120,9 +120,21 @@ jobs:
           echo "release-name=$releaseName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         shell: pwsh
-  pack:
+  get-solution-version:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-get-solution-version.yml@main
     with: 
       solution-name: ${{ inputs.solution-name }}
       branch-name: 'main'
       folder-path: ''
+  testing2:
+    needs: [get-solution-version]    
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions: 
+      actions: read
+      contents: read
+      # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      -name: output version number
+      run: |
+        echo "${{ needs.get-solution-version.outputs.solution-version}}"
