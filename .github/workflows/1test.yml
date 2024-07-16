@@ -137,4 +137,4 @@ jobs:
     steps:
       - name: output version number
         run: |
-          echo "${{ needs.get-solution-version.outputs.solution-version}}"
+          echo ${{ needs.get-solution-version.outputs.solution-version }}
