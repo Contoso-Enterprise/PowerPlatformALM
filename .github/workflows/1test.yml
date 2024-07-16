@@ -120,3 +120,9 @@ jobs:
           echo "release-name=$releaseName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
           echo "release-path=$releasePath" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         shell: pwsh
+  pack:
+    uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-get-solution-version.yml@main
+    with: 
+      solution-name: ${{ inputs.solution-name }}
+      branch-name: 'main'
+      folder-path: ''

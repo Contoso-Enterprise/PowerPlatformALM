@@ -1,0 +1,51 @@
+name: workflow-get-solution-version
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      solution-name:
+        description: "Solution Name"
+        type: string
+        required: true
+        default: 'OrgDemo'
+      folder-path:
+        type: string
+        required: false
+        default: '.'
+      branch-nanme:
+        type: string
+        required: false
+        default: 'main'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  get-solution-version:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - id: check-branch-exists
+        uses: GuillaumeFalourd/branch-exists@v1
+        with:
+          branch: ${{ inputs.branch-name }}
+      - name: debug check exists
+        run: echo "${{ steps.check-branch-exists.outputs }}"
+
+      - name: Checkout branch if exists
+        if: ${{ steps.check-branch-exists.outputs.exists == 'true' }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch-name }}
+      - name: Checkout branch main
+        if: ${{ steps.check-branch-exists.outputs.exists != 'true' }}
+        uses: actions/checkout@v4
+      - name: Check solution version
+        id: check-solution-version
+        run: |
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $version = Get-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}'
+          write-host $version
