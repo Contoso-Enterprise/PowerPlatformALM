@@ -104,3 +104,54 @@ function Get-SolutionVersion
     }
     return $null
 }
+function Increment-SolutionVersion
+{
+    param (
+        [Parameter(Mandatory)] [String]$solutionName,
+        [String]$folderPath = '',
+        [Int]$MajorVersion,
+        [Int]$MinorVersion,
+        [Int]$ReleaseVersion,
+        [Int]$PatchVersion
+    )
+    if ($folderPath -eq '')
+    {
+        $SolutionFilePath = "src/$solutionName/Other/Solution.xml"
+    }
+    else {
+        $SolutionFilePath = "$folderPath/src/$solutionName/Other/Solution.xml"
+    }
+    if (Test-Path -LiteralPath $SolutionFilePath ) 
+    {
+        try{
+            [xml]$solutionXml = Get-Content -Path $SolutionFilePath
+        }
+        catch {
+            write-Error $_
+            break
+        }
+        $version = $solutionXml.ImportExportXml.SolutionManifest.Version
+        Write-Host "Current solution version: $version"
+        $setVersion = $version.Split(".")
+        $setVersion[0] = [int]$setVersion[0] + ${{ inputs.VersionMajorIncrement }}
+        $setVersion[1] = [int]$setVersion[1] + ${{ inputs.VersionMinorIncrement }}
+        $setVersion[2] = [int]$setVersion[2] + ${{ inputs.VersionReleaseIncrement }}
+        $setVersion[3] = [int]$setVersion[3] + ${{ inputs.VersionPatchIncrement }}
+        $newVersion = $setVersion[0] + "." + $setVersion[1] + "."  + $setVersion[2] + "."  + $setVersion[3]
+        write-host "New solution version: $newVersion"
+        $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
+        try {
+            $solutionXml.Save("${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml")
+        }
+        catch {
+            write-Error $_
+            break
+        }
+        write-host "solution version updated"
+        return $newVersion
+    }
+    else {
+        write-host "$SolutionFilePath not found"
+    }
+    return $null
+}
