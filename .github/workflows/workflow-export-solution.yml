@@ -142,8 +142,6 @@ jobs:
           . "PowerShell/PowerPlatform-Utility.ps1"
           $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -deleteCurrentValues $true
         shell: pwsh
-      - name: 'Update Solution Version'
-        if: ${{ inputs.VersionMajorIncrement >= 0 || inputs.VersionMinorIncrement >= 0 || inputs.VersionReleaseIncrement >= 0 ||inputs.VersionPatchIncrement >= 0 }}
       - name: update solution version
         id: update-solution-version
         run: |
