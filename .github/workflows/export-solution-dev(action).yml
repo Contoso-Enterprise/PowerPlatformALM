@@ -46,7 +46,7 @@ jobs:
     - name: Debug output
       shell: pwsh
       run: |
-        Get-ChildItem  -Recurse | foreach { write-host $_.FullName }
+        Get-ChildItem -Recurse | foreach { write-host $_.FullName }
   #createBranch:
   #  needs: [setup]
   #  uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-createBranch.yml@main
