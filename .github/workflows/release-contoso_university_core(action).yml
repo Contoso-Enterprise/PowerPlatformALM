@@ -49,7 +49,7 @@ jobs:
       environment: 'Contoso Staging'
       solution-name: ${{ env.solution-name }}
       branch-name: '${{ env.branch-name }}'
-      branch-type: ''${{ env.branch-type }}''
+      branch-type: '${{ env.branch-type }}'
       folder-path: '.'
       settings-file: ${{ needs.release-staging-setup.outputs.setting-file }}
       managed: true
