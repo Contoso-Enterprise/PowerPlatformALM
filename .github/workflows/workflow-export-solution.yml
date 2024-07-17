@@ -120,7 +120,7 @@ jobs:
         if: ${{ inputs.delete-existing-source == true }}
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $results = Delete-ExistingSolutionSource -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -deleteFiles $true
+          $results = Delete-ExistingSolutionSource -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -deleteFiles $true
           write-host $results
         shell: pwsh
       - name: Unpack Solution
@@ -140,7 +140,7 @@ jobs:
         if:  ${{ inputs.ClearEnvironmentVariableValues == true }}
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -deleteCurrentValues $true
+          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -deleteCurrentValues $true
         shell: pwsh
       - name: update solution version
         id: update-solution-version
@@ -148,25 +148,25 @@ jobs:
           . "PowerShell/PowerPlatform-Utility.ps1"
           switch (${{ inputs.branch-type }}){
             "main" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -MajorVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -MajorVersionIncrement 1 -updateVersion $true
             }
             "feature" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "release" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "development"{
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "hotfix" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
             }
             "bugfix" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
             }
             default {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
           }
           write-host $version
