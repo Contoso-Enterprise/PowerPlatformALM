@@ -42,18 +42,18 @@ jobs:
       id: staging-setting-file-variables
       run: |
         echo "setting-file=${{ env.setting-file }}" >> "$GITHUB_OUTPUT"
-  # release-staging:
-  #   needs: [release-staging-setup]
-  #   uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
-  #   with:
-  #     environment: 'Contoso Staging'
-  #     solution-name: ${{ env.solution-name }}
-  #     branch-name: '${{ env.branch-name }}'
-  #     branch-type: ''${{ env.branch-type }}''
-  #     folder-path: '.'
-  #     settings-file: ${{ needs.release-staging-setup.outputs.setting-file }}
-  #     managed: true
-  #   secrets: inherit
+  release-staging:
+    needs: [release-staging-setup]
+    uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
+    with:
+      environment: 'Contoso Staging'
+      solution-name: ${{ env.solution-name }}
+      branch-name: '${{ env.branch-name }}'
+      branch-type: ''${{ env.branch-type }}''
+      folder-path: '.'
+      settings-file: ${{ needs.release-staging-setup.outputs.setting-file }}
+      managed: true
+    secrets: inherit
   # release-production-setup:
   #   needs: [release-staging]
   #   environment: 'Contoso Production'
