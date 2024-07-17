@@ -1,6 +1,7 @@
 name: Release OrgDemo
 
 on:
+  workflow_dispatch:
   release:
     types: [created]
 env:
@@ -43,7 +44,7 @@ jobs:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
     with: 
       environment: 'Contoso Staging'
-      solution-name: ${{ env.solution-name }}
+      solution-name: ${{env.solution-name}}
       branch-name: '${{ env.branch-name }}'
       branch-type: '${{ env.branch-type }}'
       folder-path: '.'
