@@ -2,7 +2,6 @@
 Repository used to host Power Platform ALM with Dataverse for demo and lab purpose.
 ___
 # Workflows
-___
 ## export-solution-dev(action).yml
 
  This YAML file contains the configuration for the "export-solution-dev" action.
@@ -93,6 +92,7 @@ It is used to define the steps and actions required to deploy the solution to a 
     username: ${{ secrets.USERNAME }}
     password: ${{ secrets.PASSWORD }}
 ___
+# Reusable Workflows
 ## workflow-export-solution.yml
 This YAML file contains the configuration for exporting a solution in a workflow.
 
@@ -118,8 +118,6 @@ The workflow consists of multiple steps that are executed in a specific order.
 4. Publish artifact: This step publishes the packed solution artifact to a specified location.
 5: Cleanup: This step performs any necessary cleanup tasks.
 The workflow can be triggered manually or automatically based on specific events, such as a push to the repository.
-___
-# Reusable Workflows
 ___
 ## workflow-import-solution.yml
 This YAML file contains the workflow for importing a solution in your project.
