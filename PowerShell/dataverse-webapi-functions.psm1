@@ -116,7 +116,7 @@ function Invoke-DataverseHttpPost {
 <#
 This function triggers to download the unmanaged and managed solution pipeline artifacts.
 #>
-function Invoke-Download-Solution-Artifact{
+function Invoke-DownloadSolutionArtifact{
     param (
         [Parameter(Mandatory)] [String]$pipelineConnectionUrl,
         [Parameter(Mandatory)] [String]$aadHost,
