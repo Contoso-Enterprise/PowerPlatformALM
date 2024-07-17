@@ -8,7 +8,7 @@ env:
   use-setting-file: true
   branch-type: 'main'
   branch-name: ''
-permission:
+permissions:
   contents: write
 
 jobs:
