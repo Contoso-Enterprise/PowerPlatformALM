@@ -146,27 +146,27 @@ jobs:
         id: update-solution-version
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          switch (${{ inputs.branch-type }}){
+          switch ("${{ inputs.branch-type }}"){
             "main" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -MajorVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -MajorVersionIncrement 1 -updateVersion $true
             }
             "feature" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "release" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "development"{
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
             "hotfix" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
             }
             "bugfix" {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
             }
             default {
-              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+              $version = Update-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
           }
           write-host $version

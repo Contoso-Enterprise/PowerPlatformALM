@@ -1,5 +1,11 @@
+#description: This script contains utility functions for Power Platform projects.
+#Date: 2024-07-16
+#Author: William Tsoi (Microsoft)
+
+# Import the dataverse-webapi-functions module
 Import-Module './PowerShell/dataverse-webapi-functions.psm1' -force
 
+# Function to install pac cli
 function Install-Pac-Cli{
 	param(
         [Parameter()] [String]$nugetPackageVersion		
@@ -41,6 +47,17 @@ function Copy-Pdpkg-File{
         Write-Host "Release Assets Directory is unavailable to copy pdpkg file; Path - $releaseAssetsDirectory"
     }
 }
+
+# description: This function connects to the Dataverse environment using the provided credentials.
+# Usage: Connect-Dataverse -tenantID $tenantID -clientId $clientId -clientSecret $clientSecret -dataverseHost $dataverseHost
+# parameters:
+# - tenantID: The tenant ID of the Dataverse environment.
+# - clientId: The client ID of the Dataverse environment.
+# - clientSecret: The client secret of the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - aadHost: The Azure Active Directory host URL. Default is 'login.microsoftonline.com'.
+# returns: The token for the Dataverse environment.
+
 function Connect-Dataverse
 {
     param (
@@ -53,6 +70,13 @@ function Connect-Dataverse
     $token = Get-SpnToken -tenantID $tenantID -clientId $clientId -clientSecret $clientSecret -dataverseHost $dataverseHost -aadHost $aadHost
     return $token
 }
+# description: This function retrieves the solutions from the Dataverse environment.
+# Usage: Get-DataverseSolutions -token $token -dataverseHost $dataverseHost
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# returns: The solutions from the Dataverse environment.
+
 function Get-DataverseSolutions
 {
     param (
@@ -63,6 +87,14 @@ function Get-DataverseSolutions
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder 'solutions'
     return $response.value
 }
+# description: This function retrieves a specific solution from the Dataverse environment.
+# Usage: Get-DataverseSolution -token $token -dataverseHost $dataverseHost -solutionUniqueName $solutionUniqueName
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - solutionUniqueName: The unique name of the solution to retrieve.
+# returns: The specific solution from the Dataverse environment.
+
 function Get-DataverseSolution
 {
     param (
@@ -73,6 +105,12 @@ function Get-DataverseSolution
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
     return $response.value
 }
+# description: This function retrieves the version of a solution from the provided folder path.
+# Usage: Get-SolutionVersion -solutionName $solutionName -folderPath $folderPath
+# parameters:
+# - solutionName: The name of the solution.
+# - folderPath: The folder path where the solution is located. Default is ''.
+# returns: The version of the solution.
 function Get-SolutionVersion
 {
     param (
@@ -104,7 +142,18 @@ function Get-SolutionVersion
     }
     return $null
 }
-function Increment-SolutionVersion
+# description: This function updates the version of a solution in the provided folder path.
+# Usage: Update-SolutionVersion -solutionName $solutionName -folderPath $folderPath -MajorVersionIncrement $MajorVersionIncrement -MinorVersionIncrement $MinorVersionIncrement -ReleaseVersionIncrement $ReleaseVersionIncrement -PatchVersionIncrement $PatchVersionIncrement -updateVersion $updateVersion
+# parameters:
+# - solutionName: The name of the solution.
+# - folderPath: The folder path where the solution is located. Default is ''.
+# - MajorVersionIncrement: The increment value for the major version.
+# - MinorVersionIncrement: The increment value for the minor version.
+# - ReleaseVersionIncrement: The increment value for the release version.
+# - PatchVersionIncrement: The increment value for the patch version.
+# - updateVersion: A boolean value to indicate whether to update the version in the file. Default is false.
+# returns: The new version of the solution.
+function Update-SolutionVersion
 {
     param (
         [Parameter(Mandatory)] [String]$solutionName,
@@ -160,7 +209,13 @@ function Increment-SolutionVersion
     }
     return $null
 }
-
+# description: This function clears the current environment variables for a solution.
+# Usage: Clear-CurentEnvironmentVariables -solutionName $solutionName -folderPath $folderPath -deleteCurrentValues $deleteCurrentValues
+# parameters:
+# - solutionName: The name of the solution.
+# - folderPath: The folder path where the solution is located. Default is ''.
+# - deleteCurrentValues: A boolean value to indicate whether to delete the current values. Default is false.
+# returns: A boolean value indicating the success of the operation.
 function Clear-CurentEnvironmentVariables
 {
     param (
@@ -227,17 +282,27 @@ function Clear-CurentEnvironmentVariables
                     }
                     catch {
                         write-Error $_
+                        return $false
                         break
                     }
                     write-host "Environment Variable Current Value Deleted"
+                    return $true
                 }
             }
         }
     }
     else {
         write-host "$SolutionFilePath not found"
-    }    
+    }  
+    return $false
 }
+# description: This function deletes the existing solution source files.
+# Usage: Delete-ExistingSolutionSource -solutionName $solutionName -folderPath $folderPath -deleteFiles $deleteFiles
+# parameters:
+# - solutionName: The name of the solution.
+# - folderPath: The folder path where the solution is located. Default is ''.
+# - deleteFiles: A boolean value to indicate whether to delete the files. Default is false.
+# returns: A boolean value indicating the success of the operation.
 
 function Delete-ExistingSolutionSource
 {
