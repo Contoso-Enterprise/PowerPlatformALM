@@ -19,6 +19,10 @@ jobs:
     outputs:
       setting-file: ${{ steps.staging-setting-file-variables.outputs.setting-file }}
     steps: 
+    - env:
+        EVENT_CONTEXT: ${{ toJSON(github.event) }}
+      run: |
+        echo $EVENT_CONTEXT
     - name: Staging Variables      
       run: |        
         write-Host "ref ${{ github.ref }}"        
@@ -44,7 +48,7 @@ jobs:
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
     with: 
       environment: 'Contoso Staging'
-      solution-name: ${{env.solution-name}}
+      solution-name: ${{ env.solution-name }}
       branch-name: '${{ env.branch-name }}'
       branch-type: '${{ env.branch-type }}'
       folder-path: '.'
