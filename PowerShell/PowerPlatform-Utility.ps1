@@ -1,6 +1,23 @@
-#description: This script contains utility functions for Power Platform projects.
-#Date: 2024-07-16
-#Author: William Tsoi (Microsoft)
+<#
+.SYNOPSIS
+This script contains utility functions for Power Platform.
+
+.DESCRIPTION
+The PowerPlatform-Utility.ps1 script provides various utility functions that can be used in Power Platform projects.
+
+.NOTES
+Author: William Tsoi
+Date: 2024-07-16
+
+.LINK
+GitHub Repository: [Link to the GitHub repository]
+
+.EXAMPLE
+# Example usage of the utility functions
+FunctionName -Parameter1 "Value1" -Parameter2 "Value2"
+
+#> 
+# Function definitions and other code
 
 # Import the dataverse-webapi-functions module
 Import-Module './PowerShell/dataverse-webapi-functions.psm1' -force
