@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.24061.200" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.24062.176" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SolutionManifest>
     <UniqueName>OrgDemo</UniqueName>
     <LocalizedNames>
@@ -236,11 +236,11 @@
         <Dependent type="300" schemaName="cont_orgdatacustompage_92077" displayName="Org Data Custom Page" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.AdvancedLookupWrapper" displayName="MscrmControls.AdvancedLookupWrapper" solution="BaseCustomControlsCore (9.0.2406.1011)" />
+        <Required type="66" schemaName="MscrmControls.AdvancedLookupWrapper" displayName="MscrmControls.AdvancedLookupWrapper" solution="BaseCustomControlsCore (9.0.2406.2014)" />
         <Dependent type="60" displayName="Information" parentDisplayName="Org Data" id="{c277c667-273e-4aa1-946e-3dbd84b005cb}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.AutoComplete.AutoCompleteControl" displayName="MscrmControls.AutoComplete.AutoCompleteControl" solution="CustomControlsCore (9.2.24061.00200)" />
+        <Required type="66" schemaName="MscrmControls.AutoComplete.AutoCompleteControl" displayName="MscrmControls.AutoComplete.AutoCompleteControl" solution="CustomControlsCore (9.2.24062.00176)" />
         <Dependent type="60" displayName="Information" parentDisplayName="Org Data" id="{c277c667-273e-4aa1-946e-3dbd84b005cb}" />
       </MissingDependency>
       <MissingDependency>
