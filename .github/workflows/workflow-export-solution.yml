@@ -175,6 +175,9 @@ jobs:
             "bugfix" {
               $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
             }
+            default {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
+            }
           }
           write-host $version
         shell: pwsh
