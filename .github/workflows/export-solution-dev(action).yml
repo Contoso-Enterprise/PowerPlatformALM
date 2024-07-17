@@ -19,6 +19,7 @@ on:
         options:
         - feature
         - hotfix
+        - bugfix
         - development
       source-Environment:
         description: 'Source Development Environment'

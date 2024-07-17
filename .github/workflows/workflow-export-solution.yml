@@ -37,7 +37,7 @@ on:
       VersionPatchIncrement:
         type: number
         default: 0
-      folderPath:
+      folder-path:
         type: string
         required: false
         default: '.'
@@ -101,7 +101,7 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
-          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}.zip'
+          solution-output-file: '${{ inputs.folder-path }}/solutions/${{ inputs.solution-name }}.zip'
           overwrite: true
           export-general-settings: true
       - name: Export Managed Solution
@@ -112,150 +112,77 @@ jobs:
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
           solution-name: ${{ inputs.solution-name }}
-          solution-output-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}_managed.zip'
+          solution-output-file: '${{ inputs.folder-path }}/solutions/${{ inputs.solution-name }}_managed.zip'
           managed: true
           overwrite: true
           export-general-settings: true
       - name: Delete existing source file
         if: ${{ inputs.delete-existing-source == true }}
         run: |
-          if (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}") {
+          if (Test-Path -LiteralPath "${{ inputs.folder-path }}/src/${{ inputs.solution-name }}") {
             try {
-              Remove-Item -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}"
-              write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }} deleted"
+              Remove-Item -Path "${{ inputs.folder-path }}/src/${{ inputs.solution-name }}"
+              write-host "${{ inputs.folder-path }}/src/${{ inputs.solution-name }} deleted"
             }
             catch {
-              write-host "error deleting ${{ inputs.folderPath }}/src/${{ inputs.solution-name }}"
+              write-host "error deleting ${{ inputs.folder-path }}/src/${{ inputs.solution-name }}"
             }
           } else {
-            write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }} no found."
+            write-host "${{ inputs.folder-path }}/src/${{ inputs.solution-name }} no found."
           }
         shell: pwsh
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
         with:
-          solution-file: '${{ inputs.folderPath }}/solutions/${{ inputs.solution-name }}.zip'
-          solution-folder: '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/'
+          solution-file: '${{ inputs.folder-path }}/solutions/${{ inputs.solution-name }}.zip'
+          solution-folder: '${{ inputs.folder-path }}/src/${{ inputs.solution-name }}/'
           process-canvas-apps: true
           solution-type: 'Both'
           overwrite-files: true
       - name: Deblug list of files
         shell: pwsh
         run: |
-          Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
+          Get-ChildItem -path '${{ inputs.folder-path }}' -Recurse | foreach { write-host $_.FullName }
       - name: Clear environment variables current values
+        id: clear-solution-env-var
         if:  ${{ inputs.ClearEnvironmentVariableValues == true }}
-        shell: pwsh
         run: |
-          if (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions") {
-          $deleteCurrentValues = $true
-
-          try {
-            $envars = Get-ChildItem -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions" -Directory
-          }
-          catch {
-            write-Error $_
-            break
-          }
-          #loop through all environment variables
-          foreach ($envvar in $envars) {
-              write-host "#########################"
-              write-host "Environment Variable Definition: " $envvar.FullName
-              try {
-                $envardef = Get-ChildItem -path $envvar.FullName -Filter '*.xml'
-              }
-              catch {
-                write-Error $_
-                break
-              }
-              $envardefvalue = select-xml -path $envardef.FullName -XPath "/environmentvariabledefinition"
-              if($envardefvalue.Node -ne $null)
-              {
-                  write-host "Environment Variable Schema Name: " $envardefvalue.Node.schemaname
-                  write-host "Environment Variable Default Value: " $envardefvalue.Node.defaultvalue
-              }
-              try {
-                $envarvalue = Get-ChildItem -path $envvar.FullName -Filter '*.json'
-              }
-              catch {
-                write-Error $_
-                break
-              }
-              if($envarvalue -eq $null){
-                  write-host "No environment variable current value"
-              } else {
-                  try {
-                    $envarcurrentvalue = (Get-Content -Path $envarvalue.FullName) | ConvertFrom-Json -Depth 3
-                  }
-                  catch {
-                    write-Error $_
-                    break
-                  }
-                  write-host "Environment Variable Curret Value: " $envarcurrentvalue.environmentvariablevalues.environmentvariablevalue.value    
-                  if($deleteCurrentValues)
-                  {
-                      try {
-                        Remove-Item -Path $envarvalue.FullName    
-                      }
-                      catch {
-                        write-Error $_
-                        break
-                      }
-                      write-host "Environment Variable Current Value Deleted"
-                  }
-              }
-            }
-          }
-          else {
-            write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/environmentvariabledefinitions not found"
-          }
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $version = Clear-CurentEnvironmentVariables -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -deleteCurrentValues $true
+        shell: pwsh
       - name: 'Update Solution Version'
         if: ${{ inputs.VersionMajorIncrement >= 0 || inputs.VersionMinorIncrement >= 0 || inputs.VersionReleaseIncrement >= 0 ||inputs.VersionPatchIncrement >= 0 }}
-        shell: pwsh
+      - name: update solution version
+        id: update-solution-version
         run: |
-          If (Test-Path -LiteralPath "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml") {
-            try{
-              [xml]$solutionXml = Get-Content -Path "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml" 
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          switch (${{ inputs.branch-type }}){
+            "main" {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -MajorVersionIncrement 1 -updateVersion $true
             }
-            catch {
-              write-Error $_
-              break
+            "feature" {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
-            $version = $solutionXml.ImportExportXml.SolutionManifest.Version
-            Write-Host "Current solution version: $version"
-            $setVersion = $version.Split(".")
-            $setVersion[0] = [int]$setVersion[0] + ${{ inputs.VersionMajorIncrement }}
-            $setVersion[1] = [int]$setVersion[1] + ${{ inputs.VersionMinorIncrement }}
-            $setVersion[2] = [int]$setVersion[2] + ${{ inputs.VersionReleaseIncrement }}
-            $setVersion[3] = [int]$setVersion[3] + ${{ inputs.VersionPatchIncrement }}
-            $newVersion = $setVersion[0] + "." + $setVersion[1] + "."  + $setVersion[2] + "."  + $setVersion[3]
-            write-host "New solution version: $newVersion"
-            $solutionXml.ImportExportXml.SolutionManifest.Version = $newVersion
-            try {
-              $solutionXml.Save("${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml")
+            "release" {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
-            catch {
-              write-Error $_
-              break
+            "development"{
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -ReleaseVersionIncrement 1 -updateVersion $true
             }
-            write-host "solution version updated"
+            "hotfix" {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+            }
+            "bugfix" {
+              $version = Increment-SolutionVersion -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -PatchVersionIncrement 1 -updateVersion $true
+            }
           }
-          else {
-            Write-host "${{ inputs.folderPath }}/src/${{ inputs.solution-name }}/Other/Solution.xml file not found"
-          }
-      # - name: Commit Solution
-      #   run: |
-      #     git config user.name 'System Administrator'
-      #     git config user.email 'admin@MngEnvMCAP157851.onmicrosoft.com'
-      #     git add '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}'
-      #     git commit -m ${{ inputs.commitMessage }}
-
-        # shell: pwsh
+          write-host $version
+        shell: pwsh
       - name: branch Solution
         uses: microsoft/powerplatform-actions/branch-solution@v1
         with:
-          solution-folder: '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}'
-          solution-target-folder: '${{ inputs.folderPath }}/src/${{ inputs.solution-name }}'
+          solution-folder: '${{ inputs.folder-path }}/src/${{ inputs.solution-name }}'
+          solution-target-folder: '${{ inputs.folder-path }}/src/${{ inputs.solution-name }}'
           branch-name: ${{ env.branch-name }}
           repo-url: 'https://github.com/Contoso-Enterprise/PowerPlatformALM'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -267,6 +194,6 @@ jobs:
       #     author_email: admin@MngEnvMCAP157851.onmicrosoft.com
       #     message: ${{ inputs.commitMessage }}
       #     new_branch: ${{ inputs.branch-type }}/${{ inputs.branch-name }}
-      #     add: '${{ inputs.folderPath }}/src/. --force'
+      #     add: '${{ inputs.folder-path }}/src/. --force'
       #     default_author: github_actor
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
