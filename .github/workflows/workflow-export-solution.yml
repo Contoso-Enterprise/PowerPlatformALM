@@ -132,9 +132,9 @@ jobs:
           solution-type: 'Both'
           overwrite-files: true
       - name: Debug list of files
-        shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folder-path }}' -Recurse | foreach { write-host $_.FullName }
+        shell: pwsh
       - name: Clear environment variables current values
         id: clear-solution-env-var
         if:  ${{ inputs.ClearEnvironmentVariableValues == true }}
