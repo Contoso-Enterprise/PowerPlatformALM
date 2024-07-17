@@ -18,10 +18,6 @@ jobs:
     outputs:
       setting-file: ${{ steps.staging-setting-file-variables.outputs.setting-file }}
     steps: 
-    - env:
-        EVENT_CONTEXT: ${{ toJSON(github.event) }}
-      run: |
-        echo $EVENT_CONTEXT
     - name: Staging Variables      
       run: |        
         write-Host "ref ${{ github.ref }}"        
