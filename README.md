@@ -1,8 +1,7 @@
-﻿
-# PowerPlatform ALM
+﻿# PowerPlatform ALM
 Repository used to host Power Platform ALM with Dataverse for demo and lab purpose.
-
-# FILEPATH: export-solution-dev(action).yml
+___
+# export-solution-dev(action).yml
 
  This YAML file contains the configuration for the "export-solution-dev" action.
 
@@ -28,7 +27,7 @@ The "export-solution-dev" action is responsible for exporting a solution in a de
   with:
     solution-name: 'My Solution'
     output-folder: './exported-solutions'
-
+___
 # pack-solution(action).yml
 
 This YAML file defines the configuration for the "pack-solution" action.
@@ -47,7 +46,7 @@ The action is responsible for packaging a solution in a specific format.
    with:
      solution-file: ./path/to/solution.sln
      output-folder: ./path/to/output
-
+___
 
 # deploy-managed-solution(action).yml
 This YAML file contains the configuration for deploying a managed solution.
@@ -71,7 +70,7 @@ It is used as an action in a CI/CD pipeline to automate the deployment process.
     solutionName: 'MySolution'
     environment: 'Production'
     connection: ${{ secrets.CONNECTION_STRING }}
-
+___
 # deploy-unmanaged-solution(action).yml
 This YAML file contains the configuration for deploying an unmanaged solution.
 It is used to define the steps and actions required to deploy the solution to a target environment.
@@ -91,3 +90,91 @@ It is used to define the steps and actions required to deploy the solution to a 
     target-environment: 'https://example.com'
     username: ${{ secrets.USERNAME }}
     password: ${{ secrets.PASSWORD }}
+___
+# workflow-export-solution.yml
+This YAML file contains the configuration for exporting a solution in a workflow.
+
+## Steps:
+1. Authenticate with the target environment.
+2. Export the solution using the specified parameters.
+3. Save the exported solution to the specified output directory.
+
+## Usage:
+- Ensure that the necessary environment variables are set.
+- Run this workflow to export the solution.
+
+ Note: Make sure to update the values of the environment variables and parameters according to your specific requirements.
+___
+# workflow-pack-solution.yml
+This YAML file defines the workflow for packing a solution.
+The workflow consists of multiple steps that are executed in a specific order.
+
+## Step 1
+1. Checkout code: This step checks out the code from the repository.
+2. Build solution:This step builds the solution using the specified build configuration.
+3. Pack solution: This step packs the solution into a distributable format, such as a NuGet package.
+4. Publish artifact: This step publishes the packed solution artifact to a specified location.
+5: Cleanup: This step performs any necessary cleanup tasks.
+The workflow can be triggered manually or automatically based on specific events, such as a push to the repository.
+___
+
+# workflow-import-solution.yml
+This YAML file contains the workflow for importing a solution in your project.
+
+## Steps:
+1. Checkout the repository.
+2. Set up the environment.
+3. Import the solution.
+4. Run tests.
+5. Publish the solution.
+
+## Usage:
+- name: Import Solution
+  uses: [Your Workflow Action]
+  with:
+    solution-file: [Path to the solution file]
+___
+# PowerShell
+# PowerPlatform-Utility.ps1
+## SYNOPSIS
+This script contains utility functions for working with the Power Platform.
+
+## DESCRIPTION
+The PowerPlatform-Utility.ps1 script provides a collection of utility functions that can be used to interact with the Power Platform. It includes functions for authentication, data retrieval, and data manipulation.
+___
+# dataverse-webapi-functions.psm1
+
+## SYNOPSIS
+This module contains functions for interacting with the Dataverse Web API.
+
+## DESCRIPTION
+The dataverse-webapi-functions module provides a set of functions that can be used to perform various operations on the Dataverse Web API. These functions encapsulate common tasks such as creating, updating, and deleting records, as well as querying data from the Dataverse.
+
+## FUNCTIONS
+The module includes the following functions:
+- Get-DataverseRecord: Retrieves a record from the Dataverse based on the specified criteria.
+- New-DataverseRecord: Creates a new record in the Dataverse with the specified data.
+- Update-DataverseRecord: Updates an existing record in the Dataverse with the specified data.
+- Remove-DataverseRecord: Deletes a record from the Dataverse based on the specified criteria.
+- Get-DataverseRecords: Retrieves a collection of records from the Dataverse based on the specified criteria.
+
+## PARAMETERS
+The functions in this module accept various parameters depending on the specific operation being performed. These parameters include criteria for filtering records, data for creating or updating records, and options for controlling the behavior of the functions.
+
+## EXAMPLES
+Example 1: Get a record from the Dataverse
+    PS C:\> Get-DataverseRecord -EntityName "account" -Id "12345"
+
+    This command retrieves the record with the specified ID from the "account" entity in the Dataverse.
+
+Example 2: Create a new record in the Dataverse
+    PS C:\> New-DataverseRecord -EntityName "contact" -Data @{ "firstname" = "John"; "lastname" = "Doe" }
+
+    This command creates a new record in the "contact" entity in the Dataverse with the specified data.
+
+# NOTES
+- This module requires the Microsoft.PowerApps.Cds.Client module to be installed.
+- The functions in this module require valid credentials for accessing the Dataverse Web API.
+- For more information on the Dataverse Web API, refer to the official documentation.
+
+
