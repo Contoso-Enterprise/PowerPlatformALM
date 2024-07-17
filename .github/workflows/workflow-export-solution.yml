@@ -119,17 +119,9 @@ jobs:
       - name: Delete existing source file
         if: ${{ inputs.delete-existing-source == true }}
         run: |
-          if (Test-Path -LiteralPath "${{ inputs.folder-path }}/src/${{ inputs.solution-name }}") {
-            try {
-              Remove-Item -Path "${{ inputs.folder-path }}/src/${{ inputs.solution-name }}"
-              write-host "${{ inputs.folder-path }}/src/${{ inputs.solution-name }} deleted"
-            }
-            catch {
-              write-host "error deleting ${{ inputs.folder-path }}/src/${{ inputs.solution-name }}"
-            }
-          } else {
-            write-host "${{ inputs.folder-path }}/src/${{ inputs.solution-name }} no found."
-          }
+          . "PowerShell/PowerPlatform-Utility.ps1"
+          $results = Delete-ExistingSolutionSource -solutionName '${{ inputs.solution-name }}' -folder-path '${{ inputs.folder-path }}' -deleteFiles $true
+          write-host $results
         shell: pwsh
       - name: Unpack Solution
         uses: microsoft/powerplatform-actions/unpack-solution@v1
@@ -139,7 +131,7 @@ jobs:
           process-canvas-apps: true
           solution-type: 'Both'
           overwrite-files: true
-      - name: Deblug list of files
+      - name: Debug list of files
         shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folder-path }}' -Recurse | foreach { write-host $_.FullName }

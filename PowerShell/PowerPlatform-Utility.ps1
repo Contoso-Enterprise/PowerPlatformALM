@@ -238,3 +238,39 @@ function Clear-CurentEnvironmentVariables
         write-host "$SolutionFilePath not found"
     }    
 }
+
+function Delete-ExistingSolutionSource
+{
+    param (
+        [Parameter(Mandatory)] [String]$solutionName,
+        [String]$folderPath = '',
+        [boolean]$deleteFiles = $false
+    )
+    if ($folderPath -eq '')
+    {
+        $SolutionFilePath = "src/$solutionName"
+    }
+    else {
+        $SolutionFilePath = "$folderPath/src/$solutionName"
+    }
+    if (Test-Path -LiteralPath $SolutionFilePath ) 
+    {
+        if ($deleteFiles) {
+            try {
+                Remove-Item -Path $SolutionFilePath
+            }
+            catch {
+                write-Error $_
+                return $false
+                break
+            }
+            write-host "$SolutionFilePath deleted"
+            return $true
+        }
+    }
+    else {
+        write-host "$SolutionFilePath not found"
+    }    
+    return $false
+
+}
