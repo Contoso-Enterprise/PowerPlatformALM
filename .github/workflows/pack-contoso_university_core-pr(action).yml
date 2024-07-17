@@ -1,3 +1,28 @@
+# This GitHub Actions workflow is triggered when there is a push event to the `development/**`, `release/**`, `hotfix/**`, or `main` branches, and when a pull request is closed targeting the `release/**` or `main` branches. It specifically monitors changes in the `src/contoso_university_core/**` directory.
+# The workflow consists of the following jobs:
+# 1. `setup` job:
+#   - Runs only if the pull request is merged (`github.event.pull_request.merged == true`).
+#   - Sets up the environment and permissions.
+#   - Runs on the `ubuntu-latest` runner.
+#   - Performs the following steps:
+#     - Prints the `EVENT_CONTEXT` environment variable.
+#     - Prints the values of the `solution-name` and `ref` environment variables.
+#     - Prints the values of the `solution-name` and `ref` environment variables using PowerShell.
+#     - Displays the file paths of all items in the current directory using PowerShell.
+# 2. `pack-set-variables` job:
+#   - Depends on the completion of the `setup` job.
+#   - Runs on the `ubuntu-latest` runner.
+#   - Sets the `solution-name` and `branch-name` outputs.
+#   - Performs the following steps:
+#     - Appends the values of `solution-name` and `branch-name` to the `$GITHUB_OUTPUT` file.
+#     - Prints the values of the `solution-name` and `branch-name` outputs.
+# 3. `pack` job:
+#   - Depends on the completion of the `pack-set-variables` job.
+#   - Uses the `Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-pack-solution.yml@main` action.
+#   - Passes the `solution-name` and `branch-name` outputs as inputs to the action.
+# The purpose of this workflow is to trigger the packaging of the `contoso_university_core` solution when changes are made to the specified branches and directory.
+# Author: William Tsoi (Microsoft)
+# Date: 2024-07-16
 
 name: PR Triggered Pack Contoso_university_core solution with Actions 
 

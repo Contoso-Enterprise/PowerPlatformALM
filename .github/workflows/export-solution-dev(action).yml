@@ -1,3 +1,14 @@
+# This workflow will export the solution from the development environment to the source control repository.
+# inputs parameters:
+# solution-name: name of the solution to worked on from Power Platform
+# branch-name: name of the git branch
+# branch-type: type of branch
+# source-Environment: Source Development Environment
+# delete-existing-source: delete existing source file before export
+# Author: William Tsoi (Microsoft)
+# Date: 2024-07-16
+# Required reuseable workflows: workflow-export-solution.yml
+
 name: Export Solution From Dev with Action
 
 on:

@@ -1,3 +1,13 @@
+# This workflow is triggered manually (workflow_dispatch) and deploys an managed solution to a target environment
+# inputs parameters:
+# solution-name: name of the solution to worked on from Power Platform
+# branch-type: type of branch
+# branch-name: name of the git branch
+# use-setting-file: setting file
+# Required reuseable workflows: workflow-import-solution.yml
+# Author: William Tsoi (Microsoft)
+# Date: 2024-07-16
+
 name: Deploy Managed Solution with Actions
 
 on:
