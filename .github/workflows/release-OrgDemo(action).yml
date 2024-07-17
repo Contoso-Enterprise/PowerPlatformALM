@@ -1,15 +1,16 @@
-name: Release Solution
+name: Release OrgDemo
 
 on:
   release:
     types: [created]
-  permission:
-    contents: write
 env:
   solution-name: 'OrgDemo'
   use-setting-file: false
   branch-type: 'main'
   branch-name: ''
+permission:
+  contents: write
+
 jobs:
   release-staging-setup:
     environment: 'Contoso Staging'

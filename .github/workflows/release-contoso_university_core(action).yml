@@ -1,15 +1,16 @@
-name: Release Solution
+name: Release Contoso_University_core
 
 on:
   release:
     types: [created]
-  permission:
-    contents: write
 env:
   solution-name: 'contoso_university_core'
   use-setting-file: true
   branch-type: 'main'
   branch-name: ''
+permission:
+  contents: write
+
 jobs:
   release-staging-setup:
     environment: 'Contoso Staging'
