@@ -43,8 +43,6 @@ jobs:
         echo "branch-name='${{ env.branch-name }}'" >> "$GITHUB_OUTPUT"
         echo "branch-type='${{ env.branch-type }}'" >> "$GITHUB_OUTPUT"
       shell: pwsh
-      run: |
-
   release-staging:
     needs: [release-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
