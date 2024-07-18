@@ -1,7 +1,6 @@
-name: Release OrgDemo
+name: Release Contoso_University_core
 
 on:
-  workflow_dispatch:
   release:
     types: [created]
 env:
@@ -18,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       setting-file: ${{ steps.staging-setting-file-variables.outputs.setting-file }}
+      solution-name: ${{ steps.staging-setting-file-variables.outputs.solution-name }}
+      branch-type: ${{ steps.staging-setting-file-variables.outputs.branch-type }}
+      branch-name: ${{ steps.staging-setting-file-variables.outputs.branch-name }}
     steps: 
-    - env:
-        EVENT_CONTEXT: ${{ toJSON(github.event) }}
-      run: |
-        echo $EVENT_CONTEXT
-    - name: Staging Variables      
+    - name: Set environment variables to output
+      id: staging-setting-file-variables
       run: |        
         write-Host "ref ${{ github.ref }}"        
         write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
@@ -37,22 +36,24 @@ jobs:
         } else {
           $settingFile = ''
         }
-        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
+        echo "setting-file=$settingFile" >> "$GITHUB_OUTPUT"
+        echo "solution-name='${{ env.solution-name }}'" >> "$GITHUB_OUTPUT"
+        echo "branch-name='${{ env.branch-name }}'" >> "$GITHUB_OUTPUT"
+        echo "branch-type='${{ env.branch-type }}'" >> "$GITHUB_OUTPUT"
       shell: pwsh
-    - name: Set environment variables to output
-      id: staging-setting-file-variables
       run: |
-        echo "setting-file=${{ env.setting-file }}" >> "$GITHUB_OUTPUT"
+
   release-staging:
     needs: [release-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
-    with: 
+    with:
       environment: 'Contoso Staging'
-      solution-name: ${{ env.solution-name }}
-      branch-name: '${{ env.branch-name }}'
-      branch-type: '${{ env.branch-type }}'
-      folder-path: '.'
+      solution-name: ${{ needs.release-staging-setup.outputs.solution-name }}
+      branch-name: '${{ needs.release-staging-setup.outputs.branch-name }}'
+      branch-type: '${{ needs.release-staging-setup.outputs.branch-type }}'
       settings-file: ${{ needs.release-staging-setup.outputs.setting-file }}
+      folder-path: '.'
       managed: true
     secrets: inherit
   release-production-setup:
@@ -61,15 +62,19 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       setting-file: ${{ steps.production-setting-file-variables.outputs.setting-file }}
+      solution-name: ${{ steps.production-setting-file-variables.outputs.solution-name }}
+      branch-type: ${{ steps.production-setting-file-variables.outputs.branch-type }}
+      branch-name: ${{ steps.production-setting-file-variables.outputs.branch-name }}
     steps: 
     - name: Production Variables      
+      id: production-setting-file-variables
       run: |        
         write-Host "ref ${{ github.ref }}"        
         write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
         if (${{ env.use-setting-file }} -eq $true)
         {
 
-          if (Test-Path -LiteralPath "settings/${{ env.solution-name }}-Contoso Staging.json") {
+          if (Test-Path -LiteralPath "settings/${{ env.solution-name }}-Contoso Production.json") {
             $settingFile = 'settings/${{ env.solution-name }}-Contoso Production.json'
           } else {
             $settingFile = ''
@@ -78,19 +83,19 @@ jobs:
           $settingFile = ''
         }
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
+        echo "setting-file=$settingFile" >> "$GITHUB_OUTPUT"
+        echo "solution-name='${{ env.solution-name }}'" >> "$GITHUB_OUTPUT"
+        echo "branch-name='${{ env.branch-name }}'" >> "$GITHUB_OUTPUT"
+        echo "branch-type='${{ env.branch-type }}'" >> "$GITHUB_OUTPUT"
       shell: pwsh
-    - name: Set environment variables to output
-      id: staging-setting-file-variables
-      run: |
-        echo "setting-file=${{ env.setting-file }}" >> "$GITHUB_OUTPUT"
   release-production:
     needs: [release-production-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
     with: 
       environment: 'Contoso Production'
-      solution-name: ${{ env.solution-name }}
-      branch-name: '${{ env.branch-name }}'
-      branch-type: '${{ env.branch-type }}'
+      solution-name: ${{ needs.release-production-setup.outputs.solution-name }}
+      branch-name: '${{ needs.release-production-setup.outputs.branch-name }}'
+      branch-type: '${{ needs.release-production-setup.outputs.branch-type }}'
       folder-path: '.'
       settings-file: ${{ needs.release-production-setup.outputs.setting-file }}
       managed: true
