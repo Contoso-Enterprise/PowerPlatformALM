@@ -1,4 +1,4 @@
-name: Release Contoso_University_core
+name: Release OrgDemo
 
 on:
   release:
