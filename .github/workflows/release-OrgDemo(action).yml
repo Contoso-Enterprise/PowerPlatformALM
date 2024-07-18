@@ -1,6 +1,7 @@
 name: Release OrgDemo
 
 on:
+  workflow_dispatch:
   release:
     types: [created]
 env:

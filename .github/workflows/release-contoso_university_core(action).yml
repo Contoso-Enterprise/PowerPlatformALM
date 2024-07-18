@@ -1,6 +1,7 @@
 name: Release Contoso_University_core
 
 on:
+  workflow_dispatch:
   release:
     types: [created]
 env:
