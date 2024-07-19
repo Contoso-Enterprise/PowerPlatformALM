@@ -101,10 +101,11 @@ jobs:
             {
               if (Test-Path -LiteralPath "$($inputs.'folder-path')/release") {
                 write-host "tested $($inputs.'folder-path')/release successful"
-                $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" -verbose | where {$_.PSIsContainer -eq 'true' } | sort CreationTime -Descending | select -first 1
+                $latestRelease = Get-ChildItem -path "$($inputs.'folder-path')/release" |  where {$_.Name -like "$solutionName*zip"} | sort-object LastWriteTime -Descending | select -first 1
+                # -verbose | where {$_.PSIsContainer -eq 'true' } | sort CreationTime -Descending | select -first 1
                 $latestRelease | ft
-                write-host "latest release: ($latestRelease.Name)"
-                $releaseName = $latestRelease.name
+                write-host "latest release: ($latestRelease.DirectoryName)"
+                $releaseName = $latestRelease.DirectoryName
                 $releasePath = $inputs.'folder-path' + '/release/' + $releaseName + '/' 
               } else {
                 write-Error "Release folder not found"
