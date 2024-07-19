@@ -38,6 +38,7 @@ jobs:
           $settingFile = ''
         }
         echo "'${{ env.solution-name }}'"
+        echo "'$settingFile'"
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         echo "setting-file=$settingFile" >> "$GITHUB_OUTPUT"
         echo "solution-name='${{ env.solution-name }}'" >> "$GITHUB_OUTPUT"
