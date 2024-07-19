@@ -46,10 +46,13 @@ jobs:
         if: ${{ steps.check-branch-exists.outputs.exists == true }}
         uses: actions/checkout@v4
         with:
+          lfs: true
           ref: ${{ inputs.branch-name }}
       - name: Checkout branch main
         if: ${{ steps.check-branch-exists.outputs.exists != true }}
         uses: actions/checkout@v4
+        with:
+          lfs: true
       - name: Get solution version
         id: get-solution-version-step
         run: |

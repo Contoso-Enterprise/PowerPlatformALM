@@ -24,6 +24,8 @@ jobs:
     steps: 
     - name: Checkout branch main
       uses: actions/checkout@v4
+      with:
+        lfs: true
     - name: Set environment variables to output
       id: staging-variables
       run: |        
