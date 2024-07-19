@@ -47,6 +47,7 @@ jobs:
         echo "'${{ env.solution-name }}'"
         echo "'$settingFile'"
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
+        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
       shell: pwsh
     - name: Set environment variables to output
       id: staging-variables
@@ -55,16 +56,6 @@ jobs:
         echo "solution-name=${{ env.solution-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-name=${{ env.branch-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-type=${{ env.branch-type }}" >> "$GITHUB_OUTPUT"
-  release-staging-output:
-    needs: release-staging-setup
-    runs-on: ubuntu-latest
-    steps: 
-    - name: check environment variables 
-      run: |    
-        echo "${{ needs.release-staging-setup.outputs.solution-name }}"
-        echo "${{ needs.release-staging-setup.outputs.branch-name }}"
-        echo "${{ needs.release-staging-setup.outputs.branch-type }}"
-        echo "${{ needs.release-staging-setup.outputs.setting-file }}"
   release-staging:
     needs: [release-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
