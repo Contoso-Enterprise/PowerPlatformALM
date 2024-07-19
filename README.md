@@ -8,11 +8,8 @@ We grant You a nonexclusive, royalty-free right to use and modify the Sample Cod
 (iii) to indemnify, hold harmless, and defend Us and Our suppliers from and against any claims or lawsuits, including attorneys’ fees, that arise or result from the use or distribution of the Sample Code.
 Please note: None of the conditions outlined in the disclaimer above will supersede the terms and conditions contained within the Premier Customer Services Description.
 
-# PowerPlatform ALM
+# PowerPlatform ALM Samples
 Repository used to host Power Platform ALM with Dataverse for demo and lab purpose.
-
-
-
 ___
 # Workflows
 ## export-solution-dev(action).yml
