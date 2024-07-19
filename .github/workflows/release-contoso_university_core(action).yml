@@ -26,8 +26,8 @@ jobs:
       uses: actions/checkout@v4
       with:
         lfs: true
-    - name: Set environment variables to output
-      id: staging-variables
+    - name: Set environment variables to env variable
+      id: staging-envvariables
       run: |        
         write-Host "ref ${{ github.ref }}"        
         write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
@@ -47,7 +47,10 @@ jobs:
         echo "'${{ env.solution-name }}'"
         echo "'$settingFile'"
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
-        echo "setting-file=$settingFile" >> "$GITHUB_OUTPUT"
+      shell: pwsh
+      name: Set environment variables to output
+      id: staging-variables
+        echo "setting-file=${{ env.setting-file }}" >> "$GITHUB_OUTPUT"
         echo "solution-name=${{ env.solution-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-name=${{ env.branch-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-type=${{ env.branch-type }}" >> "$GITHUB_OUTPUT"
