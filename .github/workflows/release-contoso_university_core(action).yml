@@ -31,10 +31,13 @@ jobs:
         {
           if (Test-Path -LiteralPath "settings/${{ env.solution-name }}-Contoso Staging.json") {
             $settingFile = 'settings/${{ env.solution-name }}-Contoso Staging.json'
+            write-host "Settings files $settingFile found"
           } else {
             $settingFile = ''
+            write-host "Settings files not found"
           }        
         } else {
+          write-host "No Settings files required"
           $settingFile = ''
         }
         echo "'${{ env.solution-name }}'"
