@@ -17,7 +17,7 @@ jobs:
     environment: 'Contoso Staging'
     runs-on: ubuntu-latest
     outputs:
-      setting-file: ${{ steps.staging-variables.outputs.setting-file }}
+      setting-file: ${{ steps.staging-env-variables.outputs.setting-file }}
       solution-name: ${{ steps.staging-variables.outputs.solution-name }}
       branch-type: ${{ steps.staging-variables.outputs.branch-type }}
       branch-name: ${{ steps.staging-variables.outputs.branch-name }}
@@ -27,7 +27,7 @@ jobs:
       with:
         lfs: true
     - name: Set environment variables to env variable
-      id: staging-envvariables
+      id: staging-env-variables
       run: |        
         write-Host "ref ${{ github.ref }}"        
         write-Host "GITHUB_REF ${{ github.GITHUB_REF }}"
@@ -47,7 +47,7 @@ jobs:
         echo "'${{ env.solution-name }}'"
         echo "'$settingFile'"
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
-        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
+        echo "setting-file=$settingFile" | Out-File -FilePath $GITHUB_OUTPUT -Encoding utf8 -Append;
       shell: pwsh
     - name: Set environment variables to output
       id: staging-variables
@@ -56,6 +56,16 @@ jobs:
         echo "solution-name=${{ env.solution-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-name=${{ env.branch-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-type=${{ env.branch-type }}" >> "$GITHUB_OUTPUT"
+  release-staging-output:
+    needs: release-staging-setup
+    runs-on: ubuntu-latest
+    steps: 
+    - name: check environment variables 
+      run: |    
+        echo "${{ needs.release-staging-setup.outputs.solution-name }}"
+        echo "${{ needs.release-staging-setup.outputs.branch-name }}"
+        echo "${{ needs.release-staging-setup.outputs.branch-type }}"
+        echo "${{ needs.release-staging-setup.outputs.setting-file }}"
   release-staging:
     needs: [release-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
