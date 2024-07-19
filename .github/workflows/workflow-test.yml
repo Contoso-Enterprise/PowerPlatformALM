@@ -53,7 +53,7 @@ jobs:
     steps:
       - name: Checkout branch main
         uses: actions/checkout@v4
-      - name: Deblug list of files
+      - name: Debug list of files
         shell: pwsh
         run: |
           Get-ChildItem -path '${{ inputs.folderPath }}' -Recurse | foreach { write-host $_.FullName }
