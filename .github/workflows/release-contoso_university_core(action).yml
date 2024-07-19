@@ -56,7 +56,6 @@ jobs:
         }
         echo "'${{ env.solution-name }}'"
         echo "'$settingFile'"
-        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
         echo "solution-name=${{ env.solution-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
         echo "branch-name=${{ env.branch-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
@@ -117,7 +116,6 @@ jobs:
         } else {
           $settingFile = ''
         }
-        echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append; 
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
         echo "solution-name=${{ env.solution-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
         echo "branch-name=${{ env.branch-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
