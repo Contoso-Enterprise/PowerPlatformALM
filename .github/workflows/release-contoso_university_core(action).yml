@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       setting-file: ${{ steps.staging-env-variables.outputs.setting-file }}
-      solution-name: ${{ steps.staging-variables.outputs.solution-name }}
-      branch-type: ${{ steps.staging-variables.outputs.branch-type }}
-      branch-name: ${{ steps.staging-variables.outputs.branch-name }}
+      solution-name: ${{ steps.staging-env-variables.outputs.solution-name }}
+      branch-type: ${{ steps.staging-env-variables.outputs.branch-type }}
+      branch-name: ${{ steps.staging-env-variables.outputs.branch-name }}
     steps: 
     - name: Checkout branch main
       uses: actions/checkout@v4
@@ -48,6 +48,9 @@ jobs:
         echo "'$settingFile'"
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append;
         echo "setting-file=$settingFile" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
+        echo "solution-name=${{ env.solution-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
+        echo "branch-name=${{ env.branch-name }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
+        echo "branch-type=${{ env.branch-type }}" | Out-File -FilePath $Env:GITHUB_OUTPUT -Encoding utf8 -Append;
       shell: pwsh
     - name: Set environment variables to output
       id: staging-variables
