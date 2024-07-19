@@ -52,7 +52,16 @@ jobs:
         echo "branch-name='${{ env.branch-name }}'" >> "$GITHUB_OUTPUT"
         echo "branch-type='${{ env.branch-type }}'" >> "$GITHUB_OUTPUT"
       shell: pwsh
-
+  release-staging-output:
+    needs: release-staging-setup
+    runs-on: ubuntu-latest
+    steps: 
+    - name: check environment variables 
+      run: |    
+        echo "${{ needs.release-staging-setup.outputs.solution-name }}"
+        echo "${{ needs.release-staging-setup.outputs.branch-name }}"
+        echo "${{ needs.release-staging-setup.outputs.branch-type }}"
+        echo "${{ needs.release-staging-setup.outputs.setting-file }}"
   release-staging:
     needs: [release-staging-setup]
     uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-import-solution.yml@main
