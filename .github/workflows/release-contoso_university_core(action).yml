@@ -50,11 +50,11 @@ jobs:
       shell: pwsh
     - name: Set environment variables to output
       id: staging-variables
+      run: | 
         echo "setting-file=${{ env.setting-file }}" >> "$GITHUB_OUTPUT"
         echo "solution-name=${{ env.solution-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-name=${{ env.branch-name }}" >> "$GITHUB_OUTPUT"
         echo "branch-type=${{ env.branch-type }}" >> "$GITHUB_OUTPUT"
-      shell: pwsh
   release-staging-output:
     needs: release-staging-setup
     runs-on: ubuntu-latest
