@@ -51,7 +51,7 @@ on:
         description: 'delete existing source file before export'
         type: boolean
         required: false
-        default: false
+        default: true
 jobs:
   setup:
     environment: ${{ inputs.source-Environment }}
