@@ -306,7 +306,7 @@ function Clear-CurentEnvironmentVariables
                 if($deleteCurrentValues)
                 {
                     try {
-                        Remove-Item -Path $envarvalue.FullName    
+                        Remove-Item -Path $envarvalue.FullName -force
                     }
                     catch {
                         write-Error $_
