@@ -306,7 +306,7 @@ function Clear-CurentEnvironmentVariables
                 if($deleteCurrentValues)
                 {
                     try {
-                        Remove-Item -Path $envarvalue.FullName -Confirm $false -Force
+                        Remove-Item -Path $envarvalue.FullName -Confirm:$false -Force
                     }
                     catch {
                         write-Error $_
@@ -350,7 +350,7 @@ function Delete-ExistingSolutionSource
     {
         if ($deleteFiles) {
             try {
-                Remove-Item -Path $SolutionFilePath -Confirm $false -force
+                Remove-Item -Path $SolutionFilePath -Confirm:$false -force
             }
             catch {
                 write-Error $_
