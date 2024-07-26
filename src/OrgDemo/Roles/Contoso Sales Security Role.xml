@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Role id="{a855260f-d313-ee11-8f6e-000d3a5a7956}" name="Contoso Sales Security Role" isinherited="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Role id="{a855260f-d313-ee11-8f6e-000d3a5a7956}" name="Contoso Sales Security Role" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <IsCustomizable>1</IsCustomizable>
   <RolePrivileges>
     <RolePrivilege name="prvAppendAccount" level="Local" />
