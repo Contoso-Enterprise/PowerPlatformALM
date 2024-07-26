@@ -81,7 +81,7 @@ jobs:
           solution-file: ${{ env.release-path }}${{ inputs.solution-name }}.zip
           solution-folder: ${{ env.source-path }}${{ inputs.solution-name }}
           solution-type: Both
-          process-canvas-apps: true
+          #process-canvas-apps: true
       - name: Debug output
         shell: pwsh
         run: |
