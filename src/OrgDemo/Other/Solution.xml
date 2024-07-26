@@ -128,7 +128,6 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="ce_admissionbusinessprocessflow" behavior="0" />
       <RootComponent type="1" schemaName="cont_aadgrouporgmapping" behavior="0" />
       <RootComponent type="1" schemaName="cont_orgdata" behavior="0" />
       <RootComponent type="1" schemaName="cont_orgdataprocessflow" behavior="0" />
@@ -141,7 +140,6 @@
       <RootComponent type="20" id="{bdc84917-d213-ee11-8f6e-000d3a5a7956}" behavior="0" />
       <RootComponent type="29" id="{755669c0-311c-ee11-8f6e-000d3a5a7956}" behavior="0" />
       <RootComponent type="29" id="{7e929609-e81c-ee11-8f6e-000d3a5a7956}" behavior="0" />
-      <RootComponent type="29" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" behavior="0" />
       <RootComponent type="29" id="{a0013e46-e71c-ee11-8f6e-000d3a5a7956}" behavior="0" />
       <RootComponent type="29" id="{fbdb5f7a-b130-ee11-bdf3-6045bdd96914}" behavior="0" />
       <RootComponent type="300" schemaName="cont_orgdatacanvasapp_58372" behavior="0" />
@@ -157,50 +155,6 @@
       <RootComponent type="80" schemaName="cont_OrgDataMDAdemo" behavior="0" />
     </RootComponents>
     <MissingDependencies>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_major" displayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Inactive Admission Business Process Flow on my Majors" displayName="Inactive Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{6b37194f-5fc6-4fe0-9632-19d4fc0ccb78}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_major" displayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Active Admission Business Process Flow on my Majors" displayName="Active Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{e2a69564-82e3-4d39-b1ef-063af4be15be}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="1" schemaName="cu_major" displayName="Major" solution="Active" />
-        <Dependent type="29" displayName="Admission Business Process Flow" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Inactive Admission Business Process Flow on my Majors" displayName="Inactive Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{6b37194f-5fc6-4fe0-9632-19d4fc0ccb78}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Active Admission Business Process Flow on my Majors" displayName="Active Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{e2a69564-82e3-4d39-b1ef-063af4be15be}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_majorid" displayName="Major" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="29" displayName="Admission Business Process Flow" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="10" schemaName="bpf_cu_major_ce_admissionbusinessprocessflow" displayName="bpf_cu_major_ce_admissionbusinessprocessflow" parentSchemaName="cu_major" parentDisplayName="Major" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="29" displayName="Admission Business Process Flow" id="{84a96a08-5731-ee11-bdf3-000d3a1b9171}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="cu_name" displayName="Name" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="60" displayName="Information" parentDisplayName="Admission Business Process Flow" id="{797209c8-a5c2-439f-ad70-9feca639462f}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="ownerid" displayName="Owner" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Inactive Admission Business Process Flow on my Majors" displayName="Inactive Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{6b37194f-5fc6-4fe0-9632-19d4fc0ccb78}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="2" schemaName="ownerid" displayName="Owner" parentSchemaName="cu_major" parentDisplayName="Major" solution="Active" />
-        <Dependent type="26" schemaName="Active Admission Business Process Flow on my Majors" displayName="Active Admission Business Process Flow on my Majors" parentSchemaName="ce_admissionbusinessprocessflow" parentDisplayName="Admission Business Process Flow" id="{e2a69564-82e3-4d39-b1ef-063af4be15be}" />
-      </MissingDependency>
       <MissingDependency>
         <Required type="300" schemaName="cat_powercatcomponentlibrary_0be3a" displayName="Power CAT Component Library" solution="CreatorKitCore (1.0.20240529.1)">
           <package>CreatorKitCore (1.0.20240529.1)</package>
