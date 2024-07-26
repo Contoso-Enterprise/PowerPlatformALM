@@ -130,7 +130,7 @@ jobs:
         if: ${{ inputs.delete-existing-source == true }}
         run: |
           . "PowerShell/PowerPlatform-Utility.ps1"
-          $results = Delete-ExistingSolutionSource -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -deleteFiles $true
+          $results = Delete-ExistingSolutionSource -solutionName '${{ inputs.solution-name }}' -folderPath '${{ inputs.folder-path }}' -deleteFiles $true 
           write-host $results
         shell: pwsh
       - name: Unpack Solution
