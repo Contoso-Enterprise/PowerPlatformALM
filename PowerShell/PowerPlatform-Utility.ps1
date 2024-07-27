@@ -350,7 +350,7 @@ function Delete-ExistingSolutionSource
     {
         if ($deleteFiles) {
             try {
-                Remove-Item -Path $SolutionFilePath -Confirm:$false -force
+                Remove-Item -Path $SolutionFilePath -Confirm:$false -Force 
             }
             catch {
                 write-Error $_
