@@ -504,5 +504,4 @@ function Delete-ExistingSolutionSource
         write-host "$SolutionFilePath not found"
     }    
     return $false
-
 }
