@@ -189,3 +189,14 @@ Example 2: Create a new record in the Dataverse
 - For more information on the Dataverse Web API, refer to the official documentation.
 
 
+<br />
+
+# Code of conduct
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+<br />
+
+# Copyright
+
+Copyright (c) 2021 Microsoft Corporation. All rights reserved.
