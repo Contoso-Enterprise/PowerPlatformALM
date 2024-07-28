@@ -32,7 +32,8 @@ FunctionName -Parameter1 "Value1" -Parameter2 "Value2"
 
 # Import the dataverse-webapi-functions module
 Import-Module './PowerShell/dataverse-webapi-functions.psm1' -force
-
+###########################
+# PAC CLI functions
 # Function to install pac cli
 function Install-Pac-Cli{
 	param(
@@ -75,7 +76,8 @@ function Copy-Pdpkg-File{
         Write-Host "Release Assets Directory is unavailable to copy pdpkg file; Path - $releaseAssetsDirectory"
     }
 }
-
+##############################
+# Ddataverse web api functions
 # description: This function connects to the Dataverse environment using the provided credentials.
 # Usage: Connect-Dataverse -tenantID $tenantID -clientId $clientId -clientSecret $clientSecret -dataverseHost $dataverseHost
 # parameters:
@@ -133,6 +135,143 @@ function Get-DataverseSolution
     $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder ('solutions?$filter=uniquename%20eq%20%27' + $solutionUniqueName + '%27')
     return $response.value
 }
+# description: This function retrieves the Dataverse environment profile.
+# Usage: get-DataverseWhoAmI -token $token -dataverseHost $dataverseHost
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# returns: The Dataverse environment profile.
+
+function get-DataverseWhoAmI
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost
+    )
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder 'WhoAmI'
+    return $response
+}
+# description: This function retrieves the audit logs settings from the Dataverse environment.
+# Usage: get-DataverseAuditLogsSettings -token $token -dataverseHost $dataverseHost
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# returns: The audit logs settings from the Dataverse environment.
+
+function get-DataverseAuditLogsSettings
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost
+    )
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder 'organizations'
+    return $response.value | select *audit*
+}
+# description: This function retrieves the settings for a specific entity from the Dataverse environment.
+# Usage: get-DataverseEntitySettings -token $token -dataverseHost $dataverseHost -entityName $entityName
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - entityName: The name of the entity to retrieve settings for.
+# returns: The settings for the specific entity from the Dataverse environment.
+function get-DataverseEntitySettings
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [String]$entityName
+    )
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder "EntityDefinitions(LogicalName='$entityName')"
+    return $response
+
+}
+# description: This function retrieves the audit logs for a specific entity from the Dataverse environment.
+# Usage: get-DataverseAuditLogs -token $token -dataverseHost $dataverseHost -entityName $entityName -operation $operation
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - entityName: The name of the entity to retrieve audit logs for.
+# - operation: The operation type for the audit logs. Default is ''.
+# returns: The audit logs for the specific entity from the Dataverse environment.
+
+function set-DatverseEntityAuditLogSetting
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [String]$entityName,
+        [Parameter(Mandatory)] [boolean]$IsRetrieveAuditEnabled,
+        [Parameter(Mandatory)] [boolean]$IsRetrieveMultipleAuditEnabled,
+        [Parameter(Mandatory)] [boolean]$isAuditEnabled,
+        [Parameter(Mandatory)] [boolean]$CanBeChanged,
+        [Parameter(Mandatory)] [boolean]$ManagedPropertyLogicalName="canmodifyauditsettings"
+    )
+    $auditParams = @{}
+    $auditParams.Add("IsRetrieveAuditEnabled", $IsRetrieveAuditEnabled)
+    $auditParams.Add("IsRetrieveMultipleAuditEnabled", $IsRetrieveMultipleAuditEnabled)
+    $auditParams.Add("IsAuditEnabled", @{"Value"=$isAuditEnabled;"CanBeChanged"=$CanBeChanged;"ManagedPropertyLogicalName"=$ManagedPropertyLogicalName})
+    $response = Invoke-DataverseHttpPost -token $token -dataverseHost $dataverseHost -requestUrlRemainder "EntityDefinitions(LogicalName='$entityName')" -body $auditParams
+    return $response
+}
+# description: This function sets the audit logs settings for the Dataverse environment.
+# Usage: set-DataverseAuditLogsSettings -token $token -dataverseHost $dataverseHost -isAuditEnabled $isAuditEnabled -isuserAccessAuditEnabled $isuserAccessAuditEnabled -AuditRetentionPeriodV2 $AuditRetentionPeriodV2
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - isAuditEnabled: A boolean value to indicate whether audit logs are enabled.
+# - isuserAccessAuditEnabled: A boolean value to indicate whether user access audit is enabled.
+# - AuditRetentionPeriodV2: The audit retention period. Default is 30.
+# returns: The response from the Dataverse environment.
+function set-DataverseAuditLogsSettings
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [boolean]$isAuditEnabled,
+        [switch]$isuserAccessAuditEnabled,
+        [int]$AuditRetentionPeriodV2 = 30
+    )
+    $auditParams = @{
+        "IsAuditEnabled" = $isAuditEnabled;
+        "AuditRetentionPeriodV2" = $AuditRetentionPeriodV2;
+        "isuserAccessAuditEnabled" = $isuserAccessAuditEnabled;
+    }
+    $response = Invoke-DataverseHttpPost -token $token -dataverseHost $dataverseHost -requestUrlRemainder 'organization'  
+    return $response
+}
+# description: This function retrieves the audit logs for a specific entity from the Dataverse environment.
+# Usage: get-DataverseAuditLogs -token $token -dataverseHost $dataverseHost -entityName $entityName -operation $operation
+# parameters:
+# - token: The token for the Dataverse environment.
+# - dataverseHost: The Dataverse environment host URL.
+# - entityName: The name of the entity to retrieve audit logs for.
+# - operation: The operation type for the audit logs. Default is ''.
+# returns: The audit logs for the specific entity from the Dataverse environment.
+function get-DataverseAuditLogs
+{
+    param (
+        [Parameter(Mandatory)] [String]$token,
+        [Parameter(Mandatory)] [String]$dataverseHost,
+        [Parameter(Mandatory)] [String]$entityName,
+        [String]$operation
+    )
+    # operation types
+    # 1 = Create
+    # 2 = Update
+    # 3 = Delete
+    # 4 = Access
+    if ($operation -ne ''){
+        $querystring = 'objecttypecode eq ''' + $entityName + ''' and operation eq ' + $operation
+    } else {
+        $querystring = 'objecttypecode eq ''' + $entityName + ''''
+    }
+    $querystring = 'audits?$filter=' + [uri]::EscapeDataString($querystring)
+    write-host $querystring
+    $response = Invoke-DataverseHttpGet -token $token -dataverseHost $dataverseHost -requestUrlRemainder $querystring
+    return $response.value 
+}
+##################################
+# Git Repository functions 
 # description: This function retrieves the version of a solution from the provided folder path.
 # Usage: Get-SolutionVersion -solutionName $solutionName -folderPath $folderPath
 # parameters:
