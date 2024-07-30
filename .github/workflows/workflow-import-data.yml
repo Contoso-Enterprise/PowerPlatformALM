@@ -111,4 +111,4 @@ jobs:
           app-id: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTID }}
           client-secret: ${{ secrets.POWERPLATFORMMANAGEMENTCLIENTSECRET }}
           tenant-id: ${{ secrets.POWERPLATFORMCONTOSOPRODUCTIONTENANTID }}
-          data-file:
+          data-file: '${{ env.data-file-path }}'
