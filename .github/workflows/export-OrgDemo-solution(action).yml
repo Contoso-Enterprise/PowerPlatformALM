@@ -48,6 +48,8 @@ on:
         type: boolean
         required: false
         default: true
+env:
+  solution-names: ['OrgDemo','OrgLocation']
 
 jobs:
   setup:
