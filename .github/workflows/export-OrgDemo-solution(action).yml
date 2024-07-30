@@ -49,7 +49,7 @@ on:
         required: false
         default: true
 env:
-  solution-names: ['OrgDemo','OrgLocation']
+  solution-names: 'OrgDemo','OrgLocation'
 
 jobs:
   setup:
