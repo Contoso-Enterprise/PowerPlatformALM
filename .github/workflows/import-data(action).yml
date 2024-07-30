@@ -56,6 +56,5 @@ jobs:
       branch-name: '${{ inputs.branch-name }}'
       branch-type: '${{ inputs.branch-type }}'
       folder-path: '.'
-      data-file: ''
-      managed: true
+      data-file: '.'
     secrets: inherit
