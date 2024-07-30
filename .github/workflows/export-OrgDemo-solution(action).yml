@@ -60,16 +60,16 @@ jobs:
         solution-name:
           - 'OrgDemo'
           - 'OrgLocation'
-        steps:    
-        - name: Variables      
-          run: |        
-            echo "Solution Name : ${{ matrix.solution-name }}"        
-            echo "URI ${{ vars.POWERPLATFORMURI }}"        
-            echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
-        # - name: Debug output
-        #   shell: pwsh
-        #   run: |
-        #     Get-ChildItem -Recurse | foreach { write-host $_.FullName }
+    steps:    
+    - name: Variables      
+      run: |        
+        echo "Solution Name : ${{ matrix.solution-name }}"        
+        echo "URI ${{ vars.POWERPLATFORMURI }}"        
+        echo "Source ${{ vars.POWERPLATFORMORGURI_DEV }}"   
+    # - name: Debug output
+    #   shell: pwsh
+    #   run: |
+    #     Get-ChildItem -Recurse | foreach { write-host $_.FullName }
   #createBranch:
   #  needs: [setup]
   #  uses: Contoso-Enterprise/PowerPlatformALM/.github/workflows/workflow-createBranch.yml@main
