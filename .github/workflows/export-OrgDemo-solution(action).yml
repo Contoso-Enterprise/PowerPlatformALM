@@ -59,9 +59,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        solution-name:
-          - 'OrgDemo'
-          - 'OrgLocation'
+        solution-name: ${{ env.solution-names }}
     steps:    
     - name: Variables      
       run: |        
