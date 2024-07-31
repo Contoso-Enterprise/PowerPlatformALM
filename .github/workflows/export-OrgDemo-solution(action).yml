@@ -49,7 +49,7 @@ jobs:
       contents: write
     strategy:
       matrix:
-        solution-name: ${{ env.solution-names }}
+        solution-name: ${{ toJson("'['OrgDemo','OrgLocation']") }}
     steps:    
     - name: Variables      
       run: |        
