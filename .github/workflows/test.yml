@@ -4,6 +4,13 @@ name: Test variables
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      solution-names:
+        description: 'names of solutions'
+        required: false
+        default:  ['OrgDemo','OrgData']
+      branch-type:
+
 jobs:
   display-variables:
     name: Test
