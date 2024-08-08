@@ -9,6 +9,8 @@ on:
         description: 'names of solutions'
         required: true
         default:  "['OrgDemo','OrgData']"
+env:
+  all-solution-names: "['OrgDemo','OrgData']"
 
 jobs:
   display-variables:
