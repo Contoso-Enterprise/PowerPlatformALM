@@ -7,9 +7,8 @@ on:
     inputs:
       solution-names:
         description: 'names of solutions'
-        required: false
+        required: true
         default:  ['OrgDemo','OrgData']
-      branch-type:
 
 jobs:
   display-variables:
