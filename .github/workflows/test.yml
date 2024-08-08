@@ -8,7 +8,7 @@ on:
       solution-names:
         description: 'names of solutions'
         required: true
-        default:  ['OrgDemo','OrgData']
+        default:  "['OrgDemo','OrgData']"
 
 jobs:
   display-variables:
